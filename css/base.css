@@ -1,0 +1,195 @@
+/* ================================================================
+   SLIDE DESIGN SYSTEM
+   理論的根拠:
+   - タイポグラフィ: Major Third スケール(×1.25), 最小文字16px(Butterick)
+   - コントラスト: WCAG 2.1 AA準拠(本文4.5:1以上, 見出し3:1以上)
+   - スペーシング: 4px基準グリッド(Material Design準拠)
+   - 色: 60-30-10ルール / セマンティックトークン
+   - レイアウト: Zパターン視線誘導 / 視覚的重力中心
+================================================================ */
+
+/* ── TOKENS ── */
+:root {
+  /* Color — semantic */
+  --text-primary:    #111827;  /* contrast 17.7:1 on white — AAA OK */
+  --text-secondary:  #374151;  /* contrast 10.3:1 — AAA OK */
+  --text-tertiary:   #6B7280;  /* contrast  4.8:1 — AA OK */
+  --text-disabled:   #9CA3AF;  /* decorative only, never body text */
+  --accent:          #C2410C;  /* contrast  5.2:1 — AA OK */
+  --accent-soft:     #FEF0E7;
+  --accent-mid:      #EA580C;
+  --ok:              #15803D;  /* contrast  5.8:1 — AA OK */
+  --ok-soft:         #F0FDF4;
+  --err:             #B91C1C;  /* contrast  5.9:1 — AA OK */
+  --err-soft:        #FEF2F2;
+
+  /* Surface */
+  --surface-0: #FFFFFF;
+  --surface-1: #F9FAFB;
+  --surface-2: #F3F4F6;
+  --border:         #E5E7EB;
+  --border-strong:  #D1D5DB;
+
+  /* Type scale — Major Third (×1.25), base=16px */
+  --text-xs:    10.2px;
+  --text-sm:    12.8px;
+  --text-base:  16px;
+  --text-md:    20px;
+  --text-lg:    25px;
+  --text-xl:    31.2px;
+  --text-2xl:   39.1px;
+  --text-3xl:   48.8px;
+  --text-4xl:   61px;
+
+  /* Spacing — 4px grid */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-14: 56px;
+  --sp-16: 64px;
+
+  /* Radius */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+  --radius-pill: 100px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
+
+  /* Glass */
+  --glass-bg:      rgba(255,255,255,0.82);
+  --glass-border:  rgba(255,255,255,0.95);
+  --glass-blur:    24px;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+body {
+  width:100vw; height:100vh; overflow:hidden;
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-family:'Noto Sans JP','Hiragino Kaku Gothic ProN','Yu Gothic','Meiryo',sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── AURORA BG ── */
+#frost {
+  position:fixed; inset:0; z-index:1;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
+  pointer-events:none;
+}
+
+/* ── SLIDE SYSTEM ── */
+.deck { position:relative; width:100vw; height:100vh; z-index:10; }
+.slide {
+  position:absolute; inset:0;
+  display:none; flex-direction:column;
+  padding: var(--sp-12) var(--sp-16) calc(var(--sp-12) + 40px);
+  overflow:hidden;
+}
+.slide.active  {
+  display:flex; opacity:1; pointer-events:all;
+  transform:translateX(0);
+  animation: slideIn .35s cubic-bezier(.4,0,.2,1);
+}
+.slide.exit    {
+  display:flex; opacity:0; pointer-events:none;
+  transform:translateX(-32px);
+}
+@keyframes slideIn {
+  from { transform:translateX(32px); }
+  to   { transform:translateX(0); }
+}
+
+/* ── SLIDE FOOTER ── */
+.slide-footer {
+  position:fixed; bottom:0; left:0; right:0;
+  height:40px;
+  background: var(--glass-bg);
+  border-top: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  display:flex; align-items:center; justify-content:space-between;
+  z-index:200;
+  padding: 0 var(--sp-8);
+}
+.slide-footer-info {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  letter-spacing: 0.03em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.slide-footer-nav {
+  display:flex; align-items:center; gap:var(--sp-4);
+}
+.slide-footer-track {
+  width:120px; height:3px;
+  background: var(--border);
+  border-radius:3px;
+  overflow:hidden;
+}
+.slide-footer-fill {
+  height:100%;
+  background: linear-gradient(90deg, var(--accent), #D97706);
+  border-radius:3px;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+.slide-footer-counter {
+  font-family:'JetBrains Mono',monospace;
+  font-size: var(--text-xs);
+  font-weight:600;
+  color: var(--text-tertiary);
+  white-space:nowrap;
+  min-width:40px;
+  text-align:right;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes revealUp {
+  from { opacity:0; transform:translateY(24px) scale(.98); }
+  to   { opacity:1; transform:translateY(0)    scale(1); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .slide {
+    padding: var(--sp-8) var(--sp-10) calc(var(--sp-8) + 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .slide {
+    padding: var(--sp-6) var(--sp-6) calc(var(--sp-6) + 40px);
+  }
+  .slide.active { overflow-y: auto; }
+  .slide-footer { height: 36px; }
+}
+
+@media (max-width: 480px) {
+  .slide {
+    padding: var(--sp-4) var(--sp-4) calc(var(--sp-4) + 36px);
+  }
+  .slide-footer { padding: 0 var(--sp-3); height: 32px; }
+  .slide-footer-info { font-size: 9px; }
+  .slide-footer-track { width: 60px; }
+}

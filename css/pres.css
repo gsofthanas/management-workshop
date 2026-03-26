@@ -1,0 +1,499 @@
+/* ══════════════════════════════════════════════════════
+   PRESENTATION-OPTIMIZED STYLES
+   PowerPoint design: large text, full slide area,
+   NO cards, NO rounded rectangles, 1 message per slide.
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base slide ── */
+.slide {
+  padding: 64px 80px 100px;
+  overflow-y: auto;
+}
+.slide h2 {
+  font-size: clamp(40px, 4.5vw, 60px);
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  color: #111827;
+}
+
+/* ── Title underline ── */
+.pres-title-line {
+  width: 80px;
+  height: 3px;
+  background: #0078D4;
+  margin-bottom: 40px;
+}
+
+/* ── Blue accent bar (vertical) ── */
+.pres-accent-bar {
+  width: 4px;
+  background: #0078D4;
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+/* ── Separator line ── */
+.pres-separator {
+  height: 1px;
+  background: #D1D5DB;
+  width: 100%;
+  margin: 24px 0;
+}
+
+/* ── Bad block (red left border) ── */
+.pres-bad-block {
+  border-left: 4px solid #D13438;
+  padding-left: 24px;
+}
+
+/* ── Good block (blue left border) ── */
+.pres-good-block {
+  border-left: 4px solid #0078D4;
+  padding-left: 24px;
+}
+
+/* ── Text sizes (clamp for projection scaling) ── */
+.pres-text-hero {
+  font-size: clamp(64px, 10vw, 110px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #0078D4;
+}
+.pres-text-subtitle {
+  font-size: clamp(24px, 2.8vw, 36px);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.5;
+}
+.pres-text-key {
+  font-size: clamp(30px, 3.5vw, 44px);
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.4;
+}
+.pres-text-body {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.6;
+}
+.pres-text-bullet {
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.7;
+}
+.pres-text-desc {
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 700;
+  color: #6B7280;
+  line-height: 1.6;
+}
+.pres-text-caption {
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 400;
+  color: #6B7280;
+  line-height: 1.6;
+}
+.pres-text-muted {
+  font-size: clamp(16px, 1.6vw, 22px);
+  font-weight: 400;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+/* ── Colors ── */
+.pres-blue { color: #0078D4; }
+.pres-red { color: #D13438; }
+.pres-dark { color: #111827; }
+.pres-muted { color: #6B7280; }
+
+/* ── Layout helpers ── */
+.pres-vcenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+.pres-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+.pres-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.pres-col {
+  flex: 1;
+}
+.pres-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Gap utilities ── */
+.pres-gap-16 { gap: 16px; }
+.pres-gap-24 { gap: 24px; }
+.pres-gap-32 { gap: 32px; }
+.pres-gap-40 { gap: 40px; }
+
+/* ── Margin utilities ── */
+.pres-mb-8 { margin-bottom: 8px; }
+.pres-mb-16 { margin-bottom: 16px; }
+.pres-mb-24 { margin-bottom: 24px; }
+.pres-mb-32 { margin-bottom: 32px; }
+.pres-mb-40 { margin-bottom: 40px; }
+.pres-mt-16 { margin-top: 16px; }
+.pres-mt-24 { margin-top: 24px; }
+.pres-mt-32 { margin-top: 32px; }
+.pres-mt-40 { margin-top: 40px; }
+
+/* ══════════════════════════════════════════════════════
+   PER-SLIDE COMPONENT STYLES
+   ══════════════════════════════════════════════════════ */
+
+/* ── S1 Title slide ── */
+#s1 {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.s1-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6B7280;
+  margin-bottom: 24px;
+}
+.s1-subtitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 24px;
+  line-height: 1.5;
+}
+
+/* ── S2 Agenda ── */
+.agenda-item {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 20px 0;
+}
+.agenda-item + .agenda-item {
+  border-top: 1px solid #D1D5DB;
+}
+.agenda-num-big {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 800;
+  color: #0078D4;
+  flex-shrink: 0;
+  width: 60px;
+}
+.agenda-text-big {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.4;
+}
+
+/* ── S9 Transition ── */
+#s9 {
+  justify-content: center;
+  align-items: center;
+}
+.transition-step {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.transition-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0078D4;
+  flex-shrink: 0;
+}
+.transition-label {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111827;
+}
+.transition-desc {
+  font-size: 22px;
+  font-weight: 700;
+  color: #6B7280;
+}
+.transition-done {
+  opacity: 0.4;
+}
+.transition-next .transition-label {
+  color: #0078D4;
+}
+.transition-arrow {
+  font-size: 48px;
+  color: #0078D4;
+  margin: 24px 0;
+  text-align: center;
+}
+
+/* ── S5/S11 Findings ── */
+.finding-block {
+  margin-bottom: 32px;
+}
+.finding-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.finding-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0078D4;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.finding-body {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+.finding-source {
+  font-size: 16px;
+  font-weight: 400;
+  color: #6B7280;
+}
+
+/* ── S6/S7/S12 Example blocks ── */
+.example-text-block {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.7;
+  padding: 24px 0;
+  white-space: pre-line;
+}
+.point-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+}
+.point-row + .point-row {
+  border-top: 1px solid #D1D5DB;
+}
+.point-label {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0078D4;
+  flex-shrink: 0;
+  min-width: 220px;
+}
+.point-label-bad {
+  color: #D13438;
+}
+.point-desc {
+  font-size: 22px;
+  font-weight: 700;
+  color: #6B7280;
+  line-height: 1.5;
+}
+.summary-line {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin-top: 24px;
+}
+
+/* ── S8/S13 Numbered steps ── */
+.step-item {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 20px 0;
+}
+.step-item + .step-item {
+  border-top: 1px solid #D1D5DB;
+}
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 36px;
+  font-weight: 800;
+  color: #0078D4;
+  flex-shrink: 0;
+  width: 56px;
+}
+.step-content {
+  flex: 1;
+}
+.step-label {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 4px;
+}
+.step-desc {
+  font-size: 22px;
+  font-weight: 700;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+/* ── S14 Summary columns ── */
+.summary-col {
+  flex: 1;
+}
+.summary-step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0078D4;
+  margin-bottom: 8px;
+}
+.summary-col-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.summary-col-item {
+  font-size: 22px;
+  font-weight: 700;
+  color: #6B7280;
+  line-height: 1.6;
+  padding: 8px 0;
+}
+.summary-col-item + .summary-col-item {
+  border-top: 1px solid #D1D5DB;
+}
+
+/* ── S16 Discussion ── */
+.discussion-theme {
+  font-size: 36px;
+  font-weight: 800;
+  color: #0078D4;
+  line-height: 1.4;
+  white-space: pre-line;
+  margin-bottom: 32px;
+}
+.discussion-point {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+  padding: 12px 0;
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+.discussion-point + .discussion-point {
+  border-top: 1px solid #D1D5DB;
+}
+.discussion-bullet {
+  color: #0078D4;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ── S17 Schedule ── */
+.schedule-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 28px 0;
+}
+.schedule-block + .schedule-block {
+  border-top: 1px solid #D1D5DB;
+}
+.schedule-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0078D4;
+  flex-shrink: 0;
+  min-width: 240px;
+}
+.schedule-duration {
+  font-size: 20px;
+  font-weight: 700;
+  color: #6B7280;
+}
+.schedule-label {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 4px;
+}
+.schedule-sublabel {
+  font-size: 20px;
+  font-weight: 700;
+  color: #6B7280;
+}
+
+/* ── S17 Closing ── */
+#s17 {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.closing-message {
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 900;
+  color: #111827;
+  line-height: 1.5;
+  white-space: pre-line;
+  margin-bottom: 40px;
+}
+.closing-sub {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0078D4;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .slide { padding: 40px 48px 80px; }
+  .slide h2 { font-size: 36px; }
+  .pres-text-hero { font-size: clamp(48px, 8vw, 72px); }
+  .pres-text-key { font-size: 28px; }
+  .pres-text-body { font-size: 22px; }
+  .pres-text-bullet { font-size: 20px; }
+  .pres-text-desc { font-size: 18px; }
+  .pres-row { flex-direction: column; gap: 24px; }
+  .point-label { min-width: 180px; }
+  .agenda-num-big { font-size: 24px; }
+  .agenda-text-big { font-size: 22px; }
+}
+
+@media (max-width: 768px) {
+  .slide { padding: 24px 24px 64px; }
+  .slide h2 { font-size: 28px; }
+  .pres-text-hero { font-size: clamp(36px, 10vw, 56px); }
+  .pres-text-key { font-size: 24px; }
+  .pres-text-body { font-size: 20px; }
+  .pres-text-bullet { font-size: 18px; }
+  .pres-text-desc { font-size: 16px; }
+  .point-label { min-width: auto; }
+  .point-row { flex-direction: column; gap: 4px; }
+  .step-item { flex-direction: column; gap: 8px; }
+  .step-num { font-size: 28px; }
+  .step-label { font-size: 22px; }
+  .step-desc { font-size: 18px; }
+  .finding-title { font-size: 22px; }
+  .finding-body { font-size: 18px; }
+  .closing-message { font-size: clamp(24px, 6vw, 36px); }
+  .schedule-block { flex-direction: column; gap: 8px; }
+}
