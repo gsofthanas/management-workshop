@@ -6,13 +6,13 @@
 
 /* ── Base slide ── */
 .slide {
-  padding: 64px 80px 100px;
+  padding: clamp(32px, 5vh, 64px) clamp(40px, 5vw, 80px) clamp(56px, 8vh, 100px);
   overflow-y: auto;
 }
 .slide h2 {
-  font-size: clamp(40px, 4.5vw, 60px);
+  font-size: clamp(36px, 4.5vw, 56px);
   font-weight: 800;
-  margin-bottom: 12px;
+  margin-bottom: clamp(8px, 1vh, 16px);
   line-height: 1.2;
   color: #111827;
 }
@@ -22,7 +22,7 @@
   width: 80px;
   height: 3px;
   background: #0078D4;
-  margin-bottom: 40px;
+  margin-bottom: clamp(16px, 3vh, 40px);
 }
 
 /* ── Blue accent bar (vertical) ── */
@@ -39,7 +39,7 @@
   height: 1px;
   background: #D1D5DB;
   width: 100%;
-  margin: 24px 0;
+  margin: clamp(12px, 2vh, 24px) 0;
 }
 
 /* ── Bad block (red left border) ── */
@@ -476,6 +476,27 @@
   .point-label { min-width: 180px; }
   .agenda-num-big { font-size: 24px; }
   .agenda-text-big { font-size: 22px; }
+}
+
+/* ── Short screens (laptops) ── */
+@media (max-height: 800px) {
+  .slide h2 { font-size: clamp(24px, 3.5vw, 36px); margin-bottom: 4px; }
+  .pres-title-line { margin-bottom: clamp(8px, 1.5vh, 20px); }
+  .pres-text-key { font-size: clamp(22px, 3vw, 32px); }
+  .pres-text-body { font-size: clamp(18px, 2.2vw, 26px); }
+  .pres-text-bullet { font-size: clamp(16px, 1.8vw, 22px); }
+  .example-text-block { font-size: 16px; line-height: 1.4; padding: 8px 0; }
+  .point-row { padding: 4px 0; }
+  .point-label { font-size: 16px; min-width: 160px; }
+  .point-desc { font-size: 15px; }
+  .summary-line { font-size: 20px; margin-top: 8px; }
+  .finding-block { margin-bottom: 8px; }
+  .finding-icon { font-size: 18px; margin-bottom: 2px; }
+  .finding-title { font-size: 18px; margin-bottom: 2px; }
+  .finding-body { font-size: 15px; line-height: 1.3; margin-bottom: 2px; }
+  .finding-source { font-size: 12px; }
+  .pres-separator { margin: 6px 0; }
+  .pres-good-block, .pres-bad-block { padding-left: 16px; }
 }
 
 @media (max-width: 768px) {
