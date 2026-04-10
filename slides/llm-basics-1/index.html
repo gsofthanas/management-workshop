@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>LLM基礎論 I</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/pres.css">
+<link rel="stylesheet" href="../../css/tech-grid.css">
+<style>
+/* ── Split layout (text + illustration) ── */
+.split {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  flex: 1;
+}
+.split-text { flex: 1 1 45%; min-width: 0; }
+.split-vis  { flex: 1 1 55%; display: flex; align-items: center; justify-content: center; }
+.split.reverse { flex-direction: row-reverse; }
+
+/* ── Illustration sizing ── */
+.illust {
+  width: 100%;
+  max-width: 480px;
+  max-height: min(56vh, 460px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+.illust-sm { max-width: 360px; max-height: min(48vh, 380px); }
+.illust-lg { max-width: 580px; max-height: min(60vh, 500px); }
+
+/* ── Big stat number ── */
+.big-stat {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(120px, 18vw, 220px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  margin-bottom: clamp(8px, 1.5vh, 20px);
+}
+.big-stat.bad { color: var(--slide-bad); }
+
+/* ── Section divider override ── */
+.slide.tech-grid.section-center {
+  justify-content: center;
+}
+
+/* ── Cover override ── */
+#s1 .headline { margin-bottom: clamp(16px, 2.5vh, 28px); }
+#s1 .body-text { font-weight: 700; color: var(--text-primary); }
+
+/* ── Footer clearance fix (v3 override) ──
+   pres.css のデフォルト padding-bottom 56px だと
+   40px の固定フッターとの隙間が 16px しかなく窮屈。
+   さらに .tg-corner.bl/.br と .tg-meta が footer の裏に隠れる。
+   ここで全部まとめて押し上げる。 */
+.slide { padding-bottom: clamp(72px, 10vh, 110px) !important; }
+.tg-corner.bl { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-corner.br { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-meta      { bottom: clamp(72px, 10vh, 90px) !important; }
+
+/* ══════════════════════════════════════════════════════
+   v3 NEW COMPONENT STYLES
+   (LLM probability bars, opt-out table, deloitte stats)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Probability bar list (S3 / S8) ── */
+.prob-prompt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(15px, 1.7vw, 22px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: clamp(14px, 2vh, 24px);
+  padding: clamp(10px, 1.4vh, 18px) clamp(14px, 1.8vw, 22px);
+  background: rgba(255, 255, 255, 0.85);
+  border-left: 3px solid var(--slide-bad);
+  display: inline-block;
+  max-width: 100%;
+}
+.prob-prompt .blank {
+  color: var(--slide-bad);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.prob-prompt.accent {
+  border-left-color: var(--slide-accent);
+}
+.prob-prompt.accent .blank { color: var(--slide-accent); }
+
+.prob-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(7px, 1vh, 12px);
+  width: 100%;
+  max-width: 480px;
+}
+.prob-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.4vw, 18px);
+}
+.prob-word {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: clamp(14px, 1.6vw, 20px);
+  font-weight: 700;
+  color: var(--text-primary);
+  width: clamp(80px, 9vw, 120px);
+  text-align: right;
+  flex-shrink: 0;
+}
+.prob-bar-track {
+  flex: 1;
+  height: clamp(14px, 2vh, 22px);
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+}
+.prob-bar-fill {
+  height: 100%;
+  background: var(--slide-bad);
+}
+.prob-bar-fill.accent { background: var(--slide-accent); }
+.prob-bar-fill.dim { opacity: 0.55; }
+.prob-bar-fill.dimmer { opacity: 0.3; }
+.prob-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(12px, 1.4vw, 17px);
+  font-weight: 700;
+  color: var(--text-tertiary);
+  width: clamp(42px, 5vw, 58px);
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ── Opt-out table (S6) ── */
+.optout-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: clamp(8px, 1.5vh, 18px);
+}
+.optout-table {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 2fr 2fr;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-strong);
+}
+.optout-cell {
+  padding: clamp(10px, 1.6vh, 18px) clamp(10px, 1.4vw, 18px);
+  border-bottom: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+  font-size: clamp(12px, 1.35vw, 17px);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.optout-cell:nth-last-child(-n+4) {
+  border-bottom: none;
+}
+.optout-cell.head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 1.1vw, 13px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slide-bad);
+  font-weight: 800;
+  border-bottom: 2px solid var(--slide-bad);
+  background: rgba(0, 0, 0, 0.02);
+}
+.optout-cell.service {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(15px, 1.8vw, 24px);
+  font-weight: 900;
+  color: var(--slide-bad);
+  letter-spacing: -0.01em;
+}
+.optout-cell.warn { color: var(--text-primary); }
+.optout-cell.warn strong { color: var(--slide-bad); }
+.optout-cell code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92em;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+/* ── Deloitte stat row (S7) ── */
+.deloitte-stats {
+  display: flex;
+  gap: clamp(12px, 1.6vw, 24px);
+  margin-top: clamp(14px, 2vh, 22px);
+  flex-wrap: nowrap;
+}
+.deloitte-stat {
+  border-left: 3px solid var(--slide-bad);
+  padding-left: clamp(8px, 1vw, 14px);
+  flex: 1 1 0;
+  min-width: 0;
+}
+.deloitte-stat-num {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(20px, 2.6vw, 34px);
+  font-weight: 900;
+  color: var(--slide-bad);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.deloitte-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(9px, 1vw, 12px);
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  margin-top: 6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── Note line (small caveat) ── */
+.note-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 14px);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-top: clamp(10px, 1.5vh, 16px);
+  letter-spacing: 0.05em;
+}
+.note-line::before { content: '// '; opacity: 0.6; }
+</style>
+</head>
+<body>
+<div id="frost"></div>
+<script src="../../js/aurora.js"></script>
+
+<div class="deck">
+
+  <!-- ════ S1 / 19 — COVER ════ -->
+  <div class="slide active tech-grid" id="s1" style="justify-content:center; align-items:center; text-align:center;">
+    <span class="tg-corner tl"></span>
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+    <span class="tg-corner br"></span>
+
+    <span class="tg-tag gray" style="margin-bottom:clamp(24px,4vh,40px);display:inline-block;">G-HOLDINGS AI 研修 / V3 / 2026</span>
+    <h1 class="headline" style="font-size:clamp(64px,9vw,120px); white-space:nowrap; margin-bottom:clamp(20px,3vh,36px);">
+      LLM基礎論 I<br><span class="hi">正しく使う</span>
+    </h1>
+    <div class="tg-divider-text">仕組み / 安全 / 実践 / 60分</div>
+
+    <div class="tg-meta">
+      <span>FILE / LLM_BASICS_01_V3.HTML</span>
+      <span>19 SLIDES / 60 MIN</span>
+    </div>
+  </div>
+
+  <!-- ════ S2 / 19 — AGENDA ════ -->
+  <div class="slide tech-grid" id="s2">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">AGENDA / 3 SECTIONS</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,64px); margin:clamp(16px,2vh,24px) 0 clamp(28px,4vh,48px);">3つだけ持ち帰る</h2>
+    <div class="tg-agenda">
+      <div class="tg-agenda-card bad">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 01</p>
+        <p class="tg-agenda-title">守る</p>
+        <p class="tg-agenda-desc">AIのリスクと対策</p>
+      </div>
+      <div class="tg-agenda-card">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 02</p>
+        <p class="tg-agenda-title">使う</p>
+        <p class="tg-agenda-desc">今日から使える3原則</p>
+      </div>
+      <div class="tg-agenda-card ok">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 03</p>
+        <p class="tg-agenda-title">伸びる</p>
+        <p class="tg-agenda-desc">本当に重要なこと</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S3 / 19 — 🆕 LLMの正体 ════ -->
+  <div class="slide tech-grid" id="s3">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">PRELIMINARY / LLM の正体</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(30px,4.2vw,56px);">
+          AIは<span class="hi">次の単語を</span><br><span class="hi">当てている</span>だけ
+        </h2>
+        <p class="body-text">
+          LLMは「次にどの単語が来そうか」を<strong>確率で予測している装置</strong>。<br>
+          "考えている" のではなく、<strong>"統計的にありそうな続き"</strong> を1単語ずつ出している。
+        </p>
+        <p class="note-line">これがわかると、後で出てくるリスクの理由が一直線につながる</p>
+      </div>
+      <div class="split-vis">
+        <div style="width:100%; max-width:520px;">
+          <div class="prob-prompt accent">今日の天気は <span class="blank">___</span></div>
+          <div class="prob-list">
+            <div class="prob-row">
+              <div class="prob-word">晴れ</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill accent" style="width:84%;"></div></div>
+              <div class="prob-pct">38%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">雨</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill accent dim" style="width:53%;"></div></div>
+              <div class="prob-pct">24%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">曇り</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill accent dim" style="width:40%;"></div></div>
+              <div class="prob-pct">18%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">良い</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill accent dimmer" style="width:20%;"></div></div>
+              <div class="prob-pct">9%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">最高</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill accent dimmer" style="width:11%;"></div></div>
+              <div class="prob-pct">5%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S4 / 19 — SEC 守る ════ -->
+  <div class="slide tech-grid section-center" id="s4">
+    <span class="tg-corner tl"></span>
+    <span class="tg-corner br"></span>
+
+    <span class="tg-tag">SECTION / 01</span>
+    <h2 class="tg-mega bad" style="margin-top:clamp(20px,3vh,32px);">守る</h2>
+    <p class="body-text" style="font-weight:700; color:var(--text-secondary);">AIを使う前に<br>知っておくべきこと</p>
+    <div class="tg-rule">5 SLIDES / RISK + COUNTERMEASURES</div>
+  </div>
+
+  <!-- ════ S5 / 19 — 38% LEAK ════ -->
+  <div class="slide tech-grid" id="s5">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">RISK / 01 / 情報漏洩</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <p class="big-stat bad">38%</p>
+        <h2 class="headline" style="font-size:clamp(26px,3.4vw,44px); margin-bottom:clamp(10px,1.5vh,18px);">
+          社員が無断で機密情報を<br>AIに入力している
+        </h2>
+        <p class="caption">CybSafe × 全米サイバーセキュリティ連盟 / Oh, Behave! 2024-25</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/data-thief_d66l.svg" alt="">
+      </div>
+    </div>
+    <div class="callout bad" style="margin-top:clamp(12px,2vh,20px);">
+      <div class="callout-label">判断基準</div>
+      <div class="callout-body">「ネットに公開されても問題ないか？」— 迷ったら<strong>入力しない</strong>。最低限の防御は次のスライドで設定する。</div>
+    </div>
+  </div>
+
+  <!-- ════ S6 / 19 — 🆕 OPT-OUT TABLE ════ -->
+  <div class="slide tech-grid" id="s6">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">DEFENSE / OPT-OUT 設定</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,52px); margin:clamp(12px,2vh,20px) 0 clamp(8px,1.5vh,14px);">
+      学習に使わせない設定 <span class="bad">— 3サービス対応表</span>
+    </h2>
+    <p class="body-text" style="font-size:clamp(14px,1.5vw,18px); margin-bottom:clamp(8px,1.2vh,14px);">
+      <strong>今日帰ったら必ずやる</strong>。1分で終わる。
+    </p>
+    <div class="optout-wrap">
+      <div class="optout-table">
+        <div class="optout-cell head">サービス</div>
+        <div class="optout-cell head">設定場所</div>
+        <div class="optout-cell head">項目名 (オフにする)</div>
+        <div class="optout-cell head">注意点</div>
+
+        <div class="optout-cell service">ChatGPT</div>
+        <div class="optout-cell"><code>Settings → Data Controls</code></div>
+        <div class="optout-cell">Improve the model for everyone</div>
+        <div class="optout-cell">履歴オフとは別物</div>
+
+        <div class="optout-cell service">Claude</div>
+        <div class="optout-cell"><code>Settings → Privacy</code></div>
+        <div class="optout-cell">Help improve Claude</div>
+        <div class="optout-cell warn"><span><strong>2025年8月から方針変更</strong>。許可すると保持期間が30日 → <strong>5年</strong> に</span></div>
+
+        <div class="optout-cell service">Gemini</div>
+        <div class="optout-cell"><code>アクティビティ管理</code></div>
+        <div class="optout-cell">Gemini アプリ アクティビティ</div>
+        <div class="optout-cell warn"><span>オフでも会話は<strong>最大72時間</strong>サーバ保持される</span></div>
+      </div>
+    </div>
+    <p class="note-line">設定しても "機密情報を入れていい" にはならない — "公開できない情報は入れない" が大原則</p>
+  </div>
+
+  <!-- ════ S7 / 19 — DELOITTE ════ -->
+  <div class="slide tech-grid" id="s7">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">RISK / 02 / ハルシネーション</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(34px,4.8vw,62px);">
+          AIは<br><span class="bad">堂々と嘘をつく</span>
+        </h2>
+        <p class="body-text">大手コンサルが<strong>架空の論文・判例</strong>を政府レポートに混入。発覚後の返金は契約額の<strong>約22%</strong>のみ。</p>
+        <div class="deloitte-stats">
+          <div class="deloitte-stat">
+            <div class="deloitte-stat-num">¥4,200万</div>
+            <div class="deloitte-stat-label">CONTRACT</div>
+          </div>
+          <div class="deloitte-stat">
+            <div class="deloitte-stat-num">¥930万</div>
+            <div class="deloitte-stat-label">REFUND ONLY</div>
+          </div>
+          <div class="deloitte-stat">
+            <div class="deloitte-stat-num">22%</div>
+            <div class="deloitte-stat-label">REFUND RATE</div>
+          </div>
+        </div>
+        <p class="caption">Deloitte × Azure OpenAI GPT-4o / 豪政府DEWR / 2025</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/ai-slop_jm2g.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S8 / 19 — 🆕 なぜ嘘をつくか ════ -->
+  <div class="slide tech-grid" id="s8">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">MECHANISM / 仕組みから理解する</span>
+    <div class="split reverse" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(34px,4.8vw,62px);">
+          <span class="bad">"わからない"</span>が<br>言えない
+        </h2>
+        <p class="body-text">
+          LLMには「知らない」という選択肢が<strong>そもそも無い</strong>。<br>
+          聞かれたら必ず<strong>"最も確率の高い続き"</strong>を返す。<strong>事実かは判定していない</strong>。
+        </p>
+        <p class="body-text" style="margin-top:clamp(8px,1.2vh,14px); font-size:clamp(15px,1.7vw,22px);">
+          → だから<strong class="bad">自信満々に嘘をつく</strong>。これがハルシネーションの正体。
+        </p>
+      </div>
+      <div class="split-vis">
+        <div style="width:100%; max-width:520px;">
+          <div class="prob-prompt">私の祖父の名前は <span class="blank">___</span></div>
+          <div class="prob-list">
+            <div class="prob-row">
+              <div class="prob-word">太郎</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill" style="width:78%;"></div></div>
+              <div class="prob-pct">18%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">健一</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill dim" style="width:62%;"></div></div>
+              <div class="prob-pct">14%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">正夫</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill dim" style="width:52%;"></div></div>
+              <div class="prob-pct">12%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">和夫</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill dimmer" style="width:48%;"></div></div>
+              <div class="prob-pct">11%</div>
+            </div>
+            <div class="prob-row">
+              <div class="prob-word">茂</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill dimmer" style="width:39%;"></div></div>
+              <div class="prob-pct">9%</div>
+            </div>
+          </div>
+          <p class="note-line">AIがあなたの祖父を知るはずがない。それでも何かを返す</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S9 / 19 — PRACTICE 1 ハルシ選手権 ════ -->
+  <div class="slide tech-grid" id="s9">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">PRACTICE / 01 / 7 MIN</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,72px); margin-top:clamp(12px,2vh,20px);">
+      ハルシネーション<br><span class="bad">選手権</span>
+    </h2>
+    <p class="body-text" style="margin-top:clamp(8px,1.5vh,16px);">1プロンプトでAIに最も<strong>嘘をつかせた人が優勝</strong></p>
+
+    <div class="tg-code-block">
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">rule_01</span><span>=</span><span class="tg-val">プロンプトは1回だけ</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">rule_02</span><span>=</span><span class="tg-val">新規チャットでスタート</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">rule_03</span><span>=</span><span class="tg-val">出力の嘘の数で勝負</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">rule_04</span><span>=</span><span class="tg-val">隣の人と相互ファクトチェック</span></div>
+    </div>
+  </div>
+
+  <!-- ════ S10 / 19 — SEC 使う ════ -->
+  <div class="slide tech-grid section-center" id="s10">
+    <span class="tg-corner tl accent"></span>
+    <span class="tg-corner br accent"></span>
+
+    <span class="tg-tag accent">SECTION / 02</span>
+    <h2 class="tg-mega accent" style="margin-top:clamp(20px,3vh,32px);">使う</h2>
+    <p class="body-text" style="font-weight:700; color:var(--text-secondary);">今日から使える<br>3つの原則</p>
+    <div class="tg-rule accent">4 SLIDES / 3 PRINCIPLES + PRACTICE</div>
+  </div>
+
+  <!-- ════ S11 / 19 — 3 PRINCIPLES ════ -->
+  <div class="slide tech-grid" id="s11">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">PRINCIPLES / 3 ITEMS</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(36px,5vw,68px);">
+          今日から使える<br><span class="hi">3つだけ</span>
+        </h2>
+        <div class="num-list">
+          <div class="num-list-item"><div class="num">01</div><div><strong>整理する</strong><div class="sub">何が欲しいかを明確にする</div></div></div>
+          <div class="num-list-item"><div class="num">02</div><div><strong>具体的に伝える</strong><div class="sub">曖昧を捨て、条件を明示する</div></div></div>
+          <div class="num-list-item"><div class="num">03</div><div><strong>構造化する</strong><div class="sub">### でブロックを分ける</div></div></div>
+        </div>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/design-thinking_8qg2.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S12 / 19 — STRUCTURE ════ -->
+  <div class="slide tech-grid" id="s12">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">FLOW / ORGANIZE → SPECIFY → STRUCTURE</span>
+    <div class="split reverse" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(36px,5vw,66px);">
+          整理 → 具体 →<br><span class="hi">構造</span>
+        </h2>
+        <p class="body-text">3つを順に通すと、AIは<strong>迷わず動く</strong>。</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust illust-lg" src="../../assets/illustrations/mind-map_i9bv.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S13 / 19 — BEFORE / AFTER ════ -->
+  <div class="slide tech-grid" id="s13">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">BEFORE / AFTER</span>
+    <h2 class="headline" style="font-size:clamp(36px,4.8vw,58px); margin:clamp(12px,2vh,20px) 0 clamp(16px,2.5vh,28px);">3原則で<span class="hi">ここまで変わる</span></h2>
+    <div class="vs-wrap">
+      <div class="vs-col bad">
+        <div class="vs-col-label">❌ Before</div>
+        <div class="vs-item">メールを書いて。丁寧に。長すぎないように。箇条書きはなしで。</div>
+      </div>
+      <div class="vs-col ok">
+        <div class="vs-col-label">✅ After</div>
+        <div class="vs-item" style="font-family:'JetBrains Mono',monospace; font-size:clamp(13px,1.5vw,18px); line-height:1.8;"><span style="color:var(--slide-accent);font-weight:800;">###指示###</span><br>取引先への納期延長の謝罪メール<br><span style="color:var(--slide-accent);font-weight:800;">###背景###</span><br>40代の営業部長 (面識あり)<br><span style="color:var(--slide-accent);font-weight:800;">###条件###</span><br>200字以内、丁寧</div>
+      </div>
+    </div>
+    <p class="note-line">### はあくまで一例。最新モデルでは # や箇条書きでも構造を読み取る — "区切る" ことが本質</p>
+  </div>
+
+  <!-- ════ S14 / 19 — 🔄 PRACTICE 2 自社サービスを小学生に説明 ════ -->
+  <div class="slide tech-grid" id="s14">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">PRACTICE / 02 / 5 MIN</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(32px,4.4vw,60px);">
+          自社サービスを<br><span class="hi">小学生に</span>説明<br>させてみよう
+        </h2>
+        <p class="body-text">AとBを試して比較。<br><strong>3原則の効果</strong>を体感する。</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/visual-explanation_vd4l.svg" alt="">
+      </div>
+    </div>
+    <div class="prompt-grid">
+      <div class="prompt-col a">
+        <div class="prompt-label">A</div>
+        <div class="prompt-text">うちの会社のサービスを説明して</div>
+      </div>
+      <div class="prompt-col b">
+        <div class="prompt-label">B</div>
+        <div class="prompt-text">うちの会社のサービス「○○」を、小学5年生に説明して。身近なたとえ話を3つ使って、400字以内で。最後に「なぜ大人に必要か」を1行で添えて。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S15 / 19 — SEC 伸びる ════ -->
+  <div class="slide tech-grid section-center" id="s15">
+    <span class="tg-corner tl ok"></span>
+    <span class="tg-corner br ok"></span>
+
+    <span class="tg-tag ok">SECTION / 03</span>
+    <h2 class="tg-mega ok" style="margin-top:clamp(20px,3vh,32px);">伸びる</h2>
+    <p class="body-text" style="font-weight:700; color:var(--text-secondary);">テクニックを超えて<br>本当に上達するために</p>
+    <div class="tg-rule ok">4 SLIDES / GROWTH MINDSET</div>
+  </div>
+
+  <!-- ════ S16 / 19 — GROWTH PRINCIPLE ════ -->
+  <div class="slide tech-grid" id="s16">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">GROWTH / KEY MINDSET</span>
+    <div class="split reverse" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(38px,5.2vw,72px);">
+          テクニックより<br><span class="ok">要件定義力</span>
+        </h2>
+        <p class="body-text">プロンプトのコツは時代で変わる。差がつくのは<strong>「何を求めるか」を言葉にする力</strong>。</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/career-progress_vfq5.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S17 / 19 — ✏️ RESEARCH (Tix) ════ -->
+  <div class="slide tech-grid" id="s17">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">EVIDENCE / TIX 2024 / arXiv PREPRINT</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(32px,4.2vw,54px);">
+          AIに<span class="ok">先に質問させる</span>と<br>成果物の質が上がる
+        </h2>
+        <p class="body-text">文書生成の対照実験で、<strong>「先に質問させる方」</strong>が有意に好まれた。</p>
+        <p class="caption">Tix, B.J. (2024) Follow-Up Questions Improve Documents Generated by LLMs / arXiv:2407.12017 (プリプリント)</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/key-insights_ex8y.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S18 / 19 — PRACTICE 3 ════ -->
+  <div class="slide tech-grid" id="s18">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">PRACTICE / 03 / 8 MIN</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(32px,4.4vw,60px);">
+          先に<span class="ok">5つ質問</span><br>させてから<br>書かせる
+        </h2>
+        <p class="body-text">自分の業務で書きたい文書を1つ。<strong>普通版</strong>と<strong>質問先行版</strong>を比較。</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/chat-with-ai_ir62.svg" alt="">
+      </div>
+    </div>
+    <div class="practice">
+      <div class="practice-label">プロンプト例</div>
+      <div class="practice-body">「○○を作りたい。書き始める前に、<strong>最も重要だと思う質問を5つ</strong>してください」</div>
+    </div>
+  </div>
+
+  <!-- ════ S19 / 19 — SUMMARY ════ -->
+  <div class="slide tech-grid" id="s19">
+    <span class="tg-corner tl ok"></span>
+    <span class="tg-corner br ok"></span>
+
+    <span class="tg-tag ok">TAKEAWAYS / 3 ITEMS</span>
+    <h2 class="headline" style="font-size:clamp(38px,5.2vw,72px); margin:clamp(12px,2vh,20px) 0 clamp(28px,4vh,40px);">
+      今日持ち帰る<span class="ok">3つ</span>
+    </h2>
+    <div class="tg-rule-list">
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">RULE / 01</span>
+        <div>
+          <p class="tg-rule-text">必ず確認する</p>
+          <p class="tg-rule-sub">// AIは仕組み上、堂々と嘘をつく</p>
+        </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">RULE / 02</span>
+        <div>
+          <p class="tg-rule-text">整理・具体・構造化</p>
+          <p class="tg-rule-sub">// 3原則をまず守る</p>
+        </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">RULE / 03</span>
+        <div>
+          <p class="tg-rule-text">AIに引き出させる</p>
+          <p class="tg-rule-sub">// 迷ったら先に質問させる</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- FOOTER -->
+<div class="slide-footer">
+  <div class="slide-footer-info">G-Holdings AI研修 — LLM基礎論 I</div>
+  <div class="slide-footer-nav">
+    <div class="slide-footer-track"><div class="slide-footer-fill" id="bar"></div></div>
+    <div class="slide-footer-counter" id="ctr">1 / 19</div>
+  </div>
+</div>
+
+<script src="../../js/slide.js"></script>
+</body>
+</html>

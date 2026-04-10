@@ -66,6 +66,15 @@
   --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
   --shadow-lg: 0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
 
+  /* Slide theme — override per deck via :root in <style> */
+  --slide-accent:        #0078D4;
+  --slide-accent-soft:   #EFF6FF;
+  --slide-accent-border: #BFDBFE;
+  --slide-bad:           #D13438;
+  --slide-bad-soft:      #FEF2F2;
+  --slide-ok:            #15803D;
+  --slide-ok-soft:       #F0FDF4;
+
   /* Glass */
   --glass-bg:      rgba(255,255,255,0.82);
   --glass-border:  rgba(255,255,255,0.95);
@@ -146,7 +155,7 @@ body {
 }
 .slide-footer-fill {
   height:100%;
-  background: linear-gradient(90deg, var(--accent), #D97706);
+  background: linear-gradient(90deg, var(--slide-accent), color-mix(in srgb, var(--slide-accent), #D97706 50%));
   border-radius:3px;
   transition: width .4s cubic-bezier(.4,0,.2,1);
 }

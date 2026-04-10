@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>質問力を高めよう！（नेपाली）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/pres.css">
+<style>
+/* ── Nepali annotation styles ── */
+.ne {
+  font-family: 'Noto Sans Devanagari', 'Noto Sans JP', sans-serif;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  line-height: 1.6;
+}
+.ne-title {
+  font-size: clamp(18px, 2.2vw, 26px);
+  margin-top: 8px;
+}
+.ne-body {
+  font-size: clamp(16px, 1.8vw, 22px);
+  margin-top: 6px;
+}
+.ne-sub {
+  font-size: clamp(14px, 1.4vw, 18px);
+  margin-top: 4px;
+  font-style: italic;
+}
+.ne-inline {
+  font-size: 0.75em;
+  display: block;
+  margin-top: 4px;
+}
+/* Finding block Nepali override */
+.finding-body .ne-sub { font-weight: 500; }
+/* Step desc Nepali */
+.step-desc .ne-inline { font-weight: 500; color: var(--text-disabled); }
+/* Summary col Nepali */
+.summary-col-item .ne-inline { font-weight: 500; color: var(--text-disabled); }
+/* Point desc Nepali */
+.point-desc .ne-inline { font-weight: 500; color: var(--text-disabled); }
+/* Schedule Nepali */
+.schedule-label .ne-inline { font-weight: 500; color: var(--text-disabled); font-size: 0.7em; }
+.schedule-sublabel .ne-inline { font-weight: 500; color: var(--text-disabled); }
+
+@media (max-height: 800px) {
+  .ne-title { font-size: clamp(14px, 1.6vw, 18px); margin-top: 4px; }
+  .ne-body { font-size: clamp(12px, 1.4vw, 16px); margin-top: 4px; }
+  .ne-sub { font-size: clamp(11px, 1.2vw, 14px); margin-top: 2px; }
+}
+</style>
+</head>
+<body>
+<div id="frost"></div>
+<script src="../../js/aurora.js"></script>
+<div class="deck">
+
+  <!-- ══════════════════════════════════════════════════
+       S1 — TITLE
+       ══════════════════════════════════════════════════ -->
+  <div class="slide slide-title active" id="s1">
+    <div class="s1-eyebrow">役職者育成研修会</div>
+    <div class="pres-text-hero">質問力を高めよう！</div>
+    <div class="ne ne-title" style="font-size:clamp(22px,2.8vw,32px); color:var(--slide-accent); font-weight:700;">प्रश्न गर्ने सीप बढाऔं！</div>
+    <div class="s1-subtitle">解決型の質問から提案型の質問へ</div>
+    <div class="ne ne-body" style="color:var(--text-tertiary);">समाधानमूलक प्रश्नबाट प्रस्तावमूलक प्रश्नतर्फ</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S2 — AGENDA
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s2">
+    <h2>本日の流れ</h2>
+    <div class="ne ne-title">आजको कार्यक्रम</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter">
+      <div class="agenda-item">
+        <div class="agenda-num-big">01</div>
+        <div class="agenda-text-big">質問力とは
+          <span class="ne ne-inline">प्रश्न गर्ने सीप भनेको के हो?</span>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num-big">02</div>
+        <div class="agenda-text-big">解決型の質問 ── まず、正しく聞ける人になる
+          <span class="ne ne-inline">समाधानमूलक प्रश्न ── पहिले, सही तरिकाले सोध्न सक्ने बन्नुहोस्</span>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num-big">03</div>
+        <div class="agenda-text-big">提案型の質問 ── さらに、動ける人になる
+          <span class="ne ne-inline">प्रस्तावमूलक प्रश्न ── अझ, कार्यशील व्यक्ति बन्नुहोस्</span>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num-big">04</div>
+        <div class="agenda-text-big">まとめ
+          <span class="ne ne-inline">सारांश</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S3 — INTRO: 質問力とは
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s3">
+    <h2>質問力とは</h2>
+    <div class="ne ne-title">प्रश्न गर्ने सीप भनेको के हो?</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:40px;">
+      <div style="display:flex; align-items:flex-start; gap:20px;">
+        <div class="pres-accent-bar" style="min-height:48px;"></div>
+        <div>
+          <div class="pres-text-key">伝わる質問をする力。</div>
+          <div class="ne ne-body">बुझिने तरिकाले प्रश्न गर्ने क्षमता।</div>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div>
+        <div class="pres-text-body pres-blue pres-mb-16">なぜ重要か <span class="ne" style="font-size:0.8em;">किन महत्त्वपूर्ण छ?</span></div>
+        <div class="pres-text-key">質問力を上げれば、仕事ができるようになる。</div>
+        <div class="ne ne-body">प्रश्न गर्ने सीप बढाउँदा, काम राम्रोसँग गर्न सकिन्छ।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S4 — 解決型の質問とは
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s4">
+    <h2>解決型の質問とは</h2>
+    <div class="ne ne-title">समाधानमूलक प्रश्न भनेको के हो?</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:36px;">
+      <div style="display:flex; align-items:flex-start; gap:20px;">
+        <div class="pres-accent-bar" style="min-height:48px;"></div>
+        <div>
+          <div class="pres-text-key">困ったとき・詰まったとき、助けを求める質問。</div>
+          <div class="ne ne-body">समस्या आउँदा वा अड्किँदा, सहयोग माग्ने प्रश्न।</div>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="pres-text-body pres-blue pres-mb-16">例 <span class="ne" style="font-size:0.8em;">उदाहरण</span></div>
+      <div class="pres-good-block pres-mb-16">
+        <div class="pres-text-bullet">ログインしようとしたらエラーが出ました。どうすればいいですか？</div>
+        <div class="ne ne-sub">लगइन गर्न खोज्दा त्रुटि देखियो। के गर्नुपर्छ?</div>
+      </div>
+      <div class="pres-good-block">
+        <div class="pres-text-bullet">このタスク、どうやって実装すればいいか教えてもらえますか？</div>
+        <div class="ne ne-sub">यो कार्य कसरी कार्यान्वयन गर्ने सिकाइदिनुहुन्छ?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S5 — CLAIM: 解決型の質問 研究
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s5">
+    <h2 style="font-size:40px !important; line-height:1.3 !important;">解決型の質問が上手い人は、能力が高く学習が速い。</h2>
+    <div class="ne ne-title">समाधानमूलक प्रश्न राम्ररी गर्ने व्यक्तिको क्षमता उच्च र सिकाइ छिटो हुन्छ।</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:16px;">
+      <div class="finding-block">
+        <div class="finding-icon">🔬</div>
+        <div class="finding-title">適応的ヘルプシーキング理論</div>
+        <div class="finding-body">自力で試みた後にヒントを求める行動は高い能力と相関。答えを丸ごと求めるのは非適応的とされる。</div>
+        <div class="ne ne-sub">आफैं प्रयास गरेपछि सङ्केत खोज्ने व्यवहार उच्च क्षमतासँग सम्बन्धित छ। पूरा उत्तर माग्नु अनुपयुक्त मानिन्छ।</div>
+        <div class="finding-source">Nelson-Le Gall (1981)</div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="finding-block">
+        <div class="finding-icon">📊</div>
+        <div class="finding-title">エラー後の情報探索と学業成績</div>
+        <div class="finding-body">間違えた後に自ら情報を探索する割合が高いほど成績（GPA）が高い。</div>
+        <div class="ne ne-sub">गल्ती गरेपछि आफैं जानकारी खोज्ने दर जति उच्च, त्यति नै GPA राम्रो।</div>
+        <div class="finding-source">N=2,922の大規模研究（ScienceDirect, 2021）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S6 — BAD EXAMPLE
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s6">
+    <h2>悪い質問の例</h2>
+    <div class="ne ne-title">खराब प्रश्नको उदाहरण</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:24px;">
+      <div class="pres-bad-block">
+        <div class="pres-text-body" style="color:var(--slide-bad);">× 悪い例 <span class="ne" style="font-size:0.8em;">खराब उदाहरण</span></div>
+        <div class="example-text-block">送信ボタンを押しても動きません。
+なぜですか？</div>
+        <div class="ne ne-sub">पठाउने बटन थिचे पनि काम गर्दैन। किन?</div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="point-row">
+        <div class="point-label point-label-bad">× 状況の説明がない</div>
+        <div class="point-desc">何をしたときに起きたのか相手には分からない
+          <span class="ne ne-inline">स्थितिको वर्णन छैन — के गर्दा भयो भन्ने अर्कालाई थाहा हुँदैन</span>
+        </div>
+      </div>
+      <div class="point-row">
+        <div class="point-label point-label-bad">× 自分で試みた形跡がない</div>
+        <div class="point-desc">丸投げになっており思考の深さが伝わらない
+          <span class="ne ne-inline">आफैं प्रयास गरेको छैन — सोचको गहिराइ देखिँदैन</span>
+        </div>
+      </div>
+      <div class="point-row">
+        <div class="point-label point-label-bad">× 質問が絞れていない</div>
+        <div class="point-desc">何を答えればいいのか相手の負担が大きい
+          <span class="ne ne-inline">प्रश्न केन्द्रित छैन — के जवाफ दिने भन्ने बोझ अर्कोमा पर्छ</span>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="summary-line" style="color:var(--slide-bad);">「困っている」しか伝わっていない。</div>
+      <div class="ne ne-body" style="color:var(--slide-bad); opacity:0.7;">"समस्यामा परेको छु" मात्र बुझिन्छ।</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S7 — GOOD EXAMPLE
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s7">
+    <h2>良い質問の例</h2>
+    <div class="ne ne-title">राम्रो प्रश्नको उदाहरण</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:24px;">
+      <div class="pres-good-block">
+        <div class="pres-text-body pres-blue">○ 良い例 <span class="ne" style="font-size:0.8em;">राम्रो उदाहरण</span></div>
+        <div class="example-text-block">ユーザー登録フォームの送信ボタンを押してもAPIが呼ばれていません。
+ネットワークタブを確認したところリクエスト自体が出ていないので、
+fetch処理が実行されていないと判断しています。
+確認すべき箇所はありますか？</div>
+        <div class="ne ne-sub">प्रयोगकर्ता दर्ता फारमको पठाउने बटन थिचे पनि API कल हुँदैन। नेटवर्क ट्याबमा अनुरोध नै गएको छैन, त्यसैले fetch प्रक्रिया चलेको छैन भन्ने ठानेको छु। जाँच गर्नुपर्ने ठाउँ छ?</div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="point-row">
+        <div class="point-label">○ 状況が明確</div>
+        <div class="point-desc">何をしたら起きたのか再現できる
+          <span class="ne ne-inline">स्थिति स्पष्ट छ — के गर्दा भयो भन्ने पुन: उत्पादन गर्न सकिन्छ</span>
+        </div>
+      </div>
+      <div class="point-row">
+        <div class="point-label">○ 自分で調べた記録がある</div>
+        <div class="point-desc">ネットワークタブまで確認した上で詰まっていることが伝わる
+          <span class="ne ne-inline">आफैं खोजेको रेकर्ड छ — नेटवर्क ट्याबसम्म जाँचेर अड्किएको बुझिन्छ</span>
+        </div>
+      </div>
+      <div class="point-row">
+        <div class="point-label">○ 質問が一点に絞られている</div>
+        <div class="point-desc">相手はYes/Noに近い形で答えられる
+          <span class="ne ne-inline">प्रश्न एक बिन्दुमा केन्द्रित छ — हो/होइन जस्तो सरल उत्तर दिन सकिन्छ</span>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="summary-line pres-blue">「考えた上で詰まっている」が伝わる。</div>
+      <div class="ne ne-body" style="color:var(--slide-accent); opacity:0.7;">"सोचेर अड्किएको छु" भन्ने बुझिन्छ।</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S8 — HOW TO DEFEND
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s8">
+    <h2>解決型の質問力を上げるには？</h2>
+    <div class="ne ne-title">समाधानमूलक प्रश्न सीप कसरी बढाउने?</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-label">何をしたら起きたか</div>
+          <div class="step-desc">状況を再現できるレベルで言語化する
+            <span class="ne ne-inline">के गर्दा भयो? — स्थिति पुन: उत्पादन गर्न सकिने स्तरमा शब्दमा व्यक्त गर्नुहोस्</span>
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-label">自分で何を試したか</div>
+          <div class="step-desc">仮説を立てて一つでも検証してから聞く
+            <span class="ne ne-inline">आफैं के प्रयास गर्नुभयो? — अनुमान बनाएर एउटा पनि प्रमाणित गरेपछि सोध्नुहोस्</span>
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-label">何が分からないのか</div>
+          <div class="step-desc">質問を一点に絞ってから口を開く
+            <span class="ne ne-inline">के थाहा छैन? — प्रश्न एक बिन्दुमा केन्द्रित गरेपछि मात्र सोध्नुहोस्</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S9 — TRANSITION
+       ══════════════════════════════════════════════════ -->
+  <div class="slide slide-transition" id="s9">
+    <div class="pres-center">
+      <div style="text-align:left;">
+        <div class="pres-text-muted pres-mb-32" style="font-family:'JetBrains Mono',monospace; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;">STEP UP</div>
+        <div class="transition-step transition-done">
+          <div class="transition-num">STEP 1</div>
+          <div>
+            <div class="transition-label">解決型の質問</div>
+            <div class="transition-desc">まず、正しく聞ける人になる ✓</div>
+            <div class="ne ne-sub">पहिले, सही तरिकाले सोध्न सक्ने बन्नुहोस् ✓</div>
+          </div>
+        </div>
+        <div class="transition-arrow">↓</div>
+        <div class="transition-step transition-next">
+          <div class="transition-num">STEP 2</div>
+          <div>
+            <div class="transition-label">提案型の質問</div>
+            <div class="transition-desc">さらに、動ける人になる</div>
+            <div class="ne ne-sub">अझ, कार्यशील व्यक्ति बन्नुहोस्</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S10 — 提案型の質問とは
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s10">
+    <h2>提案型の質問とは</h2>
+    <div class="ne ne-title">प्रस्तावमूलक प्रश्न भनेको के हो?</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:36px;">
+      <div style="display:flex; align-items:flex-start; gap:20px;">
+        <div class="pres-accent-bar" style="min-height:48px;"></div>
+        <div>
+          <div class="pres-text-key">自分のタスクが終わった上で、チームに価値を提案する質問。</div>
+          <div class="ne ne-body">आफ्नो कार्य सकिएपछि, टोलीलाई मूल्य प्रस्ताव गर्ने प्रश्न।</div>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="pres-text-body pres-blue pres-mb-16">例 <span class="ne" style="font-size:0.8em;">उदाहरण</span></div>
+      <div class="pres-good-block pres-mb-16">
+        <div class="pres-text-bullet">担当タスク完了しました。気になった箇所があったので修正してもいいですか？</div>
+        <div class="ne ne-sub">मेरो कार्य पूरा भयो। ध्यान दिनुपर्ने ठाउँ थियो, सच्चे हुन्छ?</div>
+      </div>
+      <div class="pres-good-block">
+        <div class="pres-text-bullet">実装が終わりました。テストも書いておいた方がいいと思うんですが、どうでしょうか？</div>
+        <div class="ne ne-sub">कार्यान्वयन सकियो। परीक्षण पनि लेख्नु राम्रो होला भन्ने लाग्छ, कस्तो?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S11 — CLAIM: 提案型の質問 研究
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s11">
+    <h2 style="font-size:40px !important; line-height:1.3 !important;">提案型の質問が上手い人は、評価が高くキャリアが速い。</h2>
+    <div class="ne ne-title">प्रस्तावमूलक प्रश्न राम्ररी गर्ने व्यक्तिको मूल्याङ्कन उच्च र करियर छिटो बढ्छ।</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:16px;">
+      <div class="finding-block">
+        <div class="finding-icon">📈</div>
+        <div class="finding-title">プロアクティブ性とキャリア成功</div>
+        <div class="finding-body">107研究・313相関のメタ分析で、プロアクティブ性は上司評価の職務パフォーマンスと最も強く相関。Big Five性格特性を上回る。</div>
+        <div class="ne ne-sub">१०७ अध्ययन र ३१३ सहसम्बन्धको मेटा-विश्लेषणमा, सक्रियता (proactiveness) ले कार्य प्रदर्शनसँग सबैभन्दा बलियो सम्बन्ध देखाउँछ।</div>
+        <div class="finding-source">Fuller &amp; Marler (2009)</div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="finding-block">
+        <div class="finding-icon">🏆</div>
+        <div class="finding-title">Taking Chargeと昇進適性</div>
+        <div class="finding-body">主体的改善行動（Taking Charge）は、上司から評価される「昇進適性」に有意な正の影響。</div>
+        <div class="ne ne-sub">स्वतःस्फूर्त सुधार कार्य (Taking Charge) ले "पदोन्नति योग्यता" मा सकारात्मक प्रभाव पार्छ।</div>
+        <div class="finding-source">101,131名対象メタ分析（Zhang et al., 2022）</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S12 — GOOD EXAMPLE (提案型)
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s12">
+    <h2>良い提案型の質問の例</h2>
+    <div class="ne ne-title">राम्रो प्रस्तावमूलक प्रश्नको उदाहरण</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:24px;">
+      <div class="pres-good-block">
+        <div class="pres-text-body pres-blue">○ 良い例 <span class="ne" style="font-size:0.8em;">राम्रो उदाहरण</span></div>
+        <div class="example-text-block">担当タスク完了しました。今手が空いているので、
+ローカル環境の構築手順をREADMEにまとめてみてもいいですか？
+ドキュメントがあると後々助かると思います。</div>
+        <div class="ne ne-sub">मेरो कार्य पूरा भयो। अहिले समय छ, स्थानीय वातावरण सेटअप प्रक्रिया README मा लेखे हुन्छ? कागजात भएमा पछि सहज हुन्छ भन्ने सोचेको छु।</div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="point-row">
+        <div class="point-label">○ タスク完了を先に示す</div>
+        <div class="point-desc">100%できていることが前提として伝わる
+          <span class="ne ne-inline">कार्य पूरा भएको पहिले देखाउनुहोस् — १००% सकिएको पूर्वशर्त बुझिन्छ</span>
+        </div>
+      </div>
+      <div class="point-row">
+        <div class="point-label">○ 根拠が一言添えられている</div>
+        <div class="point-desc">「後々助かる」でチームへの貢献理由が明確
+          <span class="ne ne-inline">कारण एक शब्दमा थपिएको छ — टोलीलाई योगदानको कारण स्पष्ट</span>
+        </div>
+      </div>
+      <div class="point-row">
+        <div class="point-label">○ 承認を取っている</div>
+        <div class="point-desc">「いいですか？」で自走しすぎず信頼を保つ
+          <span class="ne ne-inline">अनुमति लिइएको छ — "हुन्छ?" भनेर विश्वास कायम राख्दै स्वतन्त्र काम</span>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="summary-line pres-blue">「できる人が、チームのために動く」が伝わる。</div>
+      <div class="ne ne-body" style="color:var(--slide-accent); opacity:0.7;">"सक्षम व्यक्तिले टोलीको लागि काम गर्छ" भन्ने बुझिन्छ।</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S13 — HOW TO ATTACK
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s13">
+    <h2>提案型の質問力を上げるには？</h2>
+    <div class="ne ne-title">प्रस्तावमूलक प्रश्न सीप कसरी बढाउने?</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-label">まず自分のタスクを完了させる</div>
+          <div class="step-desc">100%できていることが提案の前提条件
+            <span class="ne ne-inline">पहिले आफ्नो कार्य पूरा गर्नुहोस् — १००% सकिएको प्रस्तावको पूर्वशर्त हो</span>
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-label">提案の根拠を一言添える</div>
+          <div class="step-desc">なぜそれが必要かを短く言語化する
+            <span class="ne ne-inline">प्रस्तावको कारण एक शब्दमा थप्नुहोस् — किन आवश्यक छ भन्ने छोटकरीमा भन्नुहोस्</span>
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-label">承認を取ってから動く</div>
+          <div class="step-desc">「やっていいですか？」で信頼と自走を両立する
+            <span class="ne ne-inline">अनुमति लिएर काम गर्नुहोस् — "गरे हुन्छ?" भनेर विश्वास र स्वतन्त्रता दुवै कायम गर्नुहोस्</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S14 — SUMMARY
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s14">
+    <h2>まとめ <span class="ne ne-title" style="display:inline;">सारांश</span></h2>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter" style="gap:32px;">
+      <div class="pres-row" style="gap:64px;">
+        <div class="summary-col" style="border-left:4px solid var(--slide-accent); padding-left:24px;">
+          <div class="summary-step-label">STEP 1</div>
+          <div class="summary-col-title">解決型の質問をマスターする</div>
+          <div class="ne ne-sub" style="margin-bottom:12px;">समाधानमूलक प्रश्नमा दक्ष बन्नुहोस्</div>
+          <div class="summary-col-item">状況・試したこと・質問を整理する
+            <span class="ne ne-inline">स्थिति・प्रयास・प्रश्न व्यवस्थित गर्नुहोस्</span>
+          </div>
+          <div class="summary-col-item">仮説を立てて検証してから聞く
+            <span class="ne ne-inline">अनुमान बनाएर प्रमाणित गरेपछि सोध्नुहोस्</span>
+          </div>
+          <div class="summary-col-item">質問を一点に絞り込む
+            <span class="ne ne-inline">प्रश्न एक बिन्दुमा केन्द्रित गर्नुहोस्</span>
+          </div>
+        </div>
+        <div class="summary-col" style="border-left:4px solid var(--slide-accent); padding-left:24px;">
+          <div class="summary-step-label">STEP 2</div>
+          <div class="summary-col-title">提案型の質問に挑戦する</div>
+          <div class="ne ne-sub" style="margin-bottom:12px;">प्रस्तावमूलक प्रश्नमा चुनौती लिनुहोस्</div>
+          <div class="summary-col-item">まず自分のタスクを完了させる
+            <span class="ne ne-inline">पहिले आफ्नो कार्य पूरा गर्नुहोस्</span>
+          </div>
+          <div class="summary-col-item">提案の根拠を一言添える
+            <span class="ne ne-inline">प्रस्तावको कारण एक शब्दमा थप्नुहोस्</span>
+          </div>
+          <div class="summary-col-item">承認を取ってから動く
+            <span class="ne ne-inline">अनुमति लिएर काम गर्नुहोस्</span>
+          </div>
+        </div>
+      </div>
+      <div class="pres-separator"></div>
+      <div class="pres-text-key" style="text-align:center;">質問力を上げれば、仕事ができるようになる。</div>
+      <div class="ne ne-body" style="text-align:center;">प्रश्न गर्ने सीप बढाउँदा, काम राम्रोसँग गर्न सकिन्छ।</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S15 — DISCUSSION
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s15">
+    <h2>本日の議題</h2>
+    <div class="ne ne-title">आजको छलफल विषय</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-center">
+      <div class="discussion-theme">質問力を高めるために<br>明日からできること</div>
+      <div class="ne ne-body" style="color:var(--slide-accent); margin-bottom:24px;">प्रश्न गर्ने सीप बढाउन<br>भोलिदेखि गर्न सकिने कुरा</div>
+      <div style="margin-top:40px;" class="pres-text-muted">チームで話し合い、意見をまとめてください</div>
+      <div class="ne ne-sub" style="margin-top:8px;">टोलीमा छलफल गरी, विचार संक्षेपमा प्रस्तुत गर्नुहोस्</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S16 — SCHEDULE
+       ══════════════════════════════════════════════════ -->
+  <div class="slide" id="s16">
+    <h2>本日のスケジュール</h2>
+    <div class="ne ne-title">आजको तालिका</div>
+    <div class="pres-title-line"></div>
+    <div class="pres-vcenter">
+      <div class="schedule-block">
+        <div>
+          <div class="schedule-time">19:20 〜 19:50</div>
+          <div class="schedule-duration">30分 <span class="ne" style="font-size:0.85em;">३० मिनेट</span></div>
+        </div>
+        <div>
+          <div class="schedule-label">チームで話し合い・意見まとめ
+            <span class="ne ne-inline">टोलीमा छलफल・विचार संक्षेप</span>
+          </div>
+          <div class="schedule-sublabel">ファシリテーション
+            <span class="ne ne-inline">सहजीकरण</span>
+          </div>
+        </div>
+      </div>
+      <div class="schedule-block">
+        <div>
+          <div class="schedule-time">19:50 〜 20:00</div>
+          <div class="schedule-duration">10分 <span class="ne" style="font-size:0.85em;">१० मिनेट</span></div>
+        </div>
+        <div>
+          <div class="schedule-label">チーム代表者から意見発表
+            <span class="ne ne-inline">टोली प्रतिनिधिबाट विचार प्रस्तुति</span>
+          </div>
+          <div class="schedule-sublabel">プレゼンテーション
+            <span class="ne ne-inline">प्रस्तुतीकरण</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       S17 — CLOSING
+       ══════════════════════════════════════════════════ -->
+  <div class="slide slide-closing" id="s17">
+    <div class="closing-message">質問の質は、思考の質。
+思考の質は、仕事の質。</div>
+    <div class="ne" style="font-size:clamp(22px,3vw,32px); font-weight:700; color:var(--text-tertiary); line-height:1.5; white-space:pre-line; margin-bottom:32px;">प्रश्नको गुणस्तर नै सोचको गुणस्तर।
+सोचको गुणस्तर नै कामको गुणस्तर।</div>
+    <div class="closing-sub">今日から一つだけ変えてみてください。</div>
+    <div class="ne ne-body" style="color:var(--slide-accent); margin-top:8px;">आजदेखि एउटा मात्र कुरा बदल्नुहोस्।</div>
+  </div>
+
+</div>
+
+<div class="slide-footer">
+  <span class="slide-footer-info">2026年4月 役職者育成研修会（नेपाली）</span>
+  <div class="slide-footer-nav">
+    <div class="slide-footer-track"><div class="slide-footer-fill" id="bar"></div></div>
+    <span class="slide-footer-counter" id="ctr">1 / 17</span>
+  </div>
+</div>
+<script src="../../js/slide.js"></script>
+</body>
+</html>

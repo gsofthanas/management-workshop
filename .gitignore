@@ -1,0 +1,28 @@
+# ════════════════════════════════════════════════════════
+# 役職者育成研修会資料 — gitignore
+# ════════════════════════════════════════════════════════
+
+# ── Local IDE / OS artifacts ──
+.claude/
+.folder_icon.ico
+desktop.ini
+*.code-workspace
+Thumbs.db
+.DS_Store
+
+# ── 公開しない (内部用) ──
+# 講師台本: ナレーション/進行Tips/受講者反応想定 等を含む
+scripts/
+
+# デザイン開発時の試作・サンプル
+samples/
+design_samples.html
+
+# ── 旧バージョン (履歴に残さない) ──
+slides/llm_basics_1.html
+slides/llm_basics_1_v2.html
+slides/*_v[0-9].html
+slides/*_v[0-9]_*.md
+
+# ── 大容量バイナリ (別配布) ──
+*.pdf

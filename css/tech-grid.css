@@ -1,0 +1,276 @@
+/* ══════════════════════════════════════════════════════
+   TECH GRID — Design System Extension
+   既存の pres.css を壊さない opt-in レイヤー
+   使い方:
+     <link rel="stylesheet" href="../css/pres.css">
+     <link rel="stylesheet" href="../css/tech-grid.css">
+     <div class="slide tech-grid"> ... </div>
+   ══════════════════════════════════════════════════════ */
+
+/* ── ベース: ドットグリッド背景 ────────────────────── */
+.slide.tech-grid {
+  background-image: radial-gradient(circle, var(--border-strong) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+  background-position: 14px 14px;
+}
+
+/* dot grid は CSS 背景なのでコンテンツは自動で上に表示される。
+   z-index 操作は最小限に。 */
+
+
+/* ── L字コーナーマーク ────────────────────────────── */
+.tg-corner {
+  position: absolute;
+  width: clamp(24px, 2.2vw, 32px);
+  height: clamp(24px, 2.2vw, 32px);
+  border: 2.5px solid var(--slide-bad);
+  z-index: 1;
+  pointer-events: none;
+}
+.tg-corner.tl { top: clamp(20px, 2.5vh, 32px); left: clamp(24px, 2.5vw, 36px); border-right: none; border-bottom: none; }
+.tg-corner.tr { top: clamp(20px, 2.5vh, 32px); right: clamp(24px, 2.5vw, 36px); border-left: none; border-bottom: none; }
+.tg-corner.bl { bottom: clamp(20px, 2.5vh, 32px); left: clamp(24px, 2.5vw, 36px); border-right: none; border-top: none; }
+.tg-corner.br { bottom: clamp(20px, 2.5vh, 32px); right: clamp(24px, 2.5vw, 36px); border-left: none; border-top: none; }
+
+/* セクションカラーバリアント */
+.tg-corner.accent { border-color: var(--slide-accent); }
+.tg-corner.ok     { border-color: var(--slide-ok); }
+.tg-corner.gray   { border-color: var(--border-strong); }
+
+
+/* ── モノスペースタグ [ LABEL / VARIANT ] ──────────── */
+.tg-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 14px);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--slide-bad);
+}
+.tg-tag::before { content: '[ '; }
+.tg-tag::after  { content: ' ]'; }
+
+.tg-tag.accent { color: var(--slide-accent); }
+.tg-tag.ok     { color: var(--slide-ok); }
+.tg-tag.gray   { color: var(--text-tertiary); }
+
+
+/* ── 巨大セクションタイトル (.sec-slide で使う) ────── */
+.slide h2.tg-mega,
+.slide .tg-mega {
+  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+  font-size: clamp(96px, 13vw, 220px);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  margin-bottom: clamp(20px, 3vh, 36px);
+}
+.tg-mega.bad    { color: var(--slide-bad); }
+.tg-mega.accent { color: var(--slide-accent); }
+.tg-mega.ok     { color: var(--slide-ok); }
+
+
+/* ── ルールバー ─── 説明文 (セクション扉用) ────────── */
+.tg-rule {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 1.1vw, 13px);
+  letter-spacing: 0.2em;
+  color: var(--text-disabled);
+  text-transform: uppercase;
+  margin-top: clamp(16px, 2.5vh, 28px);
+}
+.tg-rule::before {
+  content: '';
+  width: 64px;
+  height: 2px;
+  background: var(--slide-bad);
+}
+.tg-rule.accent::before { background: var(--slide-accent); }
+.tg-rule.ok::before     { background: var(--slide-ok); }
+
+
+/* ── アジェンダカード (3カラム) ─────────────────── */
+.tg-agenda {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(20px, 2.5vw, 36px);
+  flex: 1;
+}
+.tg-agenda-card {
+  position: relative;
+  padding: clamp(24px, 3vh, 40px) clamp(20px, 2.5vw, 32px);
+  background: rgba(255, 255, 255, 0.7);
+}
+.tg-agenda-card .tg-mini-tl,
+.tg-agenda-card .tg-mini-br {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--slide-accent);
+}
+.tg-agenda-card .tg-mini-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.tg-agenda-card .tg-mini-br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.tg-agenda-card.bad    .tg-mini-tl, .tg-agenda-card.bad    .tg-mini-br { border-color: var(--slide-bad); }
+.tg-agenda-card.ok     .tg-mini-tl, .tg-agenda-card.ok     .tg-mini-br { border-color: var(--slide-ok); }
+
+.tg-agenda-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 1.1vw, 13px);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  margin-bottom: clamp(12px, 2vh, 20px);
+  color: var(--slide-accent);
+}
+.tg-agenda-card.bad .tg-agenda-num { color: var(--slide-bad); }
+.tg-agenda-card.ok  .tg-agenda-num { color: var(--slide-ok); }
+
+.tg-agenda-title {
+  font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: clamp(12px, 2vh, 20px);
+  color: var(--slide-accent);
+}
+.tg-agenda-card.bad .tg-agenda-title { color: var(--slide-bad); }
+.tg-agenda-card.ok  .tg-agenda-title { color: var(--slide-ok); }
+
+.tg-agenda-desc {
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--text-tertiary);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+
+/* ── ターミナル風コードブロック (実習スライド用) ──── */
+.tg-code-block {
+  position: relative;
+  background: #0F172A;
+  border: 2px solid var(--slide-bad);
+  padding: clamp(28px, 4vh, 40px) clamp(32px, 4vw, 48px) clamp(24px, 3.5vh, 36px);
+  margin-top: clamp(16px, 2.5vh, 28px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(14px, 1.6vw, 18px);
+  line-height: 2;
+  color: #E5E7EB;
+  max-width: 880px;
+}
+.tg-code-block::before {
+  content: attr(data-filename, 'RULES.txt');
+  position: absolute;
+  top: -13px;
+  left: 28px;
+  background: var(--surface-1, #F9FAFB);
+  padding: 2px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--slide-bad);
+  letter-spacing: 0.18em;
+  border: 2px solid var(--slide-bad);
+}
+.tg-code-block::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 8px;
+  height: 8px;
+  background: var(--slide-bad);
+  border-radius: 50%;
+  box-shadow: 14px 0 0 #FBBF24, 28px 0 0 #16A34A;
+}
+.tg-code-line { display: flex; gap: 14px; }
+.tg-code-line .tg-marker { color: var(--slide-bad); font-weight: 800; }
+.tg-code-line .tg-key    { color: #FBBF24; }
+.tg-code-line .tg-val    { color: #E5E7EB; }
+
+
+/* ── まとめスライド: 番号付きルールリスト ────────── */
+.tg-rule-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.tg-rule-item {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(20px, 2.5vw, 32px);
+  padding: clamp(16px, 2.5vh, 24px) 0;
+  border-top: 1px dashed var(--border-strong);
+}
+.tg-rule-item:last-child {
+  border-bottom: 1px dashed var(--border-strong);
+}
+.tg-rule-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(12px, 1.4vw, 16px);
+  font-weight: 800;
+  color: var(--slide-ok);
+  letter-spacing: 0.15em;
+  flex-shrink: 0;
+  min-width: 96px;
+}
+.tg-rule-item.bad    .tg-rule-num { color: var(--slide-bad); }
+.tg-rule-item.accent .tg-rule-num { color: var(--slide-accent); }
+
+.tg-rule-text {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 900;
+  line-height: 1.3;
+}
+.tg-rule-sub {
+  font-size: clamp(12px, 1.3vw, 14px);
+  color: var(--text-tertiary);
+  font-weight: 600;
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+
+/* ── カバー / Hero スライドのメタ情報帯 ────────── */
+.tg-meta {
+  position: absolute;
+  bottom: clamp(40px, 6vh, 64px);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(48px, 6vw, 80px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 700;
+  color: var(--text-disabled);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+
+/* ── モノスペース区切り「知識 / 安全 / 実践」 ──── */
+.tg-divider-text {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 24px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(12px, 1.4vw, 16px);
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.tg-divider-text::before, .tg-divider-text::after {
+  content: '';
+  width: clamp(40px, 5vw, 64px);
+  height: 1px;
+  background: var(--border-strong);
+}

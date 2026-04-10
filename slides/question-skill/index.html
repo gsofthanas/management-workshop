@@ -6,18 +6,18 @@
 <meta name="robots" content="noindex, nofollow">
 <title>質問力を高めよう！</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="../css/pres.css">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/pres.css">
 </head>
 <body>
 <div id="frost"></div>
-<script src="../js/aurora.js"></script>
+<script src="../../js/aurora.js"></script>
 <div class="deck">
 
   <!-- ══════════════════════════════════════════════════
        S1 — TITLE
        ══════════════════════════════════════════════════ -->
-  <div class="slide active" id="s1">
+  <div class="slide slide-title active" id="s1">
     <div class="s1-eyebrow">役職者育成研修会</div>
     <div class="pres-text-hero">質問力を高めよう！</div>
     <div class="s1-subtitle">解決型の質問から提案型の質問へ</div>
@@ -121,7 +121,7 @@
     <div class="pres-title-line"></div>
     <div class="pres-vcenter" style="gap:24px;">
       <div class="pres-bad-block">
-        <div class="pres-text-body" style="color:#D13438;">× 悪い例</div>
+        <div class="pres-text-body" style="color:var(--slide-bad);">× 悪い例</div>
         <div class="example-text-block">送信ボタンを押しても動きません。
 なぜですか？</div>
       </div>
@@ -139,7 +139,7 @@
         <div class="point-desc">何を答えればいいのか相手の負担が大きい</div>
       </div>
       <div class="pres-separator"></div>
-      <div class="summary-line" style="color:#D13438;">「困っている」しか伝わっていない。</div>
+      <div class="summary-line" style="color:var(--slide-bad);">「困っている」しか伝わっていない。</div>
     </div>
   </div>
 
@@ -209,7 +209,7 @@ fetch処理が実行されていないと判断しています。
   <!-- ══════════════════════════════════════════════════
        S9 — TRANSITION
        ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s9">
+  <div class="slide slide-transition" id="s9">
     <div class="pres-center">
       <div style="text-align:left;">
         <div class="pres-text-muted pres-mb-32" style="font-family:'JetBrains Mono',monospace; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;">STEP UP</div>
@@ -347,14 +347,14 @@ fetch処理が実行されていないと判断しています。
     <div class="pres-title-line"></div>
     <div class="pres-vcenter" style="gap:32px;">
       <div class="pres-row" style="gap:64px;">
-        <div class="summary-col" style="border-left:4px solid #0078D4; padding-left:24px;">
+        <div class="summary-col" style="border-left:4px solid var(--slide-accent); padding-left:24px;">
           <div class="summary-step-label">STEP 1</div>
           <div class="summary-col-title">解決型の質問をマスターする</div>
           <div class="summary-col-item">状況・試したこと・質問を整理する</div>
           <div class="summary-col-item">仮説を立てて検証してから聞く</div>
           <div class="summary-col-item">質問を一点に絞り込む</div>
         </div>
-        <div class="summary-col" style="border-left:4px solid #0078D4; padding-left:24px;">
+        <div class="summary-col" style="border-left:4px solid var(--slide-accent); padding-left:24px;">
           <div class="summary-step-label">STEP 2</div>
           <div class="summary-col-title">提案型の質問に挑戦する</div>
           <div class="summary-col-item">まず自分のタスクを完了させる</div>
@@ -412,7 +412,7 @@ fetch処理が実行されていないと判断しています。
   <!-- ══════════════════════════════════════════════════
        S17 — CLOSING
        ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s17">
+  <div class="slide slide-closing" id="s17">
     <div class="closing-message">質問の質は、思考の質。
 思考の質は、仕事の質。</div>
     <div class="closing-sub">今日から一つだけ変えてみてください。</div>
@@ -427,6 +427,6 @@ fetch処理が実行されていないと判断しています。
     <span class="slide-footer-counter" id="ctr">1 / 17</span>
   </div>
 </div>
-<script src="../js/slide.js"></script>
+<script src="../../js/slide.js"></script>
 </body>
 </html>

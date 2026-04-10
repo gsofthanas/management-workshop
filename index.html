@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — スライド集</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<style>
+/* ── Design System Page overrides ── */
+body { overflow-y:auto; height:auto; }
+.ds-page { max-width:1120px; margin:0 auto; padding:40px 32px 80px; }
+.ds-section { margin-bottom:56px; }
+.ds-section-title {
+  font-family:'DM Sans','Noto Sans JP',sans-serif;
+  font-size:var(--text-xl); font-weight:700;
+  color:var(--text-primary); letter-spacing:-.01em;
+  margin-bottom:var(--sp-6);
+  padding-bottom:var(--sp-3);
+  border-bottom:2px solid var(--border);
+}
+.ds-subsection { margin-bottom:var(--sp-8); }
+.ds-label {
+  font-family:'JetBrains Mono',monospace;
+  font-size:var(--text-xs); font-weight:600;
+  color:var(--text-tertiary); letter-spacing:.1em;
+  text-transform:uppercase; margin-bottom:var(--sp-3);
+}
+.ds-grid { display:grid; gap:var(--sp-4); }
+.ds-grid-2 { grid-template-columns:1fr 1fr; }
+.ds-grid-3 { grid-template-columns:1fr 1fr 1fr; }
+.ds-grid-4 { grid-template-columns:repeat(4,1fr); }
+.ds-grid-5 { grid-template-columns:repeat(5,1fr); }
+.ds-swatch {
+  border-radius:var(--radius-md); padding:var(--sp-5) var(--sp-4);
+  display:flex; flex-direction:column; gap:var(--sp-1);
+  border:1px solid var(--border);
+}
+.ds-swatch-name { font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; }
+.ds-swatch-value { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-tertiary); }
+.ds-type-row { display:flex; align-items:baseline; gap:var(--sp-6); padding:var(--sp-3) 0; border-bottom:1px solid var(--border); }
+.ds-type-label { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-tertiary); min-width:80px; flex-shrink:0; }
+.ds-spacing-row { display:flex; align-items:center; gap:var(--sp-4); padding:var(--sp-2) 0; }
+.ds-spacing-bar { height:12px; background:var(--accent-soft); border:1px solid rgba(194,65,12,.2); border-radius:2px; }
+.ds-spacing-label { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-tertiary); min-width:60px; }
+.ds-spacing-px { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-disabled); }
+.ds-component-row { display:flex; flex-wrap:wrap; gap:var(--sp-4); align-items:center; }
+.ds-note { font-size:var(--text-sm); color:var(--text-tertiary); line-height:1.7; margin-top:var(--sp-2); }
+.ds-code {
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  background:var(--surface-2); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:2px 8px;
+  color:var(--text-secondary);
+}
+.ds-slides-list { display:flex; flex-direction:column; gap:var(--sp-3); }
+.ds-slide-link {
+  display:flex; align-items:center; gap:var(--sp-4);
+  padding:var(--sp-4) var(--sp-6);
+  text-decoration:none; color:var(--text-primary);
+  border-radius:var(--radius-md);
+  border:1px solid var(--border);
+  background:var(--surface-0);
+  transition:box-shadow .2s, border-color .2s;
+}
+.ds-slide-link:hover { box-shadow:var(--shadow-md); border-color:var(--accent); }
+.ds-slide-link-title { font-weight:700; font-size:var(--text-base); }
+.ds-slide-link-desc { font-size:var(--text-sm); color:var(--text-tertiary); }
+@media(max-width:768px){
+  .ds-grid-4,.ds-grid-5{grid-template-columns:repeat(2,1fr);}
+  .ds-grid-3{grid-template-columns:1fr;}
+  .ds-grid-2{grid-template-columns:1fr;}
+  .ds-page{padding:24px 16px 60px;}
+}
+</style>
+</head>
+<body>
+<div id="frost"></div>
+<script src="js/aurora.js"></script>
+
+<div class="ds-page" style="position:relative;z-index:10;">
+
+  <!-- Header -->
+  <div style="margin-bottom:48px;">
+    <p class="ds-label" style="color:var(--accent);letter-spacing:.2em;">Design System</p>
+    <h1 style="font-family:'DM Sans','Noto Sans JP',sans-serif;font-size:clamp(32px,5vw,48px);font-weight:800;line-height:1.1;color:var(--text-primary);">
+      研修スライド<br>デザインシステム
+    </h1>
+    <p style="margin-top:var(--sp-4);font-size:var(--text-md);color:var(--text-secondary);line-height:1.7;">
+      スライド作成に使用できるトークン・コンポーネントの一覧
+    </p>
+  </div>
+
+  <!-- ═══ SLIDES ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">スライド一覧</h2>
+    <div class="ds-slides-list">
+      <a href="slides/question-skill/" class="ds-slide-link">
+        <div>
+          <p class="ds-slide-link-title">質問力を高めよう！</p>
+          <p class="ds-slide-link-desc">解決型の質問から提案型の質問へ — 17スライド</p>
+        </div>
+      </a>
+      <a href="slides/question-skill-ne/" class="ds-slide-link">
+        <div>
+          <p class="ds-slide-link-title">質問力を高めよう！（नेपाली）</p>
+          <p class="ds-slide-link-desc">日本語＋ネパール語併記バージョン — 17スライド</p>
+        </div>
+      </a>
+      <a href="slides/llm-basics-1/" class="ds-slide-link">
+        <div>
+          <p class="ds-slide-link-title">LLM基礎論 I — 正しく使う</p>
+          <p class="ds-slide-link-desc">仕組み・安全・実践 — 19スライド / 60分</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ TECH GRID THEME ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Tech Grid Theme</h2>
+    <p class="ds-note" style="margin-bottom:var(--sp-6);">
+      <span class="ds-code">css/tech-grid.css</span> を読み込み、<span class="ds-code">.slide</span> に <span class="ds-code">.tech-grid</span> を追加すると有効化される opt-in テーマ。<br>
+      ドットグリッド背景・L字コーナーマーク・モノスペースタグ・ターミナル風コードブロックなどを提供。
+    </p>
+
+    <div class="ds-subsection">
+      <p class="ds-label">使い方</p>
+      <pre style="background:var(--surface-2); padding:var(--sp-4); border-radius:var(--radius-sm); font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.7; overflow-x:auto;">&lt;link rel="stylesheet" href="css/pres.css"&gt;
+&lt;link rel="stylesheet" href="css/tech-grid.css"&gt;
+
+&lt;div class="slide tech-grid"&gt;
+  &lt;span class="tg-corner tr"&gt;&lt;/span&gt;
+  &lt;span class="tg-corner bl"&gt;&lt;/span&gt;
+  &lt;span class="tg-tag"&gt;SECTION / 01&lt;/span&gt;
+  &lt;h2 class="tg-mega bad"&gt;守る&lt;/h2&gt;
+&lt;/div&gt;</pre>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">提供コンポーネント</p>
+      <div class="ds-grid ds-grid-3">
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.slide.tech-grid</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">ドットグリッド背景。スライドに付与するだけで Tech Grid 化。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-corner.tl/.tr/.bl/.br</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">L字コーナーマーク。4位置 + bad/accent/ok/gray の色バリアント。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-tag</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">[ MONO LABEL ] モノスペースのブラケットラベル。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-mega</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">巨大セクションタイトル (200px超)。セクション扉用。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-agenda / .tg-agenda-card</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">3カラム目次カード。各カードに小L字角 + セクション色。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-code-block</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">ターミナル風コードブロック。実習スライド用 (信号機 + シンタックスハイライト)。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-rule-list / .tg-rule-item</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">番号付きまとめリスト + 破線区切り + // コメント形式サブ。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-meta</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">下部メタ情報帯。FILE名・スライド数などを左右に配置。</p>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:var(--sp-5);">
+          <p style="font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; color:var(--accent); letter-spacing:.1em; margin-bottom:var(--sp-2);">.tg-divider-text / .tg-rule</p>
+          <p style="font-size:var(--text-sm); color:var(--text-tertiary);">横線付き区切りテキストとルールバー。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">サンプル — スライドタイプ別</p>
+      <div class="ds-slides-list">
+        <a href="samples/d_cover.html" class="ds-slide-link">
+          <div>
+            <p class="ds-slide-link-title">D — Cover</p>
+            <p class="ds-slide-link-desc">4隅L字 + センター大タイトル + モノスペース区切り + 下部メタ</p>
+          </div>
+        </a>
+        <a href="samples/d_agenda.html" class="ds-slide-link">
+          <div>
+            <p class="ds-slide-link-title">D — Agenda</p>
+            <p class="ds-slide-link-desc">3カラムカード + 各カードに小L字角 + セクション色分け</p>
+          </div>
+        </a>
+        <a href="samples/d_section.html" class="ds-slide-link">
+          <div>
+            <p class="ds-slide-link-title">D — Section Divider</p>
+            <p class="ds-slide-link-desc">巨大セクションタイトル + モノスペースタグ + ルールバー</p>
+          </div>
+        </a>
+        <a href="samples/d_hero.html" class="ds-slide-link">
+          <div>
+            <p class="ds-slide-link-title">D — Hero Message</p>
+            <p class="ds-slide-link-desc">センター集約 1メッセージ強調型</p>
+          </div>
+        </a>
+        <a href="samples/d_practice.html" class="ds-slide-link">
+          <div>
+            <p class="ds-slide-link-title">D — Practice</p>
+            <p class="ds-slide-link-desc">ターミナル風コードブロックでルール提示</p>
+          </div>
+        </a>
+        <a href="samples/d_summary.html" class="ds-slide-link">
+          <div>
+            <p class="ds-slide-link-title">D — Summary</p>
+            <p class="ds-slide-link-desc">番号付き3項目 + 破線区切り + // コメント形式サブ</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ COLORS ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Color Tokens</h2>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Text</p>
+      <div class="ds-grid ds-grid-4">
+        <div class="ds-swatch" style="background:var(--text-primary);color:#fff;">
+          <span class="ds-swatch-name">primary</span><span class="ds-swatch-value">#111827</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--text-secondary);color:#fff;">
+          <span class="ds-swatch-name">secondary</span><span class="ds-swatch-value">#374151</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--text-tertiary);color:#fff;">
+          <span class="ds-swatch-name">tertiary</span><span class="ds-swatch-value">#6B7280</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--text-disabled);color:#fff;">
+          <span class="ds-swatch-name">disabled</span><span class="ds-swatch-value">#9CA3AF</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Semantic</p>
+      <div class="ds-grid ds-grid-4">
+        <div class="ds-swatch" style="background:var(--accent);color:#fff;">
+          <span class="ds-swatch-name">accent</span><span class="ds-swatch-value">#C2410C</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--accent-soft);">
+          <span class="ds-swatch-name">accent-soft</span><span class="ds-swatch-value">#FEF0E7</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--ok);color:#fff;">
+          <span class="ds-swatch-name">ok</span><span class="ds-swatch-value">#15803D</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--err);color:#fff;">
+          <span class="ds-swatch-name">err</span><span class="ds-swatch-value">#B91C1C</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Surface / Border</p>
+      <div class="ds-grid ds-grid-5">
+        <div class="ds-swatch" style="background:var(--surface-0);">
+          <span class="ds-swatch-name">surface-0</span><span class="ds-swatch-value">#FFFFFF</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--surface-1);">
+          <span class="ds-swatch-name">surface-1</span><span class="ds-swatch-value">#F9FAFB</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--surface-2);">
+          <span class="ds-swatch-name">surface-2</span><span class="ds-swatch-value">#F3F4F6</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--border);">
+          <span class="ds-swatch-name">border</span><span class="ds-swatch-value">#E5E7EB</span>
+        </div>
+        <div class="ds-swatch" style="background:var(--border-strong);">
+          <span class="ds-swatch-name">border-strong</span><span class="ds-swatch-value">#D1D5DB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TYPOGRAPHY ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Typography Scale</h2>
+    <p class="ds-note" style="margin-bottom:var(--sp-6);">Major Third (x1.25) / 見出し: DM Sans / 本文: Noto Sans JP / コード: JetBrains Mono</p>
+    <div class="ds-type-row"><span class="ds-type-label">text-4xl 61px</span><span style="font-size:var(--text-4xl);font-weight:800;font-family:'DM Sans',sans-serif;line-height:1.1;">説明力Aa</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-3xl 48.8px</span><span style="font-size:var(--text-3xl);font-weight:700;font-family:'DM Sans',sans-serif;line-height:1.1;">説明力Aa</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-2xl 39.1px</span><span style="font-size:var(--text-2xl);font-weight:700;font-family:'DM Sans',sans-serif;line-height:1.2;">説明力Aa</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-xl 31.2px</span><span style="font-size:var(--text-xl);font-weight:700;line-height:1.2;">説明力を高めよう</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-lg 25px</span><span style="font-size:var(--text-lg);font-weight:700;line-height:1.3;">説明力を高めよう</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-md 20px</span><span style="font-size:var(--text-md);font-weight:700;line-height:1.4;">説明力を高めよう Heading</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-base 16px</span><span style="font-size:var(--text-base);color:var(--text-secondary);">本文テキスト。チャット・口頭の「細やかなやりとり」で伝わる人になる。</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-sm 12.8px</span><span style="font-size:var(--text-sm);color:var(--text-tertiary);">補足テキスト。注釈や説明に使用する小さめのテキスト。</span></div>
+    <div class="ds-type-row"><span class="ds-type-label">text-xs 10.2px</span><span style="font-size:var(--text-xs);font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--text-disabled);letter-spacing:.12em;text-transform:uppercase;">Label / Monospace</span></div>
+  </div>
+
+  <!-- ═══ SPACING ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Spacing (4px grid)</h2>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-1</span><div class="ds-spacing-bar" style="width:4px;"></div><span class="ds-spacing-px">4px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-2</span><div class="ds-spacing-bar" style="width:8px;"></div><span class="ds-spacing-px">8px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-3</span><div class="ds-spacing-bar" style="width:12px;"></div><span class="ds-spacing-px">12px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-4</span><div class="ds-spacing-bar" style="width:16px;"></div><span class="ds-spacing-px">16px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-5</span><div class="ds-spacing-bar" style="width:20px;"></div><span class="ds-spacing-px">20px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-6</span><div class="ds-spacing-bar" style="width:24px;"></div><span class="ds-spacing-px">24px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-8</span><div class="ds-spacing-bar" style="width:32px;"></div><span class="ds-spacing-px">32px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-10</span><div class="ds-spacing-bar" style="width:40px;"></div><span class="ds-spacing-px">40px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-12</span><div class="ds-spacing-bar" style="width:48px;"></div><span class="ds-spacing-px">48px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-14</span><div class="ds-spacing-bar" style="width:56px;"></div><span class="ds-spacing-px">56px</span></div>
+    <div class="ds-spacing-row"><span class="ds-spacing-label">sp-16</span><div class="ds-spacing-bar" style="width:64px;"></div><span class="ds-spacing-px">64px</span></div>
+  </div>
+
+  <!-- ═══ COMPONENTS ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Components</h2>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Cards</p>
+      <div class="ds-grid ds-grid-2">
+        <div class="card" style="padding:var(--sp-6);">
+          <p style="font-weight:700;margin-bottom:var(--sp-2);">.card</p>
+          <p style="font-size:var(--text-sm);color:var(--text-tertiary);">グラスモーフィズムカード。スライド内のコンテンツ区画に使用。</p>
+        </div>
+        <div class="card-elevated" style="padding:var(--sp-6);">
+          <p style="font-weight:700;margin-bottom:var(--sp-2);">.card-elevated</p>
+          <p style="font-size:var(--text-sm);color:var(--text-tertiary);">強調カード。タイトルスライドや重要メッセージに使用。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Badges / Chips / Divider</p>
+      <div class="ds-component-row">
+        <span class="badge badge-err">BEFORE</span>
+        <span class="badge badge-ok">AFTER</span>
+        <span class="chip">チャット / 口頭</span>
+        <span class="chip">30分・講義型</span>
+      </div>
+      <div style="margin-top:var(--sp-4);">
+        <div class="divider"></div>
+        <p class="ds-note"><span class="ds-code">.divider</span> — アクセントグラデーションの区切り線</p>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Code Blocks (Before / After)</p>
+      <div class="ds-grid ds-grid-2">
+        <div class="code-block bad" style="font-size:13px;line-height:1.85;">
+          XX_APIの件ですが、ドキュメント確認したところ<br>レスポンスの形式が変わっていて…<br><span class="code-comment">// .code-block.bad</span>
+        </div>
+        <div class="code-block good" style="font-size:13px;line-height:1.85;">
+          <span class="code-kw">【相談】</span> XX_APIのレスポンス変更対応<br><span class="code-kw">状況：</span>v2でparseエラー<br><span class="code-comment">// .code-block.good</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Formula / Core Box</p>
+      <div class="ds-grid ds-grid-2">
+        <div class="formula"><span>目的</span> → 状況 → <span>質問</span> の3点セット</div>
+        <div class="core-box">解決策：<span>相手が今いる場所から話す</span></div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Speech Blocks</p>
+      <div class="ds-grid ds-grid-2">
+        <div class="speech-block bad" style="padding:var(--sp-5);">
+          <p class="speech-text">「昨日XXを調べていたんですけど…」</p>
+          <p class="speech-note bad">// .speech-block.bad</p>
+        </div>
+        <div class="speech-block good" style="padding:var(--sp-5);">
+          <p class="speech-text">「XXの件で1点判断をお願いしたいです。」</p>
+          <p class="speech-note good">// .speech-block.good</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ LAYOUT PATTERNS ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Slide Layout Patterns</h2>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Grid Columns</p>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-4);">
+        <div>
+          <p class="ds-note" style="margin-bottom:var(--sp-2);"><span class="ds-code">grid-template-columns: repeat(4, 1fr)</span> — アジェンダ等</p>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-3);">
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">1</div>
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">2</div>
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">3</div>
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">4</div>
+          </div>
+        </div>
+        <div>
+          <p class="ds-note" style="margin-bottom:var(--sp-2);"><span class="ds-code">grid-template-columns: repeat(3, 1fr)</span> — 失敗パターン / 練習課題等</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3);">
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">1</div>
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">2</div>
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">3</div>
+          </div>
+        </div>
+        <div>
+          <p class="ds-note" style="margin-bottom:var(--sp-2);"><span class="ds-code">grid-template-columns: 1fr 1fr</span> — Before/After比較等</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);">
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">Left</div>
+            <div class="card" style="padding:var(--sp-4);text-align:center;font-size:var(--text-sm);">Right</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-subsection">
+      <p class="ds-label">Stripe Card (Top Accent)</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-4);">
+        <div class="card agenda-card ag-c1" style="padding:var(--sp-5);">
+          <p class="agenda-num">01</p>
+          <p class="agenda-title">カードタイトル</p>
+          <p style="font-size:var(--text-sm);color:var(--text-tertiary);">.agenda-card .ag-c1</p>
+        </div>
+        <div class="card agenda-card ag-c2" style="padding:var(--sp-5);">
+          <p class="agenda-num">02</p>
+          <p class="agenda-title">カードタイトル</p>
+          <p style="font-size:var(--text-sm);color:var(--text-tertiary);">.agenda-card .ag-c2</p>
+        </div>
+        <div class="card agenda-card ag-c3" style="padding:var(--sp-5);">
+          <p class="agenda-num">03</p>
+          <p class="agenda-title">カードタイトル</p>
+          <p style="font-size:var(--text-sm);color:var(--text-tertiary);">.agenda-card .ag-c3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RADIUS / SHADOW ═══ -->
+  <div class="ds-section">
+    <h2 class="ds-section-title">Radius / Shadow</h2>
+    <div class="ds-grid ds-grid-5" style="margin-bottom:var(--sp-8);">
+      <div style="background:var(--surface-0);border:1px solid var(--border);border-radius:var(--radius-sm);padding:var(--sp-5);text-align:center;">
+        <p class="ds-swatch-name">radius-sm</p><p class="ds-swatch-value">8px</p>
+      </div>
+      <div style="background:var(--surface-0);border:1px solid var(--border);border-radius:var(--radius-md);padding:var(--sp-5);text-align:center;">
+        <p class="ds-swatch-name">radius-md</p><p class="ds-swatch-value">12px</p>
+      </div>
+      <div style="background:var(--surface-0);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--sp-5);text-align:center;">
+        <p class="ds-swatch-name">radius-lg</p><p class="ds-swatch-value">16px</p>
+      </div>
+      <div style="background:var(--surface-0);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--sp-5);text-align:center;">
+        <p class="ds-swatch-name">radius-xl</p><p class="ds-swatch-value">24px</p>
+      </div>
+      <div style="background:var(--surface-0);border:1px solid var(--border);border-radius:var(--radius-pill);padding:var(--sp-5);text-align:center;">
+        <p class="ds-swatch-name">radius-pill</p><p class="ds-swatch-value">100px</p>
+      </div>
+    </div>
+    <div class="ds-grid ds-grid-3">
+      <div style="background:var(--surface-0);border-radius:var(--radius-md);padding:var(--sp-6);box-shadow:var(--shadow-sm);text-align:center;">
+        <p class="ds-swatch-name">shadow-sm</p>
+      </div>
+      <div style="background:var(--surface-0);border-radius:var(--radius-md);padding:var(--sp-6);box-shadow:var(--shadow-md);text-align:center;">
+        <p class="ds-swatch-name">shadow-md</p>
+      </div>
+      <div style="background:var(--surface-0);border-radius:var(--radius-md);padding:var(--sp-6);box-shadow:var(--shadow-lg);text-align:center;">
+        <p class="ds-swatch-name">shadow-lg</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
