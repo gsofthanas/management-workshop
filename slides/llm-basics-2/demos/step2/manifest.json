@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "ササッと読む",
+  "version": "0.2.0",
+  "description": "記事を解析する Chrome 拡張（Step 2）",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ササッと読む"
+  },
+  "permissions": ["activeTab", "scripting"]
+}

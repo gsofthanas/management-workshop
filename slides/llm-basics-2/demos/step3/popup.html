@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ササッと読む</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 460px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8edf3 100%);
+    color: #1d1d1f;
+  }
+  .container {
+    padding: 20px;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .title-block h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .subtitle {
+    color: #6e6e73;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .settings-btn {
+    background: transparent;
+    border: 1px solid #e5e5e7;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #6e6e73;
+  }
+  .settings-btn:hover { background: #f5f5f7; }
+  .extract-btn {
+    width: 100%;
+    padding: 14px;
+    background: #15803D;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-bottom: 12px;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .extract-btn:hover { background: #126e35; }
+  .extract-btn:active { transform: scale(0.98); }
+  .extract-btn:disabled { background: #a1a1a6; cursor: not-allowed; }
+  .divider {
+    text-align: center;
+    color: #a1a1a6;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 8px 0 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 14px;
+    border: 2px solid #e5e5e7;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    font-family: inherit;
+    color: #1d1d1f;
+    resize: vertical;
+    background: white;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.12);
+  }
+  .actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+  }
+  button {
+    padding: 12px 18px;
+    background: #0078D4;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+    font-family: inherit;
+  }
+  button:hover { background: #006abe; }
+  button:active { transform: scale(0.98); }
+  button:disabled { background: #a1a1a6; cursor: not-allowed; }
+  #analyze { flex: 1; }
+  button.secondary {
+    background: #f5f5f7;
+    color: #1d1d1f;
+  }
+  button.secondary:hover { background: #ebebed; }
+  .source-info {
+    margin-top: 12px;
+    font-size: 11px;
+    color: #6e6e73;
+    padding: 8px 12px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    border-left: 3px solid #15803D;
+    display: none;
+  }
+  .source-info.show { display: block; }
+  .source-info strong { color: #15803D; }
+  .results {
+    margin-top: 16px;
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .results.show { display: grid; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .result-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #ebeef3 100%);
+    padding: 14px 8px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+  .result-icon { font-size: 18px; margin-bottom: 4px; }
+  .result-label {
+    font-size: 9px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .result-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1d1d1f;
+    line-height: 1;
+  }
+  .result-unit {
+    font-size: 11px;
+    color: #6e6e73;
+    margin-left: 1px;
+    font-weight: 600;
+  }
+  .keywords {
+    margin-top: 12px;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .keywords.show { display: block; }
+  .keywords-section {
+    background: #f5f7fa;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+  }
+  .keywords-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .keywords-title {
+    font-size: 10px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+  .keywords-count {
+    font-size: 10px;
+    color: #a1a1a6;
+    font-weight: 600;
+  }
+  .keywords-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-height: 80px;
+    overflow-y: auto;
+  }
+  .keyword-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: white;
+    border: 1px solid #e5e5e7;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+  .keyword-tag.en { color: #0078D4; border-color: #c7e0f4; }
+  .keyword-tag.kana { color: #15803D; border-color: #c8e6d3; }
+  .keyword-count {
+    font-size: 9px;
+    color: #a1a1a6;
+    font-weight: 700;
+    background: #f5f5f7;
+    padding: 1px 5px;
+    border-radius: 100px;
+  }
+  .keywords-empty {
+    font-size: 12px;
+    color: #a1a1a6;
+    font-style: italic;
+  }
+
+  /* ── Summary section ── */
+  .summary-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 16px;
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s, transform 0.05s;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+  }
+  .summary-btn:hover { opacity: 0.92; }
+  .summary-btn:active { transform: scale(0.98); }
+  .summary-btn:disabled {
+    background: #a1a1a6;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .summary {
+    margin-top: 12px;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .summary.show { display: block; }
+  .summary-card {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border: 1px solid #d8b4fe;
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .summary-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #7c3aed;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .summary-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #1d1d1f;
+    font-weight: 600;
+  }
+  .summary-line:last-child { margin-bottom: 0; }
+  .summary-num {
+    color: #7c3aed;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .summary-loading {
+    text-align: center;
+    padding: 20px;
+    color: #6e6e73;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .summary-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 14px;
+    color: #b91c1c;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* ── Settings panel ── */
+  .settings-panel {
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    background: #f5f7fa;
+    border: 1px solid #e5e5e7;
+    border-radius: 12px;
+  }
+  .settings-panel.show { display: block; }
+  .settings-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    color: #1d1d1f;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .settings-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e5e7;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    background: white;
+  }
+  .settings-input:focus {
+    outline: none;
+    border-color: #0078D4;
+  }
+  .settings-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .settings-actions button {
+    flex: 1;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .settings-status {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #15803D;
+    font-weight: 600;
+    display: none;
+  }
+  .settings-status.show { display: block; }
+  .settings-warn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #fef2f2;
+    border-left: 3px solid #b91c1c;
+    font-size: 10px;
+    color: #b91c1c;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 10px;
+    color: #a1a1a6;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title-block">
+        <h1>📖 ササッと読む</h1>
+        <p class="subtitle">記事を3行で読む</p>
+      </div>
+      <button id="settingsBtn" class="settings-btn" title="APIキー設定">⚙️</button>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel">
+      <label class="settings-label">🔑 Anthropic API Key</label>
+      <input type="password" id="apiKeyInput" class="settings-input" placeholder="sk-ant-api03-...">
+      <div class="settings-actions">
+        <button id="saveKey">保存</button>
+        <button id="clearKey" class="secondary">削除</button>
+      </div>
+      <div class="settings-status" id="settingsStatus">✓ 保存しました</div>
+      <div class="settings-warn">
+        ⚠️ APIキーは <strong>chrome.storage.local</strong> にのみ保存されます。<br>
+        ソースコードや Git には絶対に含めないでください。
+      </div>
+    </div>
+
+    <button id="extract" class="extract-btn">📥 このページから取得</button>
+
+    <div class="divider">— or —</div>
+
+    <textarea id="input" placeholder="ここに記事を貼り付けてください..."></textarea>
+
+    <div class="actions">
+      <button id="analyze">解析する</button>
+      <button id="clear" class="secondary">クリア</button>
+    </div>
+
+    <div class="source-info" id="sourceInfo"></div>
+
+    <div class="results" id="results">
+      <div class="result-card">
+        <div class="result-icon">📊</div>
+        <div class="result-label">文字数</div>
+        <div class="result-value"><span id="chars">0</span><span class="result-unit">字</span></div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">⏱</div>
+        <div class="result-label">読了時間</div>
+        <div class="result-value">約<span id="time">0</span><span class="result-unit">分</span></div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">📑</div>
+        <div class="result-label">段落数</div>
+        <div class="result-value"><span id="paragraphs">0</span></div>
+      </div>
+    </div>
+
+    <div class="keywords" id="keywords">
+      <div class="keywords-section">
+        <div class="keywords-header">
+          <div class="keywords-title">🔤 英単語</div>
+          <div class="keywords-count" id="enCount">0 件</div>
+        </div>
+        <div class="keywords-list" id="enList"></div>
+      </div>
+      <div class="keywords-section">
+        <div class="keywords-header">
+          <div class="keywords-title">🇯🇵 カタカナ語</div>
+          <div class="keywords-count" id="kanaCount">0 件</div>
+        </div>
+        <div class="keywords-list" id="kanaList"></div>
+      </div>
+    </div>
+
+    <button id="summarize" class="summary-btn">✨ 3行で要約する</button>
+
+    <div class="summary" id="summary"></div>
+
+    <div class="footer">Step 3 / AI Integration — ササッと読む</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "ササッと読む",
+  "version": "0.3.0",
+  "description": "記事を3行で要約する Chrome 拡張（Step 3 / AI 連携版）",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ササッと読む"
+  },
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://api.anthropic.com/*"]
+}

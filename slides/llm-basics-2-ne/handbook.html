@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>生成AIで仕事を効率化しよう！— 作業ガイド（नेपाली）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ── Print page setup ── */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+  }
+
+  /* ── Reset ── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #fff;
+    color: #111;
+    line-height: 1.75;
+    font-size: 11pt;
+    counter-reset: section;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 28px 56px;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 3px solid #111;
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  .doc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-size: 24pt;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .doc-subtitle {
+    font-size: 11pt;
+    color: #555;
+    font-weight: 500;
+  }
+
+  /* ── TOC ── */
+  nav.toc {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px 22px;
+    margin-bottom: 36px;
+    page-break-after: avoid;
+  }
+  nav.toc h2 {
+    font-size: 11pt;
+    font-weight: 800;
+    margin-bottom: 8px;
+    padding: 0;
+    border: none;
+    color: #111;
+  }
+  nav.toc h2::before { content: none; }
+  nav.toc ol {
+    list-style: none;
+    padding: 0;
+    columns: 2;
+    column-gap: 24px;
+  }
+  nav.toc li {
+    counter-increment: toc-counter;
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 10pt;
+    font-weight: 600;
+    break-inside: avoid;
+  }
+  nav.toc li::before {
+    content: counter(toc-counter) ". ";
+    color: #888;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  nav.toc { counter-reset: toc-counter; }
+  nav.toc a {
+    color: #111;
+    text-decoration: none;
+  }
+  nav.toc a:hover { text-decoration: underline; }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 36px;
+    page-break-before: always;
+  }
+  section:first-of-type {
+    page-break-before: avoid;
+  }
+
+  h2 {
+    counter-increment: section;
+    font-size: 18pt;
+    font-weight: 900;
+    color: #111;
+    border-bottom: 2px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    page-break-after: avoid;
+  }
+  h2::before {
+    content: counter(section) ". ";
+    color: #888;
+    font-family: 'JetBrains Mono', monospace;
+    margin-right: 4px;
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: 800;
+    color: #111;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin-bottom: 10px;
+    color: #222;
+  }
+  p strong { color: #000; font-weight: 700; }
+
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 12px;
+  }
+  li {
+    margin-bottom: 4px;
+    color: #222;
+  }
+  li strong { color: #000; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92em;
+    background: #ececec;
+    color: #111;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  /* ── Callouts ── */
+  .callout {
+    border: 1px solid #888;
+    border-left: 4px solid #444;
+    padding: 12px 16px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+    background: #fafafa;
+  }
+  .callout.warn {
+    border-left-color: #b91c1c;
+    background: #fef5f5;
+  }
+  .callout.tip {
+    border-left-color: #15803d;
+    background: #f0faf3;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #444;
+    margin-bottom: 4px;
+  }
+  .callout.warn .callout-label { color: #b91c1c; }
+  .callout.tip .callout-label { color: #15803d; }
+  .callout p { margin-bottom: 0; font-size: 10.5pt; }
+
+  /* ── Prompt boxes ── */
+  .prompt {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-left: 3px solid #444;
+    padding: 14px 18px;
+    margin: 10px 0 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    line-height: 1.65;
+    color: #111;
+    white-space: pre-wrap;
+    page-break-inside: avoid;
+  }
+  .prompt-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 6px;
+  }
+
+  /* ── QA boxes ── */
+  .qa {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    page-break-inside: avoid;
+  }
+  .qa-q {
+    font-weight: 700;
+    color: #111;
+    font-size: 10pt;
+    margin-bottom: 2px;
+  }
+  .qa-q::before { content: 'Q. '; color: #444; }
+  .qa-a {
+    font-size: 10pt;
+    color: #333;
+  }
+  .qa-a::before { content: 'A. '; font-weight: 700; color: #15803d; }
+
+  /* ── Numbered principle list ── */
+  .principles {
+    list-style: none;
+    padding: 0;
+    counter-reset: pri;
+  }
+  .principles li {
+    counter-increment: pri;
+    padding: 12px 0 12px 56px;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    page-break-inside: avoid;
+  }
+  .principles li:last-child { border-bottom: none; }
+  .principles li::before {
+    content: counter(pri, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18pt;
+    font-weight: 900;
+    color: #111;
+  }
+  .principles .pri-title {
+    font-weight: 800;
+    font-size: 12pt;
+    color: #111;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .principles .pri-desc {
+    font-size: 10pt;
+    color: #555;
+  }
+
+  /* ── Nepali annotation ── */
+  .ne {
+    font-family: 'Noto Sans Devanagari', 'Noto Sans JP', sans-serif;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    display: block;
+    margin-top: 2px;
+  }
+  .ne-inline {
+    font-size: 9pt;
+  }
+  h2 .ne {
+    font-size: 11pt;
+    color: #6b7280;
+    font-weight: 600;
+    display: inline;
+    margin-left: 8px;
+  }
+  h3 .ne {
+    font-size: 10pt;
+    display: inline;
+    margin-left: 6px;
+    color: #6b7280;
+    font-weight: 600;
+  }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    font-size: 9pt;
+    color: #888;
+    page-break-before: avoid;
+  }
+
+  /* ── Print refinements ── */
+  @media print {
+    body { font-size: 10.5pt; }
+    .page { padding: 0; max-width: none; }
+    nav.toc { background: #fff; }
+    a { color: #111; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="doc-tag">G-HOLDINGS AI 研修 / 第2回 / 作業ガイド (नेपाली)</div>
+    <h1>生成AIで仕事を効率化しよう！</h1>
+    <span class="ne">Generative AI ले काम छिटो र राम्रो बनाऔँ!</span>
+    <p class="doc-subtitle" style="margin-top:8px;">「ササッと読む」を作るための作業ガイド</p>
+    <span class="ne">"साससत्तो योमु" बनाउनको लागि कार्य निर्देशिका</span>
+  </header>
+
+  <nav class="toc">
+    <h2>目次 / विषय सूची</h2>
+    <ol>
+      <li><a href="#basics">AIを使う際の基本 / AI प्रयोगका आधारभूत कुरा</a></li>
+      <li><a href="#step1">Step 1: HTMLを作ってみよう / HTML बनाऔँ</a></li>
+      <li><a href="#step2">Step 2: 拡張機能を作ってみよう / एक्सटेन्सन बनाऔँ</a></li>
+      <li><a href="#step3">Step 3: AI機能を追加してみよう / AI सुविधा थपौँ</a></li>
+      <li><a href="#bonus">ボーナス課題 / बोनस चुनौती</a></li>
+      <li><a href="#trouble">トラブルシューティング / समस्या समाधान</a></li>
+    </ol>
+  </nav>
+
+  <!-- ════ 1. AIを使う際の基本 ════ -->
+  <section id="basics">
+    <h2>AIを使う際の基本 <span class="ne">/ AI प्रयोग गर्दा आधारभूत कुरा</span></h2>
+    <p>この5原則を使い倒します。コードはAIに書かせます。あなたは「何を作るか」と「困ったときの質問」だけ。</p>
+    <span class="ne">यी ५ सिद्धान्त राम्ररी प्रयोग गर्नुहोस्। कोड AI ले लेख्छ। तपाईंले गर्नु पर्ने भनेको "के बनाउने" र "अड्किँदा सोध्ने" मात्र हो।</span>
+
+    <ol class="principles" style="margin-top:14px;">
+      <li>
+        <span class="pri-title">整理する</span>
+        <span class="pri-desc">何が欲しいかを自分の中で明確にしてから依頼する。</span>
+        <span class="ne">व्यवस्थित गर्नुहोस् — के चाहिएको आफूसँग स्पष्ट पारेर अनुरोध गर्नुहोस्।</span>
+      </li>
+      <li>
+        <span class="pri-title">具体的に伝える</span>
+        <span class="pri-desc">曖昧を捨て、条件・制約・形式を明示する。</span>
+        <span class="ne">ठोस रूपमा भन्नुहोस् — अस्पष्टता हटाएर शर्त, बन्देज, ढाँचा स्पष्ट पार्नुहोस्।</span>
+      </li>
+      <li>
+        <span class="pri-title">構造化する</span>
+        <span class="pri-desc"><code>### 見出し</code> でブロックを分けるとAIが理解しやすい。</span>
+        <span class="ne">संरचना दिनुहोस् — <code>### शीर्षक</code> ले ब्लक छुट्याउँदा AI ले राम्ररी बुझ्छ।</span>
+      </li>
+      <li>
+        <span class="pri-title">AIに先に質問させる</span>
+        <span class="pri-desc">プロンプトに自信がないなら「先に5つ質問して」と頼む。AIが要件を引き出してくれる。</span>
+        <span class="ne">AI लाई पहिले प्रश्न गर्न लगाउनुहोस् — प्रम्प्टमा विश्वास नभए "पहिले ५ वटा प्रश्न सोध" भन्नुहोस्। AI ले आवश्यकता निकालिदिन्छ।</span>
+      </li>
+      <li>
+        <span class="pri-title">わからないことはAIに聞く</span>
+        <span class="pri-desc">用語・概念・手順・エラー — 何でも遠慮なく。</span>
+        <span class="ne">नबुझेका कुरा AI लाई सोध्नुहोस् — शब्द, अवधारणा, तरिका, त्रुटि — जे पनि बेझिझक।</span>
+      </li>
+    </ol>
+
+    <div class="callout tip">
+      <p class="callout-label">毎ステップ共通 / हरेक स्टेपमा साझा</p>
+      <p>動いたら、AIに「<strong>このコードの設計書をMarkdownで書いて</strong>」と頼んで保存。次のStepでAIに渡す土台になる。</p>
+      <span class="ne">चलेपछि, AI लाई "<strong>यो कोडको डिजाइन डकुमेन्ट Markdown मा लेख्नुहोस्</strong>" भनेर अनुरोध गरेर सेभ गर्नुहोस्। अर्को Step मा AI लाई दिने आधार बन्छ।</span>
+    </div>
+  </section>
+
+  <!-- ════ 2. Step 1 ════ -->
+  <section id="step1">
+    <h2>Step 1: HTMLを作ってみよう <span class="ne">/ HTML बनाउने प्रयास गरौं</span></h2>
+    <p>テキストを貼り付けると文字数・読了時間・段落数・キーワードを表示するHTMLツールをAIに作らせます。</p>
+    <span class="ne">टेक्स्ट टाँस्दा अक्षर संख्या, पढ्न लाग्ने समय, अनुच्छेद संख्या, प्रमुख शब्दहरू देखाउने HTML उपकरण AI लाई बनाउन लगाउनुहोस्।</span>
+
+    <h3>AIへの最初の依頼 <span class="ne">/ AI लाई पहिलो अनुरोध</span></h3>
+    <div class="prompt">
+      <span class="prompt-label">そのままコピペでOK / यसैलाई कपी गरे हुन्छ</span>
+「ササッと読む」というブラウザで動く文章解析ツールを作りたい。
+要件を整理するために、まず私に5つだけ質問してください。
+答えてからコードを書き始めてください。
+    </div>
+
+    <h3>AIから返ってくる質問の例 と お手本回答 <span class="ne">/ AI को प्रश्न र नमुना जवाफ</span></h3>
+    <p>こんな感じで対話が進みます。自分の好きな答えに変えてもOK。</p>
+    <span class="ne">यसरी संवाद अगाडि बढ्छ। आफ्नो रुचिको जवाफमा परिवर्तन गर्न सकिन्छ।</span>
+
+    <div class="qa">
+      <div class="qa-q">テキストはどう入力しますか？</div>
+      <div class="qa-a">テキストエリアに貼り付ける形式</div>
+      <span class="ne">Q. टेक्स्ट कसरी हाल्ने? A. टेक्स्ट क्षेत्रमा टाँस्ने तरिका</span>
+    </div>
+    <div class="qa">
+      <div class="qa-q">どんな解析項目が必要ですか？</div>
+      <div class="qa-a">文字数、読了時間、段落数、英単語タグ、カタカナ語タグ</div>
+      <span class="ne">Q. कस्ता विश्लेषण आइटम चाहिन्छ? A. अक्षर संख्या, पढ्न लाग्ने समय, अनुच्छेद, अंग्रेजी शब्द ट्याग, काताकाना ट्याग</span>
+    </div>
+    <div class="qa">
+      <div class="qa-q">結果の表示方法は？</div>
+      <div class="qa-a">解析ボタンを押した後にカード形式で表示</div>
+      <span class="ne">Q. परिणाम कसरी देखाउने? A. विश्लेषण बटन थिचेपछि कार्ड शैलीमा देखाउने</span>
+    </div>
+    <div class="qa">
+      <div class="qa-q">デザインの雰囲気は？</div>
+      <div class="qa-a">白基調でモダン、角丸</div>
+      <span class="ne">Q. डिजाइनको शैली? A. सेतो आधारित आधुनिक, गोलाकार किनारा</span>
+    </div>
+    <div class="qa">
+      <div class="qa-q">外部ライブラリは？</div>
+      <div class="qa-a">使わない。HTML/CSS/JSの1ファイル完結</div>
+      <span class="ne">Q. बाह्य लाइब्रेरी? A. प्रयोग नगर्ने। HTML/CSS/JS मात्र, १ फाइलमा सम्पन्न</span>
+    </div>
+
+    <h3>完成チェック <span class="ne">/ पूर्णताको जाँच</span></h3>
+    <ul>
+      <li>HTMLファイルをダブルクリックでブラウザに開ける<span class="ne ne-inline">HTML फाइल डबल क्लिक गरेर ब्राउजरमा खुल्छ</span></li>
+      <li>テキストを貼り付けて「解析する」ボタンで結果が出る<span class="ne ne-inline">टेक्स्ट टाँसेर "विश्लेषण" बटनले परिणाम आउँछ</span></li>
+      <li>英単語・カタカナ語のタグが頻度順に並んでいる<span class="ne ne-inline">अंग्रेजी र काताकाना शब्दका ट्याग आउने क्रममा छन्</span></li>
+    </ul>
+
+    <div class="callout">
+      <p class="callout-label">完了したら / पूरा भएपछि</p>
+      <p>AIに <strong>「このHTMLの設計書をMarkdownで書いて」</strong> と依頼。Step 2 でAIに渡す土台になる。</p>
+      <span class="ne">AI लाई <strong>"यो HTML को डिजाइन डकुमेन्ट Markdown मा लेख्नुहोस्"</strong> भनेर अनुरोध गर्नुहोस्। Step 2 मा AI लाई दिने आधार बन्छ।</span>
+    </div>
+  </section>
+
+  <!-- ════ 3. Step 2 ════ -->
+  <section id="step2">
+    <h2>Step 2: 拡張機能を作ってみよう <span class="ne">/ ब्राउजर एक्सटेन्सन बनाउने प्रयास गरौं</span></h2>
+    <p>Step 1 のHTMLを Chrome 拡張機能にして、任意のWebページから本文を取得できるようにします。</p>
+    <span class="ne">Step 1 को HTML लाई Chrome एक्सटेन्सन बनाएर, जुनसुकै वेब पेजबाट मुख्य सामग्री लिन सकिने बनाउनुहोस्।</span>
+
+    <h3>AIへの依頼 <span class="ne">/ AI लाई अनुरोध</span></h3>
+    <div class="prompt">
+      <span class="prompt-label">Step 1 の設計書と一緒に渡す / Step 1 को डिजाइन डकुमेन्टसँगै दिनुहोस्</span>
+このHTMLツールを Chrome 拡張機能（Manifest V3）にしたい。
+
+- 「📥 このページから取得」ボタンを popup に追加
+- ボタンを押すと現在のタブの本文を抽出してテキストエリアに入れる
+- Wikipedia / ニュース / 一般記事 で動くようにする
+
+manifest.json / popup.html / popup.js / content.js を作ってください。
+迷う点があれば先に質問してください。
+    </div>
+
+    <h3>拡張機能を Chrome に読み込む手順 <span class="ne">/ Chrome मा एक्सटेन्सन लोड गर्ने तरिका</span></h3>
+    <p>これだけは AI ではなく、自分の手で操作します。</p>
+    <span class="ne">यो मात्रै AI ले होइन, आफैले गर्नुपर्छ।</span>
+    <ol>
+      <li><code>chrome://extensions</code> をアドレスバーに入力<span class="ne ne-inline"><code>chrome://extensions</code> लाई एड्रेस बारमा टाइप गर्नुहोस्</span></li>
+      <li>右上の「デベロッパーモード」をオン<span class="ne ne-inline">माथि दायाँको "डेभलपर मोड" अन गर्नुहोस्</span></li>
+      <li>「パッケージ化されていない拡張機能を読み込む」をクリック<span class="ne ne-inline">"Load unpacked" क्लिक गर्नुहोस्</span></li>
+      <li>AIが作ったファイルを置いたフォルダを選択<span class="ne ne-inline">AI ले बनाएको फाइलहरू भएको फोल्डर छनोट गर्नुहोस्</span></li>
+      <li>ツールバーの拡張アイコンから起動<span class="ne ne-inline">टुलबारको एक्सटेन्सन आइकनबाट चलाउनुहोस्</span></li>
+    </ol>
+
+    <h3>完成チェック <span class="ne">/ पूर्णताको जाँच</span></h3>
+    <p>Wikipedia や ニュース記事を開いて、拡張アイコン → 「ページから取得」 で本文がテキストエリアに入れば成功。</p>
+    <span class="ne">Wikipedia वा समाचार लेख खोलेर, एक्सटेन्सन आइकन → "पेजबाट लिने" मार्फत मुख्य सामग्री टेक्स्ट क्षेत्रमा आयो भने सफल।</span>
+
+    <div class="callout">
+      <p class="callout-label">完了したら / पूरा भएपछि</p>
+      <p>AIに <strong>「この拡張機能の設計書をMarkdownで書いて」</strong> と依頼。Step 3 でAIに渡す土台になる。</p>
+      <span class="ne">AI लाई <strong>"यो एक्सटेन्सनको डिजाइन डकुमेन्ट Markdown मा लेख्नुहोस्"</strong> भनेर अनुरोध गर्नुहोस्। Step 3 मा AI लाई दिने आधार बन्छ।</span>
+    </div>
+  </section>
+
+  <!-- ════ 4. Step 3 ════ -->
+  <section id="step3">
+    <h2>Step 3: AI機能を追加してみよう <span class="ne">/ AI सुविधा थप्ने प्रयास गरौं</span></h2>
+    <p>拡張機能から Anthropic Claude API を呼び出して、本文を3行に要約します。</p>
+    <span class="ne">एक्सटेन्सनबाट Anthropic Claude API बोलाएर, मुख्य सामग्रीलाई ३ हरफमा सारांश बनाउनुहोस्।</span>
+
+    <div class="callout warn">
+      <p class="callout-label">⚠️ APIキーの大原則 / API कुञ्जीको मुख्य नियम</p>
+      <p>APIキーは <code>chrome.storage.local</code> にだけ保存。<strong>ソースコードに絶対書かない</strong>。Gitに上げない。Slack・メール・画面共有も全部NG。流出すると<strong>一晩で数百万円</strong>の被害になる事例あり。</p>
+      <span class="ne">API कुञ्जी <code>chrome.storage.local</code> मा मात्र सेभ गर्नुहोस्। <strong>सोर्स कोडमा कहिल्यै नलेख्नुहोस्</strong>। Git मा नहाल्नुहोस्। Slack/इमेल/स्क्रिन सेयर पनि सबै निषेध। लीक भयो भने एक रातमै लाखौंको क्षति हुने उदाहरण छन्।</span>
+    </div>
+
+    <h3>AIへの依頼 <span class="ne">/ AI लाई अनुरोध</span></h3>
+    <div class="prompt">
+      <span class="prompt-label">Step 2 の設計書と一緒に渡す / Step 2 को डिजाइन डकुमेन्टसँगै दिनुहोस्</span>
+この拡張機能に「✨ 3行で要約」ボタンを追加したい。
+
+- ボタンを押すとテキストエリアの内容を Anthropic Claude API に送る
+- 結果を3行（結論 → 理由 → 使い所）で表示する
+- APIキーは設定UIから入力させて chrome.storage.local に保存
+- ソースコードに絶対書かない
+- manifest.json に必要な権限を追加
+
+迷う点があれば先に質問してください。
+    </div>
+
+    <h3>システムプロンプトのヒント <span class="ne">/ सिस्टम प्रम्प्टको सङ्केत</span></h3>
+    <p>「3行要約のシステムプロンプトを作って」と AI に頼むときは、こんな要素を含めるよう指定すると精度が上がります。</p>
+    <span class="ne">"३ हरफको सारांशको सिस्टम प्रम्प्ट बनाउनुहोस्" भनेर AI लाई अनुरोध गर्दा, यी तत्वहरू समावेश गर्न भन्दा गुणस्तर बढ्छ।</span>
+    <ul>
+      <li>役割 — 「あなたは記事を3行で要約するエキスパートです」<span class="ne ne-inline">भूमिका — "तपाईं ३ हरफमा सारांश गर्ने विशेषज्ञ हुनुहुन्छ"</span></li>
+      <li>出力の型 — 結論 / 理由 / 使い所 の順<span class="ne ne-inline">आउटपुट ढाँचा — निष्कर्ष / कारण / प्रयोगको ठाउँ</span></li>
+      <li>文字数制限 — 各行40文字以内<span class="ne ne-inline">अक्षर सीमा — हरेक हरफ ४० अक्षर भित्र</span></li>
+      <li>出力フォーマット — 番号や記号なし、改行のみ<span class="ne ne-inline">आउटपुट फर्म्याट — नम्बर वा चिन्ह नहाल्ने, हरफ ब्रेक मात्र</span></li>
+    </ul>
+
+    <h3>完成チェック <span class="ne">/ पूर्णताको जाँच</span></h3>
+    <p>ニュース記事を開いて「ページから取得」→「3行で要約」で、3行の要約が表示されたら成功。</p>
+    <span class="ne">समाचार लेख खोलेर "पेजबाट लिने" → "३ हरफमा सारांश" मार्फत ३ हरफको सारांश देखियो भने सफल।</span>
+
+    <div class="callout">
+      <p class="callout-label">完了したら / पूरा भएपछि</p>
+      <p>AIに <strong>「完成版ツールの設計書をMarkdownで書いて」</strong> と依頼。明日からの自分のリファレンスになる。</p>
+      <span class="ne">AI लाई <strong>"पूर्ण उपकरणको डिजाइन डकुमेन्ट Markdown मा लेख्नुहोस्"</strong> भनेर अनुरोध गर्नुहोस्। भोलिदेखि आफ्नो सन्दर्भ बन्छ।</span>
+    </div>
+  </section>
+
+  <!-- ════ 5. ボーナス課題 ════ -->
+  <section id="bonus">
+    <h2>ボーナス課題 <span class="ne">/ बोनस चुनौती</span></h2>
+    <p>最低限が動いたらこれらを試そう。全部 AI に頼めば実装できる。</p>
+    <span class="ne">न्यूनतम चलेपछि यी चुनौती गर्नुहोस्। सबै AI लाई अनुरोध गरेर बनाउन सकिन्छ।</span>
+
+    <h3>モードを増やす <span class="ne">/ मोड थप्ने</span></h3>
+    <p>システムプロンプトを変えるだけで別のモードが作れる。AIに「○○モードのシステムプロンプトを書いて」と頼む。</p>
+    <span class="ne">सिस्टम प्रम्प्ट परिवर्तन गर्दा अर्को मोड बन्छ। AI लाई "○○ मोडको सिस्टम प्रम्प्ट लेख्नुहोस्" भनेर अनुरोध गर्नुहोस्।</span>
+    <ul>
+      <li><strong>やさしい日本語モード</strong> — 専門用語を中学生にもわかる言葉に<span class="ne ne-inline">सजिलो जापानी मोड — विशेषज्ञ शब्दलाई कक्षा ८ का विद्यार्थीले बुझ्ने भाषामा</span></li>
+      <li><strong>翻訳モード</strong> — 英語ページを自然な日本語に<span class="ne ne-inline">अनुवाद मोड — अंग्रेजी पेजलाई स्वाभाविक जापानीमा</span></li>
+      <li><strong>TODO抽出モード</strong> — 議事録からアクションアイテムだけ抽出<span class="ne ne-inline">TODO निकाल्ने मोड — मिनेट्सबाट कार्य आइटम मात्र निकाल्ने</span></li>
+    </ul>
+
+    <h3>機能を追加する <span class="ne">/ सुविधा थप्ने</span></h3>
+    <p>AIに「○○機能を追加して」と個別に頼めば、既存コードに足してくれる。</p>
+    <span class="ne">AI लाई "○○ सुविधा थप्नुहोस्" भनेर अलग्गै अनुरोध गर्दा, अहिलेको कोडमा थपिदिन्छ।</span>
+    <ul>
+      <li><strong>履歴機能</strong> — 過去の要約を chrome.storage.local に保存<span class="ne ne-inline">इतिहास सुविधा — विगतका सारांश chrome.storage.local मा सेभ</span></li>
+      <li><strong>コピーボタン</strong> — 要約結果をクリップボードにコピー<span class="ne ne-inline">कपी बटन — सारांश परिणाम क्लिपबोर्डमा कपी</span></li>
+      <li><strong>読み上げ機能</strong> — 音声で読み上げ（Web Speech API）<span class="ne ne-inline">पढ्ने सुविधा — आवाजमा पढ्ने (Web Speech API)</span></li>
+      <li><strong>ダークモード</strong> — 目に優しい配色<span class="ne ne-inline">डार्क मोड — आँखालाई कोमल रङ</span></li>
+    </ul>
+  </section>
+
+  <!-- ════ 6. トラブルシューティング ════ -->
+  <section id="trouble">
+    <h2>トラブルシューティング <span class="ne">/ समस्या समाधान</span></h2>
+
+    <h3>用語や概念がわからない <span class="ne">/ शब्द वा अवधारणा नबुझ्दा</span></h3>
+    <p><strong>その場でAIに聞いてください。</strong>これがこの研修の重要な学びです。</p>
+    <span class="ne"><strong>तत्कालै AI लाई सोध्नुहोस्।</strong> यो नै यो प्रशिक्षणको महत्त्वपूर्ण सिकाइ हो।</span>
+    <div class="prompt">
+      <span class="prompt-label">質問例 / प्रश्न नमुना</span>
+manifest.json って何？初心者にもわかるように 5 行で説明して。
+
+content script と popup script の違いを、子供に説明するように教えて。
+
+CORS って何？なぜ起きるの？
+    </div>
+
+    <h3>AIが出したコードがエラーになる <span class="ne">/ AI को कोडमा त्रुटि आउँदा</span></h3>
+    <ul>
+      <li>エラーメッセージをそのままコピーして AI に貼る<span class="ne ne-inline">त्रुटि सन्देश सीधै कपी गरेर AI लाई टाँस्नुहोस्</span></li>
+      <li>「このエラーが出ました。原因と修正方法を教えて」と聞く<span class="ne ne-inline">"यो त्रुटि आयो। कारण र समाधान भन्नुहोस्" भनेर सोध्नुहोस्</span></li>
+      <li>何度かやり取りすればだいたい直る<span class="ne ne-inline">केही पटक पठाएपछि प्रायः ठीक हुन्छ</span></li>
+    </ul>
+
+    <h3>拡張機能が読み込めない <span class="ne">/ एक्सटेन्सन लोड नहुँदा</span></h3>
+    <ul>
+      <li><code>chrome://extensions</code> でエラーメッセージを確認<span class="ne ne-inline"><code>chrome://extensions</code> मा त्रुटि सन्देश हेर्नुहोस्</span></li>
+      <li>そのエラーをAIに貼って「直して」と頼む<span class="ne ne-inline">त्यो त्रुटि AI लाई टाँसेर "ठीक गर्नुहोस्" भन्नुहोस्</span></li>
+      <li>ファイル名が <code>manifest.json</code> になっているか<span class="ne ne-inline">फाइलको नाम <code>manifest.json</code> छ कि छैन जाँच्नुहोस्</span></li>
+    </ul>
+
+    <h3>「ページから取得」が動かない <span class="ne">/ "पेजबाट लिने" काम नगर्दा</span></h3>
+    <ul>
+      <li>そのサイトのURLを AI に教えて「このサイトから本文を取れるようにして」と頼む<span class="ne ne-inline">साइटको URL AI लाई दिएर "यो साइटबाट मुख्य सामग्री लिने बनाउनुहोस्" भन्नुहोस्</span></li>
+      <li>セレクタ調整は AI の得意分野<span class="ne ne-inline">सेलेक्टर मिलाउने कुरा AI को दक्ष क्षेत्र हो</span></li>
+    </ul>
+
+    <h3>APIキーエラー <span class="ne">/ API कुञ्जी त्रुटि</span></h3>
+    <ul>
+      <li>キーが正しく保存されているか設定UIで確認<span class="ne ne-inline">कुञ्जी ठीक सेभ भएको छ कि छैन सेटिङ UI मा हेर्नुहोस्</span></li>
+      <li>キーの先頭が <code>sk-ant-api03-</code> で始まっているか<span class="ne ne-inline">कुञ्जीको सुरु <code>sk-ant-api03-</code> ले सुरु हुन्छ कि छैन</span></li>
+      <li>余分なスペースや改行が混じっていないか<span class="ne ne-inline">अतिरिक्त स्पेस वा हरफ ब्रेक मिसिएको छ कि छैन</span></li>
+    </ul>
+
+    <h3>要約結果が空っぽ <span class="ne">/ सारांश खाली आउँदा</span></h3>
+    <ul>
+      <li>レスポンスを <code>console.log</code> で表示してAIに貼る<span class="ne ne-inline">रेस्पन्स <code>console.log</code> ले देखाएर AI लाई टाँस्नुहोस्</span></li>
+      <li>「このレスポンスから要約テキストを取り出すには？」と聞く<span class="ne ne-inline">"यो रेस्पन्सबाट सारांश टेक्स्ट कसरी निकाल्ने?" भनेर सोध्नुहोस्</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    G-Holdings AI 研修 — 第 2 回 — 生成AIで仕事を効率化しよう！ — 作業ガイド (नेपाली)
+  </footer>
+
+</div><!-- /.page -->
+</body>
+</html>

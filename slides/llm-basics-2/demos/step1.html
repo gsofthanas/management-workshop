@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ササッと読む — Step 1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8edf3 100%);
+    color: #1d1d1f;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    max-width: 640px;
+    width: 100%;
+  }
+  .header {
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    color: #6e6e73;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 18px;
+    border: 2px solid #e5e5e7;
+    border-radius: 14px;
+    font-size: 15px;
+    line-height: 1.6;
+    font-family: inherit;
+    color: #1d1d1f;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.12);
+  }
+  textarea::placeholder {
+    color: #a1a1a6;
+  }
+  .actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+  }
+  button {
+    flex: 1;
+    padding: 14px 24px;
+    background: #0078D4;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+    font-family: inherit;
+  }
+  button:hover { background: #006abe; }
+  button:active { transform: scale(0.98); }
+  button.secondary {
+    flex: 0 0 auto;
+    background: #f5f5f7;
+    color: #1d1d1f;
+  }
+  button.secondary:hover { background: #ebebed; }
+  .results {
+    margin-top: 24px;
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .results.show { display: grid; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .result-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #ebeef3 100%);
+    padding: 20px 16px;
+    border-radius: 14px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+  }
+  .result-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .result-label {
+    font-size: 11px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .result-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1d1d1f;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .result-unit {
+    font-size: 13px;
+    color: #6e6e73;
+    margin-left: 2px;
+    font-weight: 600;
+  }
+  .keywords {
+    margin-top: 16px;
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .keywords.show { display: block; }
+  .keywords-section {
+    background: #f5f7fa;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+  }
+  .keywords-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .keywords-title {
+    font-size: 11px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+  .keywords-count {
+    font-size: 11px;
+    color: #a1a1a6;
+    font-weight: 600;
+  }
+  .keywords-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .keyword-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: white;
+    border: 1px solid #e5e5e7;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+  .keyword-tag.en { color: #0078D4; border-color: #c7e0f4; }
+  .keyword-tag.kana { color: #15803D; border-color: #c8e6d3; }
+  .keyword-count {
+    font-size: 11px;
+    color: #a1a1a6;
+    font-weight: 700;
+    background: #f5f5f7;
+    padding: 1px 6px;
+    border-radius: 100px;
+  }
+  .keywords-empty {
+    font-size: 13px;
+    color: #a1a1a6;
+    font-style: italic;
+  }
+  .footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: #a1a1a6;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📖 ササッと読む</h1>
+      <p class="subtitle">記事を貼り付けて、サクッと解析しよう</p>
+    </div>
+
+    <textarea id="input" placeholder="ここに記事を貼り付けてください..."></textarea>
+
+    <div class="actions">
+      <button id="analyze">解析する</button>
+      <button id="clear" class="secondary">クリア</button>
+    </div>
+
+    <div class="results" id="results">
+      <div class="result-card">
+        <div class="result-icon">📊</div>
+        <div class="result-label">文字数</div>
+        <div class="result-value"><span id="chars">0</span><span class="result-unit">字</span></div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">⏱</div>
+        <div class="result-label">読了時間</div>
+        <div class="result-value">約<span id="time">0</span><span class="result-unit">分</span></div>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">📑</div>
+        <div class="result-label">段落数</div>
+        <div class="result-value"><span id="paragraphs">0</span></div>
+      </div>
+    </div>
+
+    <div class="keywords" id="keywords">
+      <div class="keywords-section">
+        <div class="keywords-header">
+          <div class="keywords-title">🔤 英単語</div>
+          <div class="keywords-count" id="enCount">0 件</div>
+        </div>
+        <div class="keywords-list" id="enList"></div>
+      </div>
+      <div class="keywords-section">
+        <div class="keywords-header">
+          <div class="keywords-title">🇯🇵 カタカナ語</div>
+          <div class="keywords-count" id="kanaCount">0 件</div>
+        </div>
+        <div class="keywords-list" id="kanaList"></div>
+      </div>
+    </div>
+
+    <div class="footer">Step 1 / HTML — ササッと読む workshop</div>
+  </div>
+
+  <script>
+    const input = document.getElementById('input');
+    const analyzeBtn = document.getElementById('analyze');
+    const clearBtn = document.getElementById('clear');
+    const results = document.getElementById('results');
+    const keywords = document.getElementById('keywords');
+
+    function extractWords(text, regex) {
+      const matches = text.match(regex) || [];
+      const counts = new Map();
+      for (const word of matches) {
+        counts.set(word, (counts.get(word) || 0) + 1);
+      }
+      return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+    }
+
+    function renderTags(container, items, className) {
+      container.innerHTML = '';
+      if (items.length === 0) {
+        container.innerHTML = '<div class="keywords-empty">該当なし</div>';
+        return;
+      }
+      for (const [word, count] of items) {
+        const tag = document.createElement('span');
+        tag.className = `keyword-tag ${className}`;
+        tag.innerHTML = `${word}<span class="keyword-count">${count}</span>`;
+        container.appendChild(tag);
+      }
+    }
+
+    function analyze() {
+      const text = input.value.trim();
+      if (!text) {
+        results.classList.remove('show');
+        keywords.classList.remove('show');
+        return;
+      }
+
+      const chars = text.length;
+      const time = Math.max(1, Math.ceil(chars / 500));
+      const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim()).length || 1;
+
+      document.getElementById('chars').textContent = chars.toLocaleString();
+      document.getElementById('time').textContent = time;
+      document.getElementById('paragraphs').textContent = paragraphs;
+
+      const enWords = extractWords(text, /[A-Za-z][A-Za-z0-9]*/g);
+      const kanaWords = extractWords(text, /[ァ-ヴー]{2,}/g);
+
+      document.getElementById('enCount').textContent = `${enWords.length} 件`;
+      document.getElementById('kanaCount').textContent = `${kanaWords.length} 件`;
+      renderTags(document.getElementById('enList'), enWords, 'en');
+      renderTags(document.getElementById('kanaList'), kanaWords, 'kana');
+
+      results.classList.add('show');
+      keywords.classList.add('show');
+    }
+
+    analyzeBtn.addEventListener('click', analyze);
+
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      results.classList.remove('show');
+      keywords.classList.remove('show');
+      input.focus();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        analyze();
+      }
+    });
+  </script>
+</body>
+</html>

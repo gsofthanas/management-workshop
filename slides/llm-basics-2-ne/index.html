@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>生成AIで仕事を効率化しよう！— 第2回（नेपाली）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+Devanagari:wght@400;500;700;800&family=JetBrains+Mono:wght@400;600;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/pres.css">
+<link rel="stylesheet" href="../../css/tech-grid.css">
+<style>
+/* ── Section divider override ── */
+.slide.tech-grid.section-center { justify-content: center; }
+
+/* ── Cover override ── */
+#s1 .headline { margin-bottom: clamp(16px, 2.5vh, 28px); }
+
+/* ── Footer clearance fix ── */
+.slide { padding-bottom: clamp(72px, 10vh, 110px) !important; }
+.tg-corner.bl { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-corner.br { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-meta      { bottom: clamp(72px, 10vh, 90px) !important; }
+
+/* ── Note line ── */
+.note-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 14px);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-top: clamp(8px, 1.2vh, 14px);
+  letter-spacing: 0.05em;
+}
+.note-line::before { content: '// '; opacity: 0.6; }
+
+/* ── Compact density for bilingual content slides ── */
+.slide#s3, .slide#s4, .slide#s5, .slide#s6, .slide#s7, .slide#s8 {
+  padding-bottom: clamp(48px, 6vh, 70px) !important;
+}
+#s3 .tg-corner.bl, #s3 .tg-corner.br,
+#s4 .tg-corner.bl, #s4 .tg-corner.br,
+#s5 .tg-corner.bl, #s5 .tg-corner.br,
+#s6 .tg-corner.bl, #s6 .tg-corner.br,
+#s7 .tg-corner.bl, #s7 .tg-corner.br,
+#s8 .tg-corner.bl, #s8 .tg-corner.br {
+  bottom: clamp(38px, 4.8vh, 50px) !important;
+}
+#s4 .num-list-item,
+#s5 .num-list-item,
+#s6 .num-list-item,
+#s7 .num-list-item {
+  padding: clamp(3px, 0.5vh, 6px) 0 !important;
+}
+#s4 .num-list-item .num,
+#s5 .num-list-item .num,
+#s6 .num-list-item .num,
+#s7 .num-list-item .num {
+  font-size: clamp(16px, 1.8vw, 22px) !important;
+}
+#s4 .num-list-item .sub,
+#s5 .num-list-item .sub,
+#s6 .num-list-item .sub,
+#s7 .num-list-item .sub {
+  font-size: clamp(11px, 1.2vw, 14px) !important;
+  margin-top: 1px !important;
+}
+#s5 .body-text,
+#s6 .body-text,
+#s7 .body-text {
+  line-height: 1.4 !important;
+  margin-bottom: clamp(4px, 0.6vh, 8px) !important;
+  font-size: clamp(13px, 1.4vw, 17px) !important;
+}
+#s5 .headline,
+#s6 .headline,
+#s7 .headline {
+  margin-top: clamp(4px, 0.8vh, 10px) !important;
+  margin-bottom: clamp(2px, 0.4vh, 6px) !important;
+  line-height: 1.1 !important;
+  font-size: clamp(26px, 3.6vw, 46px) !important;
+}
+#s5 .callout,
+#s6 .callout,
+#s7 .callout {
+  padding: clamp(8px, 1.1vh, 12px) clamp(12px, 1.4vw, 16px) !important;
+  margin-top: clamp(6px, 0.9vh, 10px) !important;
+}
+#s5 .callout-body,
+#s6 .callout-body,
+#s7 .callout-body {
+  font-size: clamp(12px, 1.3vw, 15px) !important;
+  line-height: 1.45 !important;
+}
+#s4 .num-list, #s5 .num-list, #s6 .num-list, #s7 .num-list {
+  margin-top: clamp(4px, 0.8vh, 10px) !important;
+}
+#s8 .vs-item {
+  padding: clamp(6px, 0.9vh, 10px) clamp(10px, 1.2vw, 14px) !important;
+  font-size: clamp(13px, 1.4vw, 16px) !important;
+  line-height: 1.35 !important;
+}
+#s8 .headline {
+  font-size: clamp(26px, 3.4vw, 46px) !important;
+  line-height: 1.1 !important;
+  margin: clamp(6px, 0.8vh, 12px) 0 clamp(4px, 0.6vh, 8px) !important;
+}
+#s8 .body-text {
+  font-size: clamp(12px, 1.3vw, 15px) !important;
+  line-height: 1.4 !important;
+  margin: clamp(6px, 0.8vh, 10px) 0 clamp(8px, 1.2vh, 14px) !important;
+}
+#s8 .vs-wrap {
+  gap: clamp(8px, 1vw, 14px) !important;
+}
+
+/* ── Nepali annotation styles ── */
+.ne {
+  font-family: 'Noto Sans Devanagari', 'Noto Sans JP', sans-serif;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  line-height: 1.4;
+}
+.ne-title {
+  font-size: clamp(12px, 1.4vw, 17px);
+  margin-top: 2px;
+  display: block;
+}
+.ne-body {
+  font-size: clamp(11px, 1.3vw, 15px);
+  margin-top: 2px;
+  display: block;
+}
+.ne-inline {
+  font-size: 0.62em;
+  display: block;
+  margin-top: 1px;
+  line-height: 1.35;
+}
+</style>
+</head>
+<body>
+<div id="frost"></div>
+<script src="../../js/aurora.js"></script>
+
+<div class="deck">
+
+  <!-- ════ S1 / 9 — COVER ════ -->
+  <div class="slide active tech-grid" id="s1" style="justify-content:center; align-items:center; text-align:center;">
+    <span class="tg-corner tl"></span>
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+    <span class="tg-corner br"></span>
+
+    <span class="tg-tag gray" style="margin-bottom:clamp(24px,4vh,40px);display:inline-block;">G-HOLDINGS AI 研修 / 第2回 / 2026</span>
+    <h1 class="headline" style="font-size:clamp(48px,7vw,104px); line-height:1.15;">
+      生成AIで<br><span class="hi">仕事を効率化しよう！</span>
+    </h1>
+    <div class="ne ne-title" style="font-size:clamp(16px,2vw,26px); margin-top:18px; color:var(--slide-accent); font-weight:700;">
+      Generative AI ले काम छिटो र राम्रो बनाऔँ!
+    </div>
+    <div class="tg-divider-text" style="margin-top:18px;">実践編 / 60分</div>
+    <div class="ne ne-body" style="margin-top:6px;">व्यावहारिक भाग / ६० मिनेट</div>
+
+    <div class="tg-meta">
+      <span>FILE / LLM_BASICS_02_NE.HTML</span>
+      <span>9 SLIDES / 60 MIN</span>
+    </div>
+  </div>
+
+  <!-- ════ S2 / 9 — 主旨 ════ -->
+  <div class="slide tech-grid" id="s2">
+    <span class="tg-corner tl"></span>
+    <span class="tg-corner br"></span>
+
+    <span class="tg-tag">PURPOSE / 主旨</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,68px); margin:clamp(12px,2vh,20px) 0 clamp(8px,1.2vh,14px);">
+      今日の<span class="hi">主旨</span>
+    </h2>
+    <div class="ne ne-title">आजको उद्देश्य</div>
+    <div class="num-list" style="margin-top:clamp(16px,2vh,24px);">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>実践編 — 実際にAIを使ってツールを作成してもらう</strong>
+          <span class="ne ne-inline">व्यावहारिक भाग — वास्तवमा AI प्रयोग गरेर उपकरण बनाउनुहुनेछ</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>参加者は開発者もそうでない人もいる</strong>
+          <div class="sub">時間やクオリティに差が出るかもしれない</div>
+          <span class="ne ne-inline">सहभागीहरूमा डेभलपर र होइनहरू दुवै छन् — समय र गुणस्तरमा फरक हुन सक्छ</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>各々がAIを使ってできるだけ早く優れたツールを作ろうとすることで、AIの使い方を学ぶ</strong>
+          <span class="ne ne-inline">हरेकले AI प्रयोग गरेर सकेसम्म छिटो राम्रो उपकरण बनाउने प्रयास गर्दा AI प्रयोगको तरिका सिकिन्छ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S3 / 9 — 流れ ════ -->
+  <div class="slide tech-grid" id="s3">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">FLOW / 60 MIN / 3 STEPS</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,64px); margin:clamp(16px,2vh,24px) 0 clamp(8px,1.2vh,14px);">流れ</h2>
+    <div class="ne ne-title">कार्यविधि</div>
+    <div class="tg-agenda" style="margin-top:clamp(20px,2.8vh,32px);">
+      <div class="tg-agenda-card bad">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">STEP / 01</p>
+        <p class="tg-agenda-title">html を<br>作ってみよう</p>
+        <span class="ne ne-inline" style="font-size:0.55em;">HTML बनाउने प्रयास गरौं</span>
+      </div>
+      <div class="tg-agenda-card">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">STEP / 02</p>
+        <p class="tg-agenda-title">拡張機能を<br>作ってみよう</p>
+        <span class="ne ne-inline" style="font-size:0.55em;">ब्राउजर एक्सटेन्सन बनाउने प्रयास गरौं</span>
+      </div>
+      <div class="tg-agenda-card ok">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">STEP / 03</p>
+        <p class="tg-agenda-title">AI機能を<br>追加してみよう</p>
+        <span class="ne ne-inline" style="font-size:0.55em;">AI सुविधा थप्ने प्रयास गरौं</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S4 / 9 — AIを使う際の基本 ════ -->
+  <div class="slide tech-grid" id="s4">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">BASICS / 前回のスライドより</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,68px); margin:clamp(12px,2vh,20px) 0 clamp(8px,1.2vh,14px);">
+      AIを使う際の<span class="hi">基本</span>
+    </h2>
+    <div class="ne ne-title">AI प्रयोग गर्दा आधारभूत कुरा (अघिल्लो स्लाइडबाट)</div>
+    <div class="num-list" style="margin-top:clamp(14px,1.8vh,22px);">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>整理する</strong>
+          <div class="sub">何が欲しいかを明確にする</div>
+          <span class="ne ne-inline">व्यवस्थित गर्नुहोस् — के चाहिएको स्पष्ट पार्नुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>具体的に伝える</strong>
+          <div class="sub">曖昧を捨て、条件を明示する</div>
+          <span class="ne ne-inline">ठोस रूपमा भन्नुहोस् — अस्पष्टता हटाएर शर्त स्पष्ट पार्नुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>構造化する</strong>
+          <div class="sub">### でブロックを分ける</div>
+          <span class="ne ne-inline">संरचना दिनुहोस् — ### ले ब्लक छुट्याउनुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">04</div>
+        <div><strong>AIに先に質問させる</strong>
+          <div class="sub">プロンプトに自信がなければ、AIに要件を聞いてもらう</div>
+          <span class="ne ne-inline">AI लाई पहिले प्रश्न गर्न लगाउनुहोस् — प्रम्प्टमा विश्वस्त नभए AI लाई आवश्यकता सोध्न लगाउनुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">05</div>
+        <div><strong>わからないことは AI に聞く</strong>
+          <div class="sub">用語・概念・手順・エラー — 何でも</div>
+          <span class="ne ne-inline">नबुझेका कुरा AI लाई सोध्नुहोस् — शब्द, अवधारणा, तरिका, त्रुटि — जे पनि</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S5 / 9 — Step 1 要件説明 ════ -->
+  <div class="slide tech-grid" id="s5">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">STEP / 01 / 要件</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,52px); margin:clamp(8px,1.2vh,14px) 0 clamp(4px,0.6vh,8px);">
+      Step 1 — html を<span class="bad">作ってみよう</span>
+    </h2>
+    <div class="ne ne-title" style="font-size:clamp(13px,1.4vw,17px); margin-top:2px;">Step 1 — HTML बनाउने प्रयास गरौं</div>
+    <p class="body-text" style="margin-top:clamp(8px,1.2vh,12px);">
+      ChatGPT に依頼して、<strong>単語抽出ツール</strong>のHTMLを作る。
+    </p>
+    <span class="ne ne-inline">ChatGPT लाई अनुरोध गरेर शब्द निकाल्ने उपकरणको HTML बनाउनुहोस्</span>
+    <div class="num-list">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>テキスト貼付エリア + 解析ボタン</strong>
+          <span class="ne ne-inline">टेक्स्ट टाँस्ने ठाउँ + विश्लेषण बटन</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>結果表示</strong>
+          <div class="sub">文字数 / 読了時間 / 段落数</div>
+          <span class="ne ne-inline">परिणाम देखाउने — अक्षर संख्या / पढ्न लाग्ने समय / अनुच्छेद संख्या</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>英単語・カタカナ語を抽出してタグ表示</strong>
+          <div class="sub">頻度順に並べる</div>
+          <span class="ne ne-inline">अंग्रेजी शब्द र काताकाना शब्द निकालेर ट्याग देखाउने (आउने क्रममा)</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">04</div>
+        <div><strong>HTML / CSS / JS の1ファイル完結</strong>
+          <div class="sub">外部ライブラリ禁止</div>
+          <span class="ne ne-inline">HTML / CSS / JS को १ फाइलमा सम्पन्न — बाह्य लाइब्रेरी निषेध</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:clamp(12px,1.6vh,18px);">
+      <div class="callout-label">完了したら / पूरा भएपछि</div>
+      <div class="callout-body">AIに「<strong>このHTMLの設計書を書いて</strong>」と依頼して保存する。次のStepの土台になる。
+        <span class="ne ne-inline">AI लाई "यो HTML को डिजाइन डकुमेन्ट लेख्नुहोस्" भनेर अनुरोध गरेर सेभ गर्नुहोस्। अर्को Step को आधार बन्छ।</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S6 / 9 — Step 2 要件説明 ════ -->
+  <div class="slide tech-grid" id="s6">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">STEP / 02 / 要件</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,52px); margin:clamp(8px,1.2vh,14px) 0 clamp(4px,0.6vh,8px);">
+      Step 2 — 拡張機能を<span class="hi">作ってみよう</span>
+    </h2>
+    <div class="ne ne-title" style="font-size:clamp(13px,1.4vw,17px); margin-top:2px;">Step 2 — ब्राउजर एक्सटेन्सन बनाउने प्रयास गरौं</div>
+    <p class="body-text" style="margin-top:clamp(8px,1.2vh,12px);">
+      Step 1 のHTMLを <strong>Chrome 拡張機能</strong>にする。
+    </p>
+    <span class="ne ne-inline">Step 1 को HTML लाई Chrome एक्सटेन्सन बनाउनुहोस्</span>
+    <div class="num-list">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>manifest.json + popup.html + content.js の3ファイル構成</strong>
+          <span class="ne ne-inline">manifest.json + popup.html + content.js — ३ फाइलको संरचना</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>「ページから取得」ボタンを追加</strong>
+          <div class="sub">現在のタブの本文をテキストエリアに入れる</div>
+          <span class="ne ne-inline">"पेजबाट लिने" बटन थप्नुहोस् — हालको ट्याबको मुख्य सामग्री टेक्स्ट क्षेत्रमा हाल्नुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>Wikipedia / ニュース / 一般ブログで動作確認</strong>
+          <span class="ne ne-inline">Wikipedia / समाचार / सामान्य ब्लग मा परीक्षण गर्नुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">04</div>
+        <div><strong>chrome://extensions から読み込む</strong>
+          <div class="sub">デベロッパーモードをオンにしてフォルダを選択</div>
+          <span class="ne ne-inline">chrome://extensions बाट लोड गर्नुहोस् — डेभलपर मोड अन गरेर फोल्डर छनोट गर्नुहोस्</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout accent" style="margin-top:clamp(12px,1.6vh,18px);">
+      <div class="callout-label">完了したら / पूरा भएपछि</div>
+      <div class="callout-body">AIに「<strong>この拡張機能の設計書を書いて</strong>」と依頼して保存する。次のStepの土台になる。
+        <span class="ne ne-inline">AI लाई "यो एक्सटेन्सनको डिजाइन डकुमेन्ट लेख्नुहोस्" भनेर अनुरोध गरेर सेभ गर्नुहोस्।</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S7 / 9 — Step 3 要件説明 ════ -->
+  <div class="slide tech-grid" id="s7">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">STEP / 03 / 要件</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,52px); margin:clamp(8px,1.2vh,14px) 0 clamp(4px,0.6vh,8px);">
+      Step 3 — AI機能を<span class="ok">追加してみよう</span>
+    </h2>
+    <div class="ne ne-title" style="font-size:clamp(13px,1.4vw,17px); margin-top:2px;">Step 3 — AI सुविधा थप्ने प्रयास गरौं</div>
+    <p class="body-text" style="margin-top:clamp(8px,1.2vh,12px);">
+      拡張機能から <strong>Anthropic Claude API</strong> を呼び出して3行要約を生成。
+    </p>
+    <span class="ne ne-inline">एक्सटेन्सनबाट Anthropic Claude API बोलाएर ३ हरफको सारांश बनाउनुहोस्</span>
+    <div class="num-list">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>「3行で要約」ボタンを追加</strong>
+          <span class="ne ne-inline">"३ हरफमा सारांश" बटन थप्नुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>Anthropic API を fetch で呼び出す</strong>
+          <div class="sub">manifest.json に host_permissions と storage を追加</div>
+          <span class="ne ne-inline">Anthropic API लाई fetch मार्फत बोलाउनुहोस् — manifest.json मा host_permissions र storage थप्नुहोस्</span>
+        </div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>APIキー設定UI</strong>
+          <div class="sub">chrome.storage.local に保存（コードには絶対書かない）</div>
+          <span class="ne ne-inline">API कुञ्जी सेटिङ UI — chrome.storage.local मा सेभ (कोडमा कहिल्यै नलेख्नुहोस्)</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:clamp(12px,1.6vh,18px);">
+      <div class="callout-label">完了したら / पूरा भएपछि</div>
+      <div class="callout-body">AIに「<strong>完成版ツールの設計書を書いて</strong>」と依頼して保存する。明日からの自分のリファレンスに。
+        <span class="ne ne-inline">AI लाई "पूर्ण उपकरणको डिजाइन डकुमेन्ट लेख्नुहोस्" भनेर अनुरोध गरेर सेभ गर्नुहोस्।</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S8 / 9 — APIキーの取り扱い注意 ════ -->
+  <div class="slide tech-grid" id="s8">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">WARNING / APIキーの取り扱い</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,54px); margin:clamp(10px,1.6vh,18px) 0 clamp(6px,1vh,10px);">
+      APIキーは<br><span class="bad">「鍵」かつ「請求書」</span>
+    </h2>
+    <div class="ne ne-title" style="font-size:clamp(13px,1.4vw,17px); margin-top:2px;">API कुञ्जी = "साँचो" र "बिल" दुवै हो</div>
+    <p class="body-text" style="font-size:clamp(13px,1.5vw,18px); margin:clamp(10px,1.4vh,16px) 0 clamp(12px,1.6vh,18px);">
+      APIキーは「<strong>あなたの会社が払います</strong>」と証明する札。<br>
+      これを持つ誰でも、あなたの口座でAIを呼び出せる。
+    </p>
+    <span class="ne ne-inline">API कुञ्जी = "तपाईंको कम्पनीले पैसा तिर्छ" भन्ने प्रमाण। यो भएकोले जोसुकैले तपाईंको खाताबाट AI चलाउन सक्छ।</span>
+    <div class="vs-wrap">
+      <div class="vs-col bad">
+        <div class="vs-col-label">❌ 絶対NG / पूर्ण निषेध</div>
+        <div class="vs-item">ソースコードに直書き<span class="ne ne-inline">सोर्स कोडमा सीधै लेख्ने</span></div>
+        <div class="vs-item">Git にコミット<span class="ne ne-inline">Git मा कमिट गर्ने</span></div>
+        <div class="vs-item">Slack・メールで共有<span class="ne ne-inline">Slack/इमेलमा सेयर गर्ने</span></div>
+        <div class="vs-item">公開ページのJSに埋め込む<span class="ne ne-inline">सार्वजनिक पेजको JS मा राख्ने</span></div>
+      </div>
+      <div class="vs-col ok">
+        <div class="vs-col-label">✅ 正しい扱い方 / सही तरिका</div>
+        <div class="vs-item">chrome.storage.local に保存<span class="ne ne-inline">chrome.storage.local मा सेभ गर्ने</span></div>
+        <div class="vs-item">設定UIから入力させる<span class="ne ne-inline">सेटिङ UI बाट इनपुट गराउने</span></div>
+        <div class="vs-item">1人1キーを守る<span class="ne ne-inline">१ व्यक्ति १ कुञ्जी राख्ने</span></div>
+        <div class="vs-item">流出に気づいたら即無効化<span class="ne ne-inline">लीक थाहा पाउनेबित्तिकै रद्द गर्ने</span></div>
+      </div>
+    </div>
+    <p class="note-line">流出すると一晩で数百万円の被害になる事例あり / लीक भयो भने एक रातमै लाखौं रुपैयाँको क्षति हुन सक्ने उदाहरण छन्</p>
+  </div>
+
+  <!-- ════ S9 / 9 — まとめ ════ -->
+  <div class="slide tech-grid" id="s9">
+    <span class="tg-corner tl ok"></span>
+    <span class="tg-corner br ok"></span>
+
+    <span class="tg-tag ok">SUMMARY / まとめ</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,68px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.4vh,16px);">
+      今日<span class="ok">学んだこと</span>
+    </h2>
+    <div class="ne ne-title">आज सिकेका कुरा</div>
+    <div class="tg-rule-list" style="margin-top:clamp(16px,2.2vh,28px);">
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">01</span>
+        <div>
+          <p class="tg-rule-text">対話を通じて要件を決める</p>
+          <p class="tg-rule-sub">// 完璧なプロンプトより、AIに質問させて一緒に整理する</p>
+          <span class="ne ne-inline">संवादबाट आवश्यकता निर्धारण गर्नुहोस् — पूर्ण प्रम्प्ट लेख्नुभन्दा AI लाई प्रश्न गर्न लगाएर सँगै व्यवस्थित गर्नुहोस्</span>
+        </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">02</span>
+        <div>
+          <p class="tg-rule-text">分からないことがあればAIに質問する</p>
+          <p class="tg-rule-sub">// 用語・概念・手順・エラー — 一人で詰まらない</p>
+          <span class="ne ne-inline">नबुझेको कुरा भए AI लाई सोध्नुहोस् — शब्द, अवधारणा, तरिका, त्रुटि — एक्लै नअड्किनुहोस्</span>
+        </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">03</span>
+        <div>
+          <p class="tg-rule-text">APIは便利だが流出の危険もある</p>
+          <p class="tg-rule-sub">// 鍵かつ請求書。コード・Git・人 — 全部NG</p>
+          <span class="ne ne-inline">API सजिलो छ तर लीक हुने जोखिम पनि छ — साँचो र बिल दुवै, कोड/Git/मानिस — सबै निषेध</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- FOOTER -->
+<div class="slide-footer">
+  <div class="slide-footer-info">G-Holdings AI研修 — 第2回（नेपाली）</div>
+  <div class="slide-footer-nav">
+    <div class="slide-footer-track"><div class="slide-footer-fill" id="bar"></div></div>
+    <div class="slide-footer-counter" id="ctr">1 / 9</div>
+  </div>
+</div>
+
+<script src="../../js/slide.js"></script>
+</body>
+</html>
