@@ -5,428 +5,540 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>質問力を高めよう！</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/base.css">
 <link rel="stylesheet" href="../../css/pres.css">
+<link rel="stylesheet" href="../../css/tech-grid.css">
+<style>
+/* ── Split layout (text + illustration) ── */
+.split {
+  display: flex;
+  align-items: center;
+  gap: clamp(40px, 6vw, 96px);
+  flex: 1;
+}
+.split-text { flex: 1 1 45%; min-width: 0; }
+.split-vis  { flex: 1 1 55%; display: flex; align-items: center; justify-content: center; }
+.split.reverse { flex-direction: row-reverse; }
+
+/* ── Illustration sizing ── */
+.illust {
+  width: 100%;
+  max-width: 480px;
+  max-height: min(56vh, 460px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ── Section divider override ── */
+.slide.tech-grid.section-center {
+  justify-content: center;
+}
+
+/* ── Cover override ── */
+#s1 .headline { margin-bottom: clamp(16px, 2.5vh, 28px); }
+
+/* ── Footer clearance fix ── */
+.slide { padding-bottom: clamp(72px, 10vh, 110px) !important; }
+.tg-corner.bl { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-corner.br { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-meta      { bottom: clamp(72px, 10vh, 90px) !important; }
+
+/* ── Note line ── */
+.note-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 14px);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-top: clamp(10px, 1.5vh, 16px);
+  letter-spacing: 0.05em;
+}
+.note-line::before { content: '// '; opacity: 0.6; }
+
+/* ── 2x2 agenda grid ── */
+.tg-agenda-2x2 { grid-template-columns: 1fr 1fr !important; }
+
+/* ── Gray rule bar variant ── */
+.tg-rule.gray::before { background: var(--border-strong); }
+.tg-rule.gray { color: var(--text-disabled); }
+
+/* ── Muted agenda card ── */
+.tg-agenda-card.muted .tg-mini-tl,
+.tg-agenda-card.muted .tg-mini-br { border-color: var(--border-strong); }
+.tg-agenda-card.muted .tg-agenda-num { color: var(--text-tertiary); }
+.tg-agenda-card.muted .tg-agenda-title { color: var(--text-secondary); }
+</style>
 </head>
 <body>
 <div id="frost"></div>
 <script src="../../js/aurora.js"></script>
+
 <div class="deck">
 
-  <!-- ══════════════════════════════════════════════════
-       S1 — TITLE
-       ══════════════════════════════════════════════════ -->
-  <div class="slide slide-title active" id="s1">
-    <div class="s1-eyebrow">役職者育成研修会</div>
-    <div class="pres-text-hero">質問力を高めよう！</div>
-    <div class="s1-subtitle">解決型の質問から提案型の質問へ</div>
+  <!-- ════ S1 / 17 — COVER ════ -->
+  <div class="slide active tech-grid" id="s1" style="justify-content:center; align-items:center; text-align:center;">
+    <span class="tg-corner tl accent"></span>
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+    <span class="tg-corner br accent"></span>
+
+    <span class="tg-tag gray" style="margin-bottom:clamp(24px,4vh,40px);display:inline-block;">役職者育成研修会 / 2026</span>
+    <h1 class="headline" style="font-size:clamp(64px,9vw,120px); white-space:nowrap;">
+      質問力を<span class="hi">高めよう！</span>
+    </h1>
+    <div class="tg-divider-text">解決型 / 提案型 / 実践</div>
+
+    <div class="tg-meta">
+      <span>FILE / QUESTION_SKILL_V2.HTML</span>
+      <span>17 SLIDES</span>
+    </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S2 — AGENDA
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s2">
-    <h2>本日の流れ</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter">
-      <div class="agenda-item">
-        <div class="agenda-num-big">01</div>
-        <div class="agenda-text-big">質問力とは</div>
+  <!-- ════ S2 / 17 — AGENDA ════ -->
+  <div class="slide tech-grid" id="s2">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">AGENDA / 4 SECTIONS</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,64px); margin:clamp(16px,2vh,24px) 0 clamp(28px,4vh,48px);">本日の流れ</h2>
+    <div class="tg-agenda tg-agenda-2x2">
+      <div class="tg-agenda-card muted">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 01</p>
+        <p class="tg-agenda-title">知る</p>
+        <p class="tg-agenda-desc">質問力とは何か</p>
       </div>
-      <div class="agenda-item">
-        <div class="agenda-num-big">02</div>
-        <div class="agenda-text-big">解決型の質問 ── まず、正しく聞ける人になる</div>
+      <div class="tg-agenda-card">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 02</p>
+        <p class="tg-agenda-title">聞く</p>
+        <p class="tg-agenda-desc">解決型の質問をマスターする</p>
       </div>
-      <div class="agenda-item">
-        <div class="agenda-num-big">03</div>
-        <div class="agenda-text-big">提案型の質問 ── さらに、動ける人になる</div>
+      <div class="tg-agenda-card ok">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 03</p>
+        <p class="tg-agenda-title">動く</p>
+        <p class="tg-agenda-desc">提案型の質問に挑戦する</p>
       </div>
-      <div class="agenda-item">
-        <div class="agenda-num-big">04</div>
-        <div class="agenda-text-big">まとめ</div>
+      <div class="tg-agenda-card muted">
+        <div class="tg-mini-tl"></div><div class="tg-mini-br"></div>
+        <p class="tg-agenda-num">SECTION / 04</p>
+        <p class="tg-agenda-title">活かす</p>
+        <p class="tg-agenda-desc">まとめと実践</p>
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S3 — INTRO: 質問力とは
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s3">
-    <h2>質問力とは</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:40px;">
-      <div style="display:flex; align-items:flex-start; gap:20px;">
-        <div class="pres-accent-bar" style="min-height:48px;"></div>
-        <div class="pres-text-key">伝わる質問をする力。</div>
+  <!-- ════ S3 / 17 — 質問力とは ════ -->
+  <div class="slide tech-grid" id="s3">
+    <span class="tg-corner tl accent"></span>
+    <span class="tg-corner br accent"></span>
+
+    <span class="tg-tag accent">SECTION 01 / 質問力とは</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(36px,5vw,68px);">
+          <span class="hi">伝わる質問</span>をする力。
+        </h2>
+        <p class="body-text">
+          質問力を上げれば、<strong>仕事ができるようになる</strong>。
+        </p>
       </div>
-      <div class="pres-separator"></div>
-      <div>
-        <div class="pres-text-body pres-blue pres-mb-16">なぜ重要か</div>
-        <div class="pres-text-key">質問力を上げれば、仕事ができるようになる。</div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/questions_52ic.svg" alt="">
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S4 — 解決型の質問とは
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s4">
-    <h2>解決型の質問とは</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:36px;">
-      <div style="display:flex; align-items:flex-start; gap:20px;">
-        <div class="pres-accent-bar" style="min-height:48px;"></div>
-        <div class="pres-text-key">困ったとき・詰まったとき、助けを求める質問。</div>
+  <!-- ════ S4 / 17 — 解決型の質問とは ════ -->
+  <div class="slide tech-grid" id="s4">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">CONCEPT / 解決型</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,66px); margin:clamp(12px,2vh,20px) 0 clamp(8px,1.5vh,14px);">
+      解決型の質問とは
+    </h2>
+    <p class="body-text" style="margin-bottom:clamp(20px,3vh,32px);">
+      困ったとき・詰まったとき、<strong>助けを求める質問</strong>。
+    </p>
+    <div class="callout" style="margin-top:0;">
+      <div class="callout-label">EXAMPLE 01</div>
+      <div class="callout-body">ログインしようとしたらエラーが出ました。どうすればいいですか？</div>
+    </div>
+    <div class="callout" style="margin-top:clamp(10px,1.5vh,16px);">
+      <div class="callout-label">EXAMPLE 02</div>
+      <div class="callout-body">このタスク、どうやって実装すればいいか教えてもらえますか？</div>
+    </div>
+  </div>
+
+  <!-- ════ S5 / 17 — EVIDENCE: 解決型 ════ -->
+  <div class="slide tech-grid" id="s5">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">EVIDENCE / 解決型の質問</span>
+    <div class="split" style="margin-top:clamp(12px,2vh,20px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(30px,4vw,54px);">
+          解決型の質問が上手い人は、<span class="hi">能力が高く学習が速い</span>
+        </h2>
+        <p class="body-text">
+          自力で試みてから<strong>ヒントだけ求める</strong>行動は高い能力と相関。<br>
+          間違えた後に自ら情報を探索する割合が高いほど<strong>成績（GPA）が高い</strong>。
+        </p>
+        <p class="caption">Nelson-Le Gall (1981) / N=2,922 大規模研究 (ScienceDirect, 2021)</p>
       </div>
-      <div class="pres-separator"></div>
-      <div class="pres-text-body pres-blue pres-mb-16">例</div>
-      <div class="pres-good-block pres-mb-16">
-        <div class="pres-text-bullet">ログインしようとしたらエラーが出ました。どうすればいいですか？</div>
-      </div>
-      <div class="pres-good-block">
-        <div class="pres-text-bullet">このタスク、どうやって実装すればいいか教えてもらえますか？</div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/key-insights_ex8y.svg" alt="">
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S5 — CLAIM: 解決型の質問 研究
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s5">
-    <h2 style="font-size:40px !important; line-height:1.3 !important;">解決型の質問が上手い人は、能力が高く学習が速い。</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:16px;">
-      <div class="finding-block">
-        <div class="finding-icon">🔬</div>
-        <div class="finding-title">適応的ヘルプシーキング理論</div>
-        <div class="finding-body">自力で試みた後にヒントを求める行動は高い能力と相関。答えを丸ごと求めるのは非適応的とされる。</div>
-        <div class="finding-source">Nelson-Le Gall (1981)</div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="finding-block">
-        <div class="finding-icon">📊</div>
-        <div class="finding-title">エラー後の情報探索と学業成績</div>
-        <div class="finding-body">間違えた後に自ら情報を探索する割合が高いほど成績（GPA）が高い。</div>
-        <div class="finding-source">N=2,922の大規模研究（ScienceDirect, 2021）</div>
-      </div>
-    </div>
-  </div>
+  <!-- ════ S6 / 17 — BAD EXAMPLE ════ -->
+  <div class="slide tech-grid" id="s6">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
 
-  <!-- ══════════════════════════════════════════════════
-       S6 — BAD EXAMPLE
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s6">
-    <h2>悪い質問の例</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:24px;">
-      <div class="pres-bad-block">
-        <div class="pres-text-body" style="color:var(--slide-bad);">× 悪い例</div>
-        <div class="example-text-block">送信ボタンを押しても動きません。
+    <span class="tg-tag">BAD / 悪い例</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,50px); margin:clamp(8px,1.5vh,14px) 0 clamp(8px,1.5vh,14px);">
+      悪い質問の例
+    </h2>
+    <div class="callout bad" style="margin-top:0;">
+      <div class="callout-label">× BAD</div>
+      <div class="callout-body" style="white-space:pre-line;">送信ボタンを押しても動きません。
 なぜですか？</div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="point-row">
-        <div class="point-label point-label-bad">× 状況の説明がない</div>
-        <div class="point-desc">何をしたときに起きたのか相手には分からない</div>
-      </div>
-      <div class="point-row">
-        <div class="point-label point-label-bad">× 自分で試みた形跡がない</div>
-        <div class="point-desc">丸投げになっており思考の深さが伝わらない</div>
-      </div>
-      <div class="point-row">
-        <div class="point-label point-label-bad">× 質問が絞れていない</div>
-        <div class="point-desc">何を答えればいいのか相手の負担が大きい</div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="summary-line" style="color:var(--slide-bad);">「困っている」しか伝わっていない。</div>
     </div>
+    <div class="num-list" style="margin-top:clamp(16px,2vh,24px);">
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-bad);">×</div>
+        <div>状況の説明がない<div class="sub">何をしたときに起きたのか相手には分からない</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-bad);">×</div>
+        <div>自分で試みた形跡がない<div class="sub">丸投げになっており思考の深さが伝わらない</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-bad);">×</div>
+        <div>質問が絞れていない<div class="sub">何を答えればいいのか相手の負担が大きい</div></div>
+      </div>
+    </div>
+    <p class="note-line">「困っている」しか伝わっていない</p>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S7 — GOOD EXAMPLE
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s7">
-    <h2>良い質問の例</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:24px;">
-      <div class="pres-good-block">
-        <div class="pres-text-body pres-blue">○ 良い例</div>
-        <div class="example-text-block">ユーザー登録フォームの送信ボタンを押してもAPIが呼ばれていません。
+  <!-- ════ S7 / 17 — GOOD EXAMPLE ════ -->
+  <div class="slide tech-grid" id="s7">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">GOOD / 良い例</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,50px); margin:clamp(8px,1.5vh,14px) 0 clamp(8px,1.5vh,14px);">
+      良い質問の例
+    </h2>
+    <div class="callout ok" style="margin-top:0;">
+      <div class="callout-label">○ GOOD</div>
+      <div class="callout-body" style="white-space:pre-line;">ユーザー登録フォームの送信ボタンを押してもAPIが呼ばれていません。
 ネットワークタブを確認したところリクエスト自体が出ていないので、
 fetch処理が実行されていないと判断しています。
 確認すべき箇所はありますか？</div>
+    </div>
+    <div class="num-list" style="margin-top:clamp(12px,1.5vh,20px);">
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-ok);">○</div>
+        <div>状況が明確<div class="sub">何をしたら起きたのか再現できる</div></div>
       </div>
-      <div class="pres-separator"></div>
-      <div class="point-row">
-        <div class="point-label">○ 状況が明確</div>
-        <div class="point-desc">何をしたら起きたのか再現できる</div>
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-ok);">○</div>
+        <div>自分で調べた記録がある<div class="sub">ネットワークタブまで確認した上で詰まっていることが伝わる</div></div>
       </div>
-      <div class="point-row">
-        <div class="point-label">○ 自分で調べた記録がある</div>
-        <div class="point-desc">ネットワークタブまで確認した上で詰まっていることが伝わる</div>
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-ok);">○</div>
+        <div>質問が一点に絞られている<div class="sub">相手はYes/Noに近い形で答えられる</div></div>
       </div>
-      <div class="point-row">
-        <div class="point-label">○ 質問が一点に絞られている</div>
-        <div class="point-desc">相手はYes/Noに近い形で答えられる</div>
+    </div>
+    <p class="note-line">「考えた上で詰まっている」が伝わる</p>
+  </div>
+
+  <!-- ════ S8 / 17 — HOW TO: 解決型 ════ -->
+  <div class="slide tech-grid" id="s8">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">HOW TO / 解決型</span>
+    <h2 class="headline" style="font-size:clamp(32px,4.5vw,60px); margin:clamp(12px,2vh,20px) 0 clamp(24px,3vh,40px);">
+      解決型の質問力を<span class="hi">上げるには？</span>
+    </h2>
+    <div class="tg-rule-list">
+      <div class="tg-rule-item accent">
+        <span class="tg-rule-num">STEP / 01</span>
+        <div>
+          <p class="tg-rule-text">何をしたら起きたか</p>
+          <p class="tg-rule-sub">// 状況を再現できるレベルで言語化する</p>
+        </div>
       </div>
-      <div class="pres-separator"></div>
-      <div class="summary-line pres-blue">「考えた上で詰まっている」が伝わる。</div>
+      <div class="tg-rule-item accent">
+        <span class="tg-rule-num">STEP / 02</span>
+        <div>
+          <p class="tg-rule-text">自分で何を試したか</p>
+          <p class="tg-rule-sub">// 仮説を立てて一つでも検証してから聞く</p>
+        </div>
+      </div>
+      <div class="tg-rule-item accent">
+        <span class="tg-rule-num">STEP / 03</span>
+        <div>
+          <p class="tg-rule-text">何が分からないのか</p>
+          <p class="tg-rule-sub">// 質問を一点に絞ってから口を開く</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S8 — HOW TO DEFEND
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s8">
-    <h2>解決型の質問力を上げるには？</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter">
-      <div class="step-item">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-label">何をしたら起きたか</div>
-          <div class="step-desc">状況を再現できるレベルで言語化する</div>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-label">自分で何を試したか</div>
-          <div class="step-desc">仮説を立てて一つでも検証してから聞く</div>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-label">何が分からないのか</div>
-          <div class="step-desc">質問を一点に絞ってから口を開く</div>
-        </div>
-      </div>
-    </div>
+  <!-- ════ S9 / 17 — SECTION DIVIDER: 提案型 ════ -->
+  <div class="slide tech-grid section-center" id="s9">
+    <span class="tg-corner tl ok"></span>
+    <span class="tg-corner br ok"></span>
+
+    <span class="tg-tag ok">SECTION / 03</span>
+    <h2 class="tg-mega ok" style="margin-top:clamp(20px,3vh,32px);">動く</h2>
+    <p class="body-text" style="font-weight:700; color:var(--text-secondary);">さらに、<br>動ける人になる</p>
+    <div class="tg-rule ok">5 SLIDES / PROACTIVE QUESTIONING</div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S9 — TRANSITION
-       ══════════════════════════════════════════════════ -->
-  <div class="slide slide-transition" id="s9">
-    <div class="pres-center">
-      <div style="text-align:left;">
-        <div class="pres-text-muted pres-mb-32" style="font-family:'JetBrains Mono',monospace; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;">STEP UP</div>
-        <div class="transition-step transition-done">
-          <div class="transition-num">STEP 1</div>
-          <div>
-            <div class="transition-label">解決型の質問</div>
-            <div class="transition-desc">まず、正しく聞ける人になる ✓</div>
+  <!-- ════ S10 / 17 — 提案型の質問とは ════ -->
+  <div class="slide tech-grid" id="s10">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">CONCEPT / 提案型</span>
+    <div class="split" style="margin-top:clamp(12px,2vh,20px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(34px,4.5vw,60px);">
+          提案型の質問とは
+        </h2>
+        <p class="body-text" style="margin-bottom:clamp(16px,2vh,24px);">
+          自分のタスクが終わった上で、<strong>チームに価値を提案する質問</strong>。
+        </p>
+        <div class="callout ok" style="margin-top:0;">
+          <div class="callout-label">EXAMPLES</div>
+          <div class="callout-body">
+            「気になった箇所があったので修正してもいいですか？」<br>
+            「テストも書いておいた方がいいと思うんですが、どうでしょうか？」
           </div>
         </div>
-        <div class="transition-arrow">↓</div>
-        <div class="transition-step transition-next">
-          <div class="transition-num">STEP 2</div>
-          <div>
-            <div class="transition-label">提案型の質問</div>
-            <div class="transition-desc">さらに、動ける人になる</div>
-          </div>
-        </div>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/design-thinking_8qg2.svg" alt="">
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S10 — 提案型の質問とは
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s10">
-    <h2>提案型の質問とは</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:36px;">
-      <div style="display:flex; align-items:flex-start; gap:20px;">
-        <div class="pres-accent-bar" style="min-height:48px;"></div>
-        <div class="pres-text-key">自分のタスクが終わった上で、チームに価値を提案する質問。</div>
+  <!-- ════ S11 / 17 — EVIDENCE: 提案型 ════ -->
+  <div class="slide tech-grid" id="s11">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">EVIDENCE / 提案型の質問</span>
+    <div class="split" style="margin-top:clamp(12px,2vh,20px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(30px,4vw,54px);">
+          提案型の質問が上手い人は、<span class="ok">評価が高くキャリアが速い</span>
+        </h2>
+        <p class="body-text">
+          107研究のメタ分析で、プロアクティブ性は上司評価の<strong>職務パフォーマンスと最も強く相関</strong>。<br>
+          主体的改善行動は<strong>昇進適性に有意な正の影響</strong>。
+        </p>
+        <p class="caption">Fuller &amp; Marler (2009) / Zhang et al. (2022) N=101,131</p>
       </div>
-      <div class="pres-separator"></div>
-      <div class="pres-text-body pres-blue pres-mb-16">例</div>
-      <div class="pres-good-block pres-mb-16">
-        <div class="pres-text-bullet">担当タスク完了しました。気になった箇所があったので修正してもいいですか？</div>
-      </div>
-      <div class="pres-good-block">
-        <div class="pres-text-bullet">実装が終わりました。テストも書いておいた方がいいと思うんですが、どうでしょうか？</div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/career-progress_vfq5.svg" alt="">
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S11 — CLAIM: 提案型の質問 研究
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s11">
-    <h2 style="font-size:40px !important; line-height:1.3 !important;">提案型の質問が上手い人は、評価が高くキャリアが速い。</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:16px;">
-      <div class="finding-block">
-        <div class="finding-icon">📈</div>
-        <div class="finding-title">プロアクティブ性とキャリア成功</div>
-        <div class="finding-body">107研究・313相関のメタ分析で、プロアクティブ性は上司評価の職務パフォーマンスと最も強く相関。Big Five性格特性を上回る。</div>
-        <div class="finding-source">Fuller &amp; Marler (2009)</div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="finding-block">
-        <div class="finding-icon">🏆</div>
-        <div class="finding-title">Taking Chargeと昇進適性</div>
-        <div class="finding-body">主体的改善行動（Taking Charge）は、上司から評価される「昇進適性」に有意な正の影響。</div>
-        <div class="finding-source">101,131名対象メタ分析（Zhang et al., 2022）</div>
-      </div>
-    </div>
-  </div>
+  <!-- ════ S12 / 17 — GOOD EXAMPLE: 提案型 ════ -->
+  <div class="slide tech-grid" id="s12">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
 
-  <!-- ══════════════════════════════════════════════════
-       S12 — GOOD EXAMPLE (提案型)
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s12">
-    <h2>良い提案型の質問の例</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:24px;">
-      <div class="pres-good-block">
-        <div class="pres-text-body pres-blue">○ 良い例</div>
-        <div class="example-text-block">担当タスク完了しました。今手が空いているので、
+    <span class="tg-tag ok">GOOD / 提案型</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,50px); margin:clamp(8px,1.5vh,14px) 0 clamp(8px,1.5vh,14px);">
+      良い提案型の質問の例
+    </h2>
+    <div class="callout ok" style="margin-top:0;">
+      <div class="callout-label">○ GOOD</div>
+      <div class="callout-body" style="white-space:pre-line;">担当タスク完了しました。今手が空いているので、
 ローカル環境の構築手順をREADMEにまとめてみてもいいですか？
 ドキュメントがあると後々助かると思います。</div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="point-row">
-        <div class="point-label">○ タスク完了を先に示す</div>
-        <div class="point-desc">100%できていることが前提として伝わる</div>
-      </div>
-      <div class="point-row">
-        <div class="point-label">○ 根拠が一言添えられている</div>
-        <div class="point-desc">「後々助かる」でチームへの貢献理由が明確</div>
-      </div>
-      <div class="point-row">
-        <div class="point-label">○ 承認を取っている</div>
-        <div class="point-desc">「いいですか？」で自走しすぎず信頼を保つ</div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="summary-line pres-blue">「できる人が、チームのために動く」が伝わる。</div>
     </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════
-       S13 — HOW TO ATTACK
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s13">
-    <h2>提案型の質問力を上げるには？</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter">
-      <div class="step-item">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-label">まず自分のタスクを完了させる</div>
-          <div class="step-desc">100%できていることが提案の前提条件</div>
-        </div>
+    <div class="num-list" style="margin-top:clamp(12px,1.5vh,20px);">
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-ok);">○</div>
+        <div>タスク完了を先に示す<div class="sub">100%できていることが前提として伝わる</div></div>
       </div>
-      <div class="step-item">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-label">提案の根拠を一言添える</div>
-          <div class="step-desc">なぜそれが必要かを短く言語化する</div>
-        </div>
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-ok);">○</div>
+        <div>根拠が一言添えられている<div class="sub">「後々助かる」でチームへの貢献理由が明確</div></div>
       </div>
-      <div class="step-item">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-label">承認を取ってから動く</div>
-          <div class="step-desc">「やっていいですか？」で信頼と自走を両立する</div>
-        </div>
+      <div class="num-list-item">
+        <div class="num" style="color:var(--slide-ok);">○</div>
+        <div>承認を取っている<div class="sub">「いいですか？」で自走しすぎず信頼を保つ</div></div>
       </div>
     </div>
+    <p class="note-line">「できる人が、チームのために動く」が伝わる</p>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S14 — SUMMARY
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s14">
-    <h2>まとめ</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter" style="gap:32px;">
-      <div class="pres-row" style="gap:64px;">
-        <div class="summary-col" style="border-left:4px solid var(--slide-accent); padding-left:24px;">
-          <div class="summary-step-label">STEP 1</div>
-          <div class="summary-col-title">解決型の質問をマスターする</div>
-          <div class="summary-col-item">状況・試したこと・質問を整理する</div>
-          <div class="summary-col-item">仮説を立てて検証してから聞く</div>
-          <div class="summary-col-item">質問を一点に絞り込む</div>
-        </div>
-        <div class="summary-col" style="border-left:4px solid var(--slide-accent); padding-left:24px;">
-          <div class="summary-step-label">STEP 2</div>
-          <div class="summary-col-title">提案型の質問に挑戦する</div>
-          <div class="summary-col-item">まず自分のタスクを完了させる</div>
-          <div class="summary-col-item">提案の根拠を一言添える</div>
-          <div class="summary-col-item">承認を取ってから動く</div>
-        </div>
-      </div>
-      <div class="pres-separator"></div>
-      <div class="pres-text-key" style="text-align:center;">質問力を上げれば、仕事ができるようになる。</div>
-    </div>
-  </div>
+  <!-- ════ S13 / 17 — HOW TO: 提案型 ════ -->
+  <div class="slide tech-grid" id="s13">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
 
-  <!-- ══════════════════════════════════════════════════
-       S15 — DISCUSSION
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s15">
-    <h2>本日の議題</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-center">
-      <div class="discussion-theme">質問力を高めるために<br>明日からできること</div>
-      <div style="margin-top:40px;" class="pres-text-muted">チームで話し合い、意見をまとめてください</div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════
-       S16 — SCHEDULE
-       ══════════════════════════════════════════════════ -->
-  <div class="slide" id="s16">
-    <h2>本日のスケジュール</h2>
-    <div class="pres-title-line"></div>
-    <div class="pres-vcenter">
-      <div class="schedule-block">
+    <span class="tg-tag ok">HOW TO / 提案型</span>
+    <h2 class="headline" style="font-size:clamp(32px,4.5vw,60px); margin:clamp(12px,2vh,20px) 0 clamp(24px,3vh,40px);">
+      提案型の質問力を<span class="ok">上げるには？</span>
+    </h2>
+    <div class="tg-rule-list">
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">STEP / 01</span>
         <div>
-          <div class="schedule-time">19:20 〜 19:50</div>
-          <div class="schedule-duration">30分</div>
-        </div>
-        <div>
-          <div class="schedule-label">チームで話し合い・意見まとめ</div>
-          <div class="schedule-sublabel">ファシリテーション</div>
+          <p class="tg-rule-text">まず自分のタスクを完了させる</p>
+          <p class="tg-rule-sub">// 100%できていることが提案の前提条件</p>
         </div>
       </div>
-      <div class="schedule-block">
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">STEP / 02</span>
         <div>
-          <div class="schedule-time">19:50 〜 20:00</div>
-          <div class="schedule-duration">10分</div>
+          <p class="tg-rule-text">提案の根拠を一言添える</p>
+          <p class="tg-rule-sub">// なぜそれが必要かを短く言語化する</p>
         </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">STEP / 03</span>
         <div>
-          <div class="schedule-label">チーム代表者から意見発表</div>
-          <div class="schedule-sublabel">プレゼンテーション</div>
+          <p class="tg-rule-text">承認を取ってから動く</p>
+          <p class="tg-rule-sub">// 「やっていいですか？」で信頼と自走を両立する</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════
-       S17 — CLOSING
-       ══════════════════════════════════════════════════ -->
-  <div class="slide slide-closing" id="s17">
-    <div class="closing-message">質問の質は、思考の質。
-思考の質は、仕事の質。</div>
-    <div class="closing-sub">今日から一つだけ変えてみてください。</div>
+  <!-- ════ S14 / 17 — SUMMARY ════ -->
+  <div class="slide tech-grid" id="s14">
+    <span class="tg-corner tl accent"></span>
+    <span class="tg-corner br ok"></span>
+
+    <span class="tg-tag gray">TAKEAWAYS / 2 STEPS</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,64px); margin:clamp(12px,2vh,20px) 0 clamp(20px,3vh,36px);">
+      まとめ
+    </h2>
+    <div style="display:flex; gap:clamp(24px,3vw,48px); flex:1; align-items:flex-start;">
+      <div style="flex:1; border-left:3px solid var(--slide-accent); padding-left:clamp(16px,2vw,28px);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:clamp(10px,1.1vw,13px); font-weight:800; letter-spacing:0.15em; color:var(--slide-accent); margin-bottom:clamp(8px,1.2vh,14px); text-transform:uppercase;">STEP 01 / 解決型</div>
+        <div style="font-size:clamp(20px,2.5vw,28px); font-weight:900; color:var(--text-primary); margin-bottom:clamp(12px,1.5vh,20px); line-height:1.3;">解決型の質問をマスターする</div>
+        <div class="num-list" style="margin-top:0;">
+          <div class="num-list-item"><div class="num">01</div><div>状況・試したこと・質問を整理する</div></div>
+          <div class="num-list-item"><div class="num">02</div><div>仮説を立てて検証してから聞く</div></div>
+          <div class="num-list-item"><div class="num">03</div><div>質問を一点に絞り込む</div></div>
+        </div>
+      </div>
+      <div style="flex:1; border-left:3px solid var(--slide-ok); padding-left:clamp(16px,2vw,28px);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:clamp(10px,1.1vw,13px); font-weight:800; letter-spacing:0.15em; color:var(--slide-ok); margin-bottom:clamp(8px,1.2vh,14px); text-transform:uppercase;">STEP 02 / 提案型</div>
+        <div style="font-size:clamp(20px,2.5vw,28px); font-weight:900; color:var(--text-primary); margin-bottom:clamp(12px,1.5vh,20px); line-height:1.3;">提案型の質問に挑戦する</div>
+        <div class="num-list" style="margin-top:0;">
+          <div class="num-list-item"><div class="num" style="color:var(--slide-ok);">01</div><div>まず自分のタスクを完了させる</div></div>
+          <div class="num-list-item"><div class="num" style="color:var(--slide-ok);">02</div><div>提案の根拠を一言添える</div></div>
+          <div class="num-list-item"><div class="num" style="color:var(--slide-ok);">03</div><div>承認を取ってから動く</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="note-line">質問力を上げれば、仕事ができるようになる</p>
   </div>
 
-</div>
+  <!-- ════ S15 / 17 — DISCUSSION ════ -->
+  <div class="slide tech-grid section-center" id="s15" style="align-items:center; text-align:center;">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
 
+    <span class="tg-tag gray">DISCUSSION / チーム議論</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,72px); margin:clamp(20px,3vh,36px) 0;">
+      質問力を高めるために<br>明日からできること
+    </h2>
+    <p class="body-text" style="color:var(--text-tertiary);">
+      チームで話し合い、意見をまとめてください
+    </p>
+    <div class="tg-rule gray">TEAM DISCUSSION</div>
+  </div>
+
+  <!-- ════ S16 / 17 — SCHEDULE ════ -->
+  <div class="slide tech-grid" id="s16">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">SCHEDULE / タイムテーブル</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,64px); margin:clamp(12px,2vh,20px) 0 clamp(24px,3vh,40px);">
+      本日のスケジュール
+    </h2>
+    <div class="schedule-block">
+      <div>
+        <div class="schedule-time">19:20 〜 19:50</div>
+        <div class="schedule-duration">30分</div>
+      </div>
+      <div>
+        <div class="schedule-label">チームで話し合い・意見まとめ</div>
+        <div class="schedule-sublabel">ファシリテーション</div>
+      </div>
+    </div>
+    <div class="schedule-block">
+      <div>
+        <div class="schedule-time">19:50 〜 20:00</div>
+        <div class="schedule-duration">10分</div>
+      </div>
+      <div>
+        <div class="schedule-label">チーム代表者から意見発表</div>
+        <div class="schedule-sublabel">プレゼンテーション</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S17 / 17 — CLOSING ════ -->
+  <div class="slide tech-grid" id="s17" style="justify-content:center;">
+    <span class="tg-corner tl accent"></span>
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+    <span class="tg-corner br accent"></span>
+
+    <div class="split">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(32px,4.5vw,56px); line-height:1.5;">
+          質問の質は、思考の質。<br>
+          思考の質は、<span class="hi">仕事の質。</span>
+        </h2>
+        <p class="body-text" style="margin-top:clamp(16px,2vh,28px);">
+          <strong>今日から一つだけ変えてみてください。</strong>
+        </p>
+      </div>
+      <div class="split-vis">
+        <img class="illust" src="../../assets/illustrations/going-upwards_0y3z.svg" alt="">
+      </div>
+    </div>
+
+    <div class="tg-meta">
+      <span>QUESTION SKILL / V2</span>
+      <span>2026年4月 役職者育成研修会</span>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- FOOTER -->
 <div class="slide-footer">
-  <span class="slide-footer-info">2026年4月 役職者育成研修会</span>
+  <div class="slide-footer-info">2026年4月 役職者育成研修会</div>
   <div class="slide-footer-nav">
     <div class="slide-footer-track"><div class="slide-footer-fill" id="bar"></div></div>
-    <span class="slide-footer-counter" id="ctr">1 / 17</span>
+    <div class="slide-footer-counter" id="ctr">1 / 17</div>
   </div>
 </div>
+
 <script src="../../js/slide.js"></script>
 </body>
 </html>
