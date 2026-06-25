@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>ChatGPT API を使ってみよう — 第3回</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;800&family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/base.css">
+<link rel="stylesheet" href="../../css/pres.css">
+<link rel="stylesheet" href="../../css/tech-grid.css">
+<style>
+/* ── Section divider override ── */
+.slide.tech-grid.section-center { justify-content: center; }
+
+/* ── Cover override ── */
+#s1 .headline { margin-bottom: clamp(16px, 2.5vh, 28px); }
+
+/* ── Footer clearance fix ── */
+.slide { padding-bottom: clamp(72px, 10vh, 110px) !important; }
+.tg-corner.bl { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-corner.br { bottom: clamp(54px, 7vh, 68px) !important; }
+.tg-meta      { bottom: clamp(72px, 10vh, 90px) !important; }
+
+/* ── Note line ── */
+.note-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1.2vw, 14px);
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-top: clamp(10px, 1.5vh, 16px);
+  letter-spacing: 0.05em;
+}
+.note-line::before { content: '// '; opacity: 0.6; }
+
+/* ── Split layout (text + illustration) ── */
+.split { display: flex; align-items: center; gap: clamp(40px, 6vw, 96px); flex: 1; }
+.split-text { flex: 1 1 45%; min-width: 0; }
+.split-vis  { flex: 1 1 55%; display: flex; align-items: center; justify-content: center; }
+.split.reverse { flex-direction: row-reverse; }
+
+/* ── Illustration sizing ── */
+.illust { width: 100%; max-width: 480px; max-height: min(56vh, 460px); height: auto; display: block; object-fit: contain; }
+.illust-sm { max-width: 360px; max-height: min(48vh, 380px); }
+.illust-lg { max-width: 580px; max-height: min(60vh, 500px); }
+
+/* ── Big stat number ── */
+.big-stat { font-family: 'DM Sans', sans-serif; font-size: clamp(120px, 18vw, 220px); font-weight: 900; line-height: 0.95; letter-spacing: -0.05em; margin-bottom: clamp(8px, 1.5vh, 20px); }
+.big-stat.bad { color: var(--slide-bad); }
+
+/* ── Stat row (model prices) ── */
+.deloitte-stats { display: flex; gap: clamp(12px, 1.6vw, 24px); margin-top: clamp(16px, 2.2vh, 26px); flex-wrap: nowrap; }
+.deloitte-stat { border-left: 3px solid var(--slide-accent); padding-left: clamp(8px, 1vw, 14px); flex: 1 1 0; min-width: 0; }
+.deloitte-stat-num { font-family: 'DM Sans', sans-serif; font-size: clamp(22px, 2.8vw, 38px); font-weight: 900; color: var(--slide-accent); line-height: 1; letter-spacing: -0.02em; white-space: nowrap; }
+.deloitte-stat-label { font-family: 'JetBrains Mono', monospace; font-size: clamp(9px, 1vw, 12px); font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.08em; margin-top: 6px; text-transform: uppercase; white-space: nowrap; }
+
+/* ── API / token explainers ── */
+.api-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: clamp(10px, 1.5vw, 20px); margin-top: clamp(20px, 3vh, 36px); }
+.api-node { border-left: 4px solid var(--slide-accent); background: rgba(2, 132, 199, 0.06); padding: clamp(18px, 2.4vw, 28px); min-height: clamp(150px, 22vh, 190px); display: flex; flex-direction: column; justify-content: center; }
+.api-node-label { font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 1vw, 13px); font-weight: 800; color: var(--slide-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.api-node-title { font-size: clamp(22px, 2.4vw, 32px); font-weight: 900; color: var(--text-primary); margin: 0 0 8px; }
+.api-node-desc { font-size: clamp(13px, 1.3vw, 17px); font-weight: 700; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+.api-arrow { font-family: 'DM Sans', sans-serif; font-size: clamp(28px, 4vw, 52px); font-weight: 900; color: var(--slide-accent); align-self: center; }
+.token-layout { display: grid; grid-template-columns: 0.86fr 1.14fr; gap: clamp(18px, 2.4vw, 30px); align-items: stretch; margin-top: clamp(14px, 2vh, 22px); }
+.token-card { background: rgba(2, 132, 199, 0.06); border-left: 4px solid var(--slide-accent); padding: clamp(16px, 2vw, 24px); }
+.token-kicker { font-family: 'JetBrains Mono', monospace; font-size: clamp(10px, 0.9vw, 12px); font-weight: 800; color: var(--slide-accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.token-big { font-family: 'DM Sans', sans-serif; font-size: clamp(40px, 5.5vw, 72px); font-weight: 900; color: var(--text-primary); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 12px; }
+.token-desc { font-size: clamp(13px, 1.35vw, 17px); font-weight: 700; color: var(--text-secondary); line-height: 1.7; margin: 0; }
+.yen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(10px, 1.2vw, 16px); }
+.yen-card { border-left: 3px solid var(--slide-accent); padding-left: clamp(10px, 1vw, 14px); min-width: 0; }
+.yen-model { font-family: 'JetBrains Mono', monospace; font-size: clamp(10px, 0.95vw, 12px); font-weight: 800; color: var(--text-tertiary); letter-spacing: 0.06em; text-transform: uppercase; min-height: 2.2em; }
+.yen-main { font-family: 'DM Sans', sans-serif; font-size: clamp(24px, 3vw, 40px); font-weight: 900; color: var(--slide-accent); line-height: 1; margin: 8px 0; white-space: nowrap; }
+.yen-sub { font-size: clamp(12px, 1.1vw, 15px); font-weight: 800; color: var(--text-secondary); line-height: 1.55; }
+
+/* ── Chat UI vs API diagram ── */
+.llm-compare { width: 100%; max-width: 580px; display: grid; gap: clamp(14px, 2vh, 22px); }
+.llm-lane { position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: clamp(10px, 1.2vw, 16px); padding: clamp(18px, 2vw, 24px); background: rgba(2, 132, 199, 0.06); border-left: 4px solid var(--slide-accent); min-height: clamp(150px, 22vh, 190px); }
+.llm-lane.chat { border-left-color: var(--slide-bad); background: rgba(220, 38, 38, 0.045); }
+.llm-lane.api { border-left-color: var(--slide-accent); }
+.llm-title { position: absolute; left: clamp(18px, 2vw, 24px); top: clamp(12px, 1.4vw, 16px); font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 1vw, 13px); font-weight: 800; letter-spacing: 0.09em; color: var(--text-tertiary); text-transform: uppercase; }
+.llm-box { background: rgba(255,255,255,0.72); border: 2px solid rgba(15,23,42,0.16); min-height: clamp(78px, 11vh, 100px); display: flex; flex-direction: column; justify-content: center; padding: clamp(12px, 1.4vw, 18px); }
+.llm-box strong { font-size: clamp(19px, 2vw, 28px); font-weight: 900; color: var(--text-primary); line-height: 1.25; }
+.llm-box span { font-size: clamp(12px, 1.1vw, 15px); font-weight: 800; color: var(--text-secondary); margin-top: 6px; }
+.llm-box.code { font-family: 'JetBrains Mono', monospace; }
+.llm-arrow { font-family: 'DM Sans', sans-serif; font-size: clamp(30px, 4vw, 54px); font-weight: 900; color: var(--slide-accent); line-height: 1; }
+.llm-lane.chat .llm-arrow { color: var(--slide-bad); }
+.llm-mini { display: inline-flex; align-items: center; justify-content: center; width: clamp(32px, 3vw, 44px); height: clamp(32px, 3vw, 44px); border: 3px solid currentColor; border-radius: 999px; margin-bottom: 8px; font-family: 'DM Sans', sans-serif; font-weight: 900; }
+@media (max-width: 700px) {
+  #s4 .split { gap: 12px; align-items: flex-start; }
+  #s4 .split-text { flex: 1 1 43%; }
+  #s4 .split-vis { flex: 1 1 57%; }
+  .llm-compare { max-width: none; gap: 10px; }
+  .llm-lane { grid-template-columns: 1fr 20px 1fr; gap: 4px; padding: 28px 8px 8px; min-height: 132px; }
+  .llm-title { left: 10px; top: 8px; font-size: 9px; }
+  .llm-box { min-height: 82px; padding: 7px 6px; }
+  .llm-box strong { font-size: 13px; line-height: 1.35; word-break: keep-all; overflow-wrap: normal; }
+  .llm-box span { font-size: 9px; line-height: 1.35; word-break: keep-all; overflow-wrap: normal; }
+  .llm-mini { width: 26px; height: 26px; border-width: 2px; margin-bottom: 6px; font-size: 10px; }
+  .llm-arrow { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div id="frost"></div>
+<script src="../../js/aurora.js"></script>
+
+<div class="deck">
+
+  <!-- ════ S1 / 16 — COVER ════ -->
+  <div class="slide active tech-grid" id="s1" style="justify-content:center; align-items:center; text-align:center;">
+    <span class="tg-corner tl"></span>
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+    <span class="tg-corner br"></span>
+
+    <span class="tg-tag gray" style="margin-bottom:clamp(24px,4vh,40px);display:inline-block;">G-HOLDINGS AI 研修 / 第3回 / 2026</span>
+    <h1 class="headline" style="font-size:clamp(56px,8vw,112px); line-height:1.12;">
+      ChatGPT API を<br><span class="hi">使ってみよう</span>
+    </h1>
+    <div class="tg-divider-text">実践 / コードを書く / 60分</div>
+
+    <div class="tg-meta">
+      <span>FILE / CHATGPT_API_HANDSON</span>
+      <span>16 SLIDES / 60 MIN</span>
+    </div>
+  </div>
+
+  <!-- ════ S2 / 16 — ゴール ════ -->
+  <div class="slide tech-grid" id="s2">
+    <span class="tg-corner tl"></span>
+    <span class="tg-corner br"></span>
+
+    <span class="tg-tag">PURPOSE / 今日のゴール</span>
+    <h2 class="headline" style="font-size:clamp(36px,5vw,68px); margin:clamp(12px,2vh,20px) 0 clamp(20px,3vh,32px);">
+      今日の<span class="hi">ゴール</span>
+    </h2>
+    <div class="num-list">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>自分のAPIキーでAPIを叩く</strong><div class="sub">Slackで配布するハンズオンHTMLから直接、最初の返事を出す</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>パラメータを“自分で書き換えて”操る</strong><div class="sub">スライダーでなく、コードを直接いじる</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>配布HTMLを自分で改造する</strong><div class="sub">GUIを触るだけでは技術は身につかない</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S3 / 16 — Web APIとは ════ -->
+  <div class="slide tech-grid" id="s3">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">BASICS / Web API とは</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.8vw,64px); margin:clamp(16px,2vh,24px) 0 clamp(10px,1.6vh,18px);">
+      APIは<span class="hi">別サービスへの注文口</span>
+    </h2>
+    <p class="body-text" style="max-width:980px;">
+      Web API は、画面を人が操作する代わりに、<strong>プログラムがHTTPで依頼を送り、結果を受け取る仕組み</strong>。
+    </p>
+    <div class="api-flow">
+      <div class="api-node">
+        <div class="api-node-label">CLIENT</div>
+        <p class="api-node-title">自分のコード</p>
+        <p class="api-node-desc">アプリ・HTML・サーバーなど、呼び出す側。</p>
+      </div>
+      <div class="api-arrow">→</div>
+      <div class="api-node">
+        <div class="api-node-label">REQUEST</div>
+        <p class="api-node-title">HTTPリクエスト</p>
+        <p class="api-node-desc">URL・キー・注文内容をまとめて送る。</p>
+      </div>
+      <div class="api-arrow">→</div>
+      <div class="api-node">
+        <div class="api-node-label">RESPONSE</div>
+        <p class="api-node-title">結果が返る</p>
+        <p class="api-node-desc">JSONなどのデータを受け取り、画面や処理に使う。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S4 / 16 — LLM APIとは ════ -->
+  <div class="slide tech-grid" id="s4">
+    <span class="tg-corner tl gray"></span>
+    <span class="tg-corner br gray"></span>
+
+    <span class="tg-tag gray">BASICS / LLM API とは</span>
+    <div class="split" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(30px,4.1vw,54px);">
+          チャット欄と<br><span class="hi">コードの違い</span>
+        </h2>
+        <p class="body-text">
+          ChatGPT の画面は<strong>人間が会話する場所</strong>。LLM API は、<strong>プログラムが入力・指示・設定を送る入口</strong>。
+          返ってきた文章を、自分のアプリで自由に使える。
+        </p>
+        <p class="note-line">今日はこの入口を配布HTMLから直接叩く</p>
+      </div>
+      <div class="split-vis">
+        <div class="llm-compare" aria-label="チャット画面とAPIの違い">
+          <div class="llm-lane chat">
+            <div class="llm-title">CHAT UI</div>
+            <div class="llm-box">
+              <span class="llm-mini">人</span>
+              <strong>人が入力</strong>
+              <span>画面で会話する</span>
+            </div>
+            <div class="llm-arrow">→</div>
+            <div class="llm-box">
+              <span class="llm-mini">返</span>
+              <strong>返事を読む</strong>
+              <span>その場で使う</span>
+            </div>
+          </div>
+          <div class="llm-lane api">
+            <div class="llm-title">LLM API</div>
+            <div class="llm-box code">
+              <span class="llm-mini">{}</span>
+              <strong>コードが送信</strong>
+              <span>入力・指示・設定</span>
+            </div>
+            <div class="llm-arrow">→</div>
+            <div class="llm-box code">
+              <span class="llm-mini">JS</span>
+              <strong>結果を使う</strong>
+              <span>自分のアプリへ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S5 / 16 — LLM APIの4つの特徴 ════ -->
+  <div class="slide tech-grid" id="s5">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">LLM API / 4つの特徴</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(16px,2.5vh,26px);">
+      LLM APIの<span class="hi">4つの特徴</span>
+    </h2>
+    <div class="num-list">
+      <div class="num-list-item">
+        <div class="num">01</div>
+        <div><strong>プログラムから呼ぶ</strong><div class="sub">fetch で HTTP リクエストを送る</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">02</div>
+        <div><strong>今日の方式は毎回まっさら</strong><div class="sub">この教材では履歴を自分で渡す。状態管理は応用編</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">03</div>
+        <div><strong>従量課金</strong><div class="sub">使ったトークン分だけ料金がかかる</div></div>
+      </div>
+      <div class="num-list-item">
+        <div class="num">04</div>
+        <div><strong>instructions（共通指示）を自分で握れる</strong><div class="sub">AIの役割・口調を固定できる</div></div>
+      </div>
+    </div>
+    <p class="note-line">Responses API には previous_response_id / conversation もある。今日は手で履歴を渡す方式</p>
+  </div>
+
+  <!-- ════ S6 / 16 — APIキー警告 ════ -->
+  <div class="slide tech-grid" id="s6">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">WARNING / APIキーの取り扱い</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">
+      APIキーは<br><span class="bad">「鍵」かつ「請求書」</span>
+    </h2>
+    <p class="body-text" style="font-size:clamp(14px,1.6vw,20px); margin-bottom:clamp(14px,1.8vh,22px);">
+      キーを持つ誰でも、<strong>あなたの口座でAIを呼べる</strong>。流出＝そのまま請求になる。
+    </p>
+    <div class="vs-wrap">
+      <div class="vs-col bad">
+        <div class="vs-col-label">❌ 絶対NG</div>
+        <div class="vs-item">ソースコードに直書き</div>
+        <div class="vs-item">Git にコミット</div>
+        <div class="vs-item">Slack・メールで共有</div>
+        <div class="vs-item">公開ページのJSに埋め込む</div>
+      </div>
+      <div class="vs-col ok">
+        <div class="vs-col-label">✅ 正しい扱い方</div>
+        <div class="vs-item">研修用ツールの入力欄から設定</div>
+        <div class="vs-item">本番はサーバー側で管理</div>
+        <div class="vs-item">この場ではブラウザ内だけ（BYOK）</div>
+        <div class="vs-item">1人1キーを守る</div>
+        <div class="vs-item">研修後はキーをクリア</div>
+        <div class="vs-item">流出に気づいたら即無効化</div>
+      </div>
+    </div>
+    <p class="note-line">今日のツールは研修用。本番ではブラウザJSに置かず、サーバーの環境変数や鍵管理から呼ぶ</p>
+  </div>
+
+  <!-- ════ S7 / 16 — PRACTICE 01 キー設定＋初回実行 ════ -->
+  <div class="slide tech-grid" id="s7">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">PRACTICE / 01 / キー設定と初回実行 / 5 MIN</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">
+      まず<span class="hi">1回</span>、返事を出す
+    </h2>
+    <p class="body-text" style="margin-bottom:clamp(12px,1.6vh,18px); max-width:960px;">
+      Slackで配布したHTMLを開いて、<strong>自分のキーで最初の返事を画面に出す</strong>。<br>今日の出発点はここ。
+    </p>
+    <div class="num-list">
+      <div class="num-list-item"><div class="num">01</div><div><strong>Slackの配布HTMLをブラウザで開く</strong></div></div>
+      <div class="num-list-item"><div class="num">02</div><div><strong>上の欄に自分のAPIキーを貼り「キーを設定」</strong></div></div>
+      <div class="num-list-item"><div class="num">03</div><div><strong>「保存して反映」を押す</strong><div class="sub">左のコードを右の実行画面に反映する</div></div></div>
+      <div class="num-list-item"><div class="num">04</div><div><strong>右の入力欄に一文入れて「送信」</strong><div class="sub">返事が出れば成功</div></div></div>
+    </div>
+  </div>
+
+  <!-- ════ S8 / 16 — リクエストの中身を読む ════ -->
+  <div class="slide tech-grid" id="s8">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">READ / リクエストの中身</span>
+    <h2 class="headline" style="font-size:clamp(32px,4.4vw,58px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">
+      送っているのは<span class="hi">この“注文書”</span>
+    </h2>
+    <p class="body-text" style="margin-bottom:clamp(12px,1.6vh,18px);">
+      コードの中の <strong>body</strong> が、AIへの注文書。ここを書き換えるのが今日の操作の中心。
+    </p>
+    <div class="tg-code-block">
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">model</span><span>=</span><span class="tg-val">使うAIモデル</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">instructions</span><span>=</span><span class="tg-val">共通ルール（口調・役割）</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">input</span><span>=</span><span class="tg-val">ユーザーの発言（会話の中身）</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">temperature</span><span>=</span><span class="tg-val">返事のばらつき（0〜2）</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">max_output_tokens</span><span>=</span><span class="tg-val">出力全体の上限（reasoning含む）</span></div>
+      <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">text.verbosity</span><span>=</span><span class="tg-val">返事の詳しさ</span></div>
+    </div>
+  </div>
+
+  <!-- ════ S9 / 16 — トークンと料金 ════ -->
+  <div class="slide tech-grid" id="s9">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">TOKENS / 料金の単位</span>
+    <h2 class="headline" style="font-size:clamp(32px,4.4vw,58px); margin:clamp(12px,2vh,20px) 0 clamp(8px,1.2vh,14px);">
+      料金は<span class="hi">トークン</span>で決まる
+    </h2>
+    <p class="body-text" style="font-size:clamp(14px,1.5vw,18px);">
+      トークンは、文章をAIが扱うための細かい単位。<strong>入力</strong>と<strong>出力</strong>で別々に数え、モデルごとに単価が違う。
+    </p>
+    <div class="token-layout">
+      <div class="token-card">
+        <div class="token-kicker">VOLUME IMAGE</div>
+        <div class="token-big">10,000</div>
+        <p class="token-desc">短いやり取りなら何十回分、長文資料なら数ページ分の材料。日本語は文章で変わるので、実行後の <strong>usage</strong> を見る。</p>
+      </div>
+      <div class="token-card">
+        <div class="token-kicker">JPY / 10K TOKENS</div>
+        <div class="yen-grid">
+          <div class="yen-card">
+            <div class="yen-model">GPT-5.4 MINI</div>
+            <div class="yen-main">¥1 / ¥7</div>
+            <div class="yen-sub">入力 / 出力<br>速い・安い</div>
+          </div>
+          <div class="yen-card">
+            <div class="yen-model">GPT-5.4</div>
+            <div class="yen-main">¥4 / ¥24</div>
+            <div class="yen-sub">入力 / 出力<br>中間</div>
+          </div>
+          <div class="yen-card">
+            <div class="yen-model">GPT-5.5</div>
+            <div class="yen-main">¥8 / ¥48</div>
+            <div class="yen-sub">入力 / 出力<br>賢い・高い</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note-line">OpenAI公式Pricingをもとに、1ドル=160円で概算。価格は変わるため最新は公式を確認</p>
+  </div>
+
+  <!-- ════ S10 / 16 — PRACTICE 02 モデル比較 ════ -->
+  <div class="slide tech-grid" id="s10">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">PRACTICE / 02 / モデル比較 / 4 MIN</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(14px,2vh,22px);">
+      <span class="hi">model</span> を書き換えて比べる
+    </h2>
+    <div class="num-list">
+      <div class="num-list-item"><div class="num">01</div><div><strong>まず "gpt-5.4-mini" のまま実行</strong><div class="sub">速さ・内容・tokens を見る</div></div></div>
+      <div class="num-list-item"><div class="num">02</div><div><strong>"gpt-5.5" に変える</strong><div class="sub">賢さと、下に出る推定コストを見る</div></div></div>
+      <div class="num-list-item"><div class="num">03</div><div><strong>用途に対して過剰品質か考える</strong><div class="sub">安いモデルで足りる場面は多い</div></div></div>
+    </div>
+    <div class="callout accent" style="margin-top:clamp(12px,1.6vh,18px);">
+      <div class="callout-label">見るポイント</div>
+      <div class="callout-body">返事の<strong>質・速さ・推定コスト</strong>の3点を並べて比較する。</div>
+    </div>
+  </div>
+
+  <!-- ════ S11 / 16 — 共通プロンプト ════ -->
+  <div class="slide tech-grid" id="s11">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">INSTRUCTIONS / 共通プロンプト</span>
+    <div class="split reverse" style="margin-top:clamp(16px,2.5vh,28px);">
+      <div class="split-text">
+        <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px);">
+          固定ルール ×<br><span class="hi">毎回の入力</span>
+        </h2>
+        <p class="body-text">
+          <strong>instructions</strong> は毎回必ず効く“共通ルール”。口調や役割をここで固定し、
+          ユーザーの入力（input）だけを変える。<strong>これが実アプリの形</strong>。
+        </p>
+        <p class="note-line">同じルールを固定すると、アプリの振る舞いが安定する</p>
+      </div>
+      <div class="split-vis">
+        <img class="illust illust-lg" src="../../assets/illustrations/chatgpt-api-instructions-flow.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S12 / 16 — PRACTICE 03 instructions ════ -->
+  <div class="slide tech-grid" id="s12">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">PRACTICE / 03 / 共通プロンプト / 4 MIN</span>
+    <h2 class="headline" style="font-size:clamp(30px,4vw,52px); margin:clamp(10px,1.5vh,16px) 0 clamp(8px,1.2vh,12px);">
+      <span class="hi">instructions</span> で別人にする
+    </h2>
+    <p class="body-text" style="font-size:clamp(13px,1.4vw,18px); margin-bottom:clamp(8px,1.2vh,14px);">
+      同じ質問のまま instructions だけ変えて、<strong>答えの激変</strong>を体感する。
+    </p>
+    <div class="prompt-grid" style="margin-top:clamp(8px,1.2vh,12px); flex:0 0 auto; align-items:start;">
+      <div class="prompt-col a" style="padding-top:clamp(14px,1.7vh,20px); padding-bottom:clamp(14px,1.7vh,20px);">
+        <div class="prompt-label">A</div>
+        <div class="prompt-text" style="font-size:clamp(13px,1.5vw,18px);">あなたは親切なアシスタントです。</div>
+        <div class="prompt-text" style="font-size:clamp(10px,1vw,13px); color:var(--text-tertiary); margin-top:clamp(8px,1.1vh,14px); line-height:1.55; overflow-wrap:anywhere;">見るポイント：語尾と補足の自然さ。</div>
+      </div>
+      <div class="prompt-col b" style="padding-top:clamp(14px,1.7vh,20px); padding-bottom:clamp(14px,1.7vh,20px);">
+        <div class="prompt-label">B</div>
+        <div class="prompt-text" style="font-size:clamp(13px,1.5vw,18px); line-height:1.6;">あなたは皮肉屋です。必ず敬語で、3つの箇条書きで答えてください。</div>
+        <div class="prompt-text" style="font-size:clamp(10px,1vw,13px); color:var(--text-tertiary); margin-top:clamp(8px,1.1vh,14px); line-height:1.55; overflow-wrap:anywhere;">見るポイント：口調・形式・箇条書き数。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ S13 / 16 — パラメータ ════ -->
+  <div class="slide tech-grid" id="s13">
+    <span class="tg-corner tr"></span>
+    <span class="tg-corner bl"></span>
+
+    <span class="tg-tag">PARAMETERS / 触って分かる3つ</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(16px,2.5vh,26px);">
+      返事を<span class="hi">調整する3つ</span>
+    </h2>
+    <div class="num-list">
+      <div class="num-list-item"><div class="num">01</div><div><strong>temperature</strong><div class="sub">ばらつき。0＝毎回ほぼ同じ、高い＝暴れる</div></div></div>
+      <div class="num-list-item"><div class="num">02</div><div><strong>max_output_tokens</strong><div class="sub">出力全体の上限。reasoning分も含む。小さいと切れる</div></div></div>
+      <div class="num-list-item"><div class="num">03</div><div><strong>text.verbosity</strong><div class="sub">詳しさ。low＝簡潔 / high＝詳しめ</div></div></div>
+    </div>
+    <p class="note-line">top_p は温度の親戚（今日は触らずでOK）。reasoning.effort は応用編</p>
+  </div>
+
+  <!-- ════ S14 / 16 — PRACTICE 04 パラメータ ════ -->
+  <div class="slide tech-grid" id="s14">
+    <span class="tg-corner tr accent"></span>
+    <span class="tg-corner bl accent"></span>
+
+    <span class="tg-tag accent">PRACTICE / 04 / パラメータ / 5 MIN</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(14px,2vh,22px);">
+      値を変えて<span class="hi">挙動を見る</span>
+    </h2>
+    <div class="num-list">
+      <div class="num-list-item"><div class="num">01</div><div><strong>temperature を 0 に</strong><div class="sub">同じ質問を2回投げて“ほぼ同じ”を確認</div></div></div>
+      <div class="num-list-item"><div class="num">02</div><div><strong>temperature を 1.8 に</strong><div class="sub">答えが暴れるのを見る</div></div></div>
+      <div class="num-list-item"><div class="num">03</div><div><strong>max_output_tokens を 60 に</strong><div class="sub">途中で切れるのを見る</div></div></div>
+    </div>
+    <div class="callout accent" style="margin-top:clamp(12px,1.6vh,18px);">
+      <div class="callout-label">コツ</div>
+      <div class="callout-body"><strong>1つずつ変える</strong>。一度に複数変えると、何が効いたのか分からなくなる。</div>
+    </div>
+  </div>
+
+  <!-- ════ S15 / 16 — PRACTICE 05 構造を読む・広げる ════ -->
+  <div class="slide tech-grid" id="s15">
+    <span class="tg-corner tr ok"></span>
+    <span class="tg-corner bl ok"></span>
+
+    <span class="tg-tag ok">PRACTICE / 05 / 構造を読む・広げる / 6 MIN</span>
+    <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(14px,2vh,22px);">
+      JSONを<span class="ok">読んで</span>改造する
+    </h2>
+    <div class="num-list">
+      <div class="num-list-item"><div class="num">01</div><div><strong>console.log(data) で生のJSONを見る</strong><div class="sub">F12 → Console。本文は output[].content[] を追う。data.output_text があれば便利表示</div></div></div>
+      <div class="num-list-item"><div class="num">02</div><div><strong>input に過去のやり取りを足してマルチターンに</strong><div class="sub">今日は履歴を自分で渡す。API側の状態管理は次の一歩</div></div></div>
+      <div class="num-list-item"><div class="num">03</div><div><strong>余力で自由に改造</strong><div class="sub">複数モデルを並べて出し比べる など</div></div></div>
+    </div>
+    <div class="callout ok" style="margin-top:clamp(12px,1.6vh,18px);">
+      <div class="callout-label">ここから</div>
+      <div class="callout-body">正解は配らない。<strong>エラーは読む・AIに聞く・直す</strong>。これがエンジニアの仕事。</div>
+    </div>
+  </div>
+
+  <!-- ════ S16 / 16 — まとめ ════ -->
+  <div class="slide tech-grid" id="s16">
+    <span class="tg-corner tl ok"></span>
+    <span class="tg-corner br ok"></span>
+
+    <span class="tg-tag ok">SUMMARY / 持ち帰る3つ</span>
+    <h2 class="headline" style="font-size:clamp(38px,5.2vw,72px); margin:clamp(12px,2vh,20px) 0 clamp(28px,4vh,40px);">
+      今日<span class="ok">持ち帰る3つ</span>
+    </h2>
+    <div class="tg-rule-list">
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">RULE / 01</span>
+        <div>
+          <p class="tg-rule-text">APIはプログラム用の入口</p>
+          <p class="tg-rule-sub">// 画面でなくコードから・今日は手で履歴を渡す・従量課金</p>
+        </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">RULE / 02</span>
+        <div>
+          <p class="tg-rule-text">注文書(body)を自分で書き換える</p>
+          <p class="tg-rule-sub">// モデル・instructions・パラメータ</p>
+        </div>
+      </div>
+      <div class="tg-rule-item">
+        <span class="tg-rule-num">RULE / 03</span>
+        <div>
+          <p class="tg-rule-text">キーは鍵かつ請求書</p>
+          <p class="tg-rule-sub">// 研修用はブラウザ内・本番はサーバー側・流出は即無効化</p>
+        </div>
+      </div>
+    </div>
+    <p class="note-line">次の一歩 — function calling / tool use / streaming / web検索・画像生成</p>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- FOOTER -->
+<div class="slide-footer">
+  <div class="slide-footer-info">G-Holdings AI研修 — 第3回 / ChatGPT API を使ってみよう</div>
+  <div class="slide-footer-nav">
+    <div class="slide-footer-track"><div class="slide-footer-fill" id="bar"></div></div>
+    <div class="slide-footer-counter" id="ctr">1 / 16</div>
+  </div>
+</div>
+
+<script src="../../js/slide.js"></script>
+</body>
+</html>
