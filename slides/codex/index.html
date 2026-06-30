@@ -103,6 +103,70 @@
   <p class="note-line">次から、安全の"2つのつまみ"を手で確かめる</p>
 </div>
 
+<div class="slide tech-grid" id="s6">
+  <span class="tg-corner tr"></span>
+  <span class="tg-corner bl"></span>
+  <span class="tg-tag">SAFETY / 安全の2層</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.8vw,64px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);"><span class="bad">壁</span>と<span class="bad">チャイム</span></h2>
+  <div class="duo">
+    <div class="duo-col">
+      <div class="duo-kicker">壁 / サンドボックス</div>
+      <h3 class="duo-title">AIが"何を触れるか"</h3>
+      <p class="duo-desc">Read Only（読むだけ）／ Auto（フォルダ内で書ける）／ Full（無制限・使わない）</p>
+    </div>
+    <div class="duo-col">
+      <div class="duo-kicker">チャイム / 承認</div>
+      <h3 class="duo-title">AIが"いつ確認するか"</h3>
+      <p class="duo-desc">書く前に<strong>差分を見せて y/n</strong>。承認するまで適用しない</p>
+    </div>
+  </div>
+  <div class="callout bad"><div class="callout-label">既定の設定</div><div class="callout-body">フォルダ内は書ける・外部とネットは<strong>既定オフ</strong>。だから安全に試せる。</div></div>
+</div>
+
+<div class="slide tech-grid" id="s7">
+  <span class="tg-corner tr accent"></span>
+  <span class="tg-corner bl accent"></span>
+  <span class="tg-tag accent">PRACTICE / 01 / サインイン＆確認 / 8 MIN</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">まず<span class="hi">サインイン</span>して状態を見る</h2>
+  <p class="body-text">用意済み端末。作業フォルダを開いてCodexを起動し、<strong>普段のChatGPT</strong>でログインする。</p>
+  <div class="num-list">
+    <div class="num-list-item"><div class="num">01</div><div><strong>作業フォルダで <code>codex</code> を起動</strong><div class="sub">ターミナルに codex と打つ</div></div></div>
+    <div class="num-list-item"><div class="num">02</div><div><strong>『Sign in with ChatGPT』を選ぶ</strong><div class="sub">ブラウザでログイン。APIキーは使わない</div></div></div>
+    <div class="num-list-item"><div class="num">03</div><div><strong><code>/status</code> で残量とモデルを見る</strong><div class="sub">今日の枠を確認</div></div></div>
+    <div class="num-list-item"><div class="num">04</div><div><strong>困ったら隣とペア・講師画面</strong><div class="sub">先に進めなくてOK</div></div></div>
+  </div>
+  <p class="note-line">APIキーは従量課金。今日は使わない</p>
+</div>
+
+<div class="slide tech-grid" id="s8">
+  <span class="tg-corner tr accent"></span>
+  <span class="tg-corner bl accent"></span>
+  <span class="tg-tag accent">PRACTICE / 02 / Read Onlyで説明 / 6 MIN</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">一番安全な<span class="hi">読むだけ</span></h2>
+  <p class="body-text">まずは書き込まない <strong>Read Only</strong>。壊す心配なく、AIに説明させる。</p>
+  <div class="num-list">
+    <div class="num-list-item"><div class="num">01</div><div><strong>Read Only か確認</strong><div class="sub">/approvals で選ぶ</div></div></div>
+    <div class="num-list-item"><div class="num">02</div><div><strong>『このフォルダは何をする?』</strong><div class="sub">プロジェクトを説明させる</div></div></div>
+    <div class="num-list-item"><div class="num">03</div><div><strong>『このファイルを1行ずつ日本語で』</strong><div class="sub">コードに注釈</div></div></div>
+    <div class="num-list-item"><div class="num">04</div><div><strong>『このエラーを日本語とネパール語で』</strong><div class="sub">混成チームに効く</div></div></div>
+  </div>
+  <div class="callout accent"><div class="callout-label">安心ポイント</div><div class="callout-body">書き込まないモードだから、安心して何でも聞ける。</div></div>
+</div>
+
+<div class="slide tech-grid" id="s9">
+  <span class="tg-corner tr"></span>
+  <span class="tg-corner bl"></span>
+  <span class="tg-tag">APPLY / 差分 → 承認 → 適用</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">勝手に書かない。<span class="bad">diffを見て y/n</span></h2>
+  <p class="body-text">Codexは変更を<strong>差分(diff)で見せて y/n を待つ</strong>。承認して初めてファイルになる。<code>/approvals</code> で Auto にすると、安全な範囲は自動で進む。</p>
+  <div class="tg-code-block" data-filename="CODEX">
+    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-val">codex wants to apply a change to report.html</span></div>
+    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">+ &lt;html&gt; … 売上レポート …</span></div>
+    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-val">Apply this change? [y/n]</span></div>
+  </div>
+  <p class="note-line"><code>/diff</code> で現在の差分・<code>/review</code> で変更をレビュー</p>
+</div>
+
 </div><!-- /deck -->
 <div class="slide-footer">
   <div class="slide-footer-info">G-Holdings AI研修 — 第4回 / Codex を使ってみよう</div>
