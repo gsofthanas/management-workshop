@@ -21,7 +21,7 @@
 - **「MAX」表記禁止** → 「最上位プラン（Pro）」と書く（OpenAIにMAXプランは無い）。
 - **価格・利用上限の具体数値をスライドに焼かない**（「当日/公式で確認」とする）。変動が速いため。
 - フッタークリアランス調整（chatgpt-api の `<style>` を踏襲: `.slide{padding-bottom}` と `.tg-corner.bl/.br`、`.tg-meta` の bottom 上書き）。
-- コミットメッセージは**日本語・シンプル**、Claude/Co-Authored-By 等の付与は**しない**（プロジェクト慣習）。`main` ブランチで作業（既存デッキ追加と同じ運用）。
+- コミットメッセージは**日本語・シンプル**、Claude/Co-Authored-By 等の付与は**しない**（プロジェクト慣習）。作業は feature ブランチ `codex-handson` で行い、完了後に `main` へマージする（harness の git 衛生に従う。既存デッキは最終的に main に集約）。
 
 ---
 
