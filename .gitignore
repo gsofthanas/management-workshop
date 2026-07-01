@@ -14,6 +14,10 @@ Thumbs.db
 # 講師台本: ナレーション/進行Tips/受講者反応想定 等を含む
 scripts/
 
+# 設計スペック・実装計画（生成AIでの作業ドキュメント・社内向け）
+docs/superpowers/
+.superpowers/
+
 # APIキー入力を伴う研修用ハンズオン（Slack等で個別配布）
 slides/chatgpt-api/handson.html
 
