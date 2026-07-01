@@ -13,7 +13,7 @@
 スペック `docs/superpowers/specs/2026-07-01-codex-handson-design.md` のプロジェクト全体要件。各タスクはこれを暗黙に含む。
 
 - 成果物: `slides/codex/index.html`（**17枚**）／`slides/codex/handbook.html`／ルート `index.html`（ポータル）に SERIES 05 追加。
-- 言語: **日本語のみ**（ネパール語併記版は作らない。Read Only実習で「ネパール語で説明させる」体験のみ）。
+- 言語: **日本語のみ**。
 - CSS読み込み（デッキ）: `../../css/base.css` → `../../css/pres.css` → `../../css/tech-grid.css`。`<div class="slide tech-grid">` ベース。
 - `<head>` に `<meta name="robots" content="noindex, nofollow">`（chatgpt-api同様）。
 - 色セマンティクス: `bad`=赤（注意/安全）/ `accent`=青（実習・概念）/ `ok`=緑（上級・まとめ）。**実在クラスのみ使用**（pres.css / tech-grid.css）。新規クラスは必要時のみデッキ内 `<style>` に定義。
@@ -266,7 +266,7 @@ git commit -m "Codexデッキ: 段1（Codexとは・心構え）追加"
   - `tg-tag accent`＝`PRACTICE / 02 / Read Onlyで説明 / 6 MIN`、コーナー accent
   - headline: `一番安全な<span class="hi">読むだけ</span>`
   - body-text: 「まずは書き込まない <strong>Read Only</strong>。壊す心配なく、AIに説明させる。」
-  - num-list: 01「Read Only か確認」/sub「/approvals で選ぶ」、02「『このフォルダは何をする?』」/sub「プロジェクトを説明させる」、03「『このファイルを1行ずつ日本語で』」/sub「コードに注釈」、04「『このエラーを日本語とネパール語で』」/sub「混成チームに効く」
+  - num-list: 01「Read Only か確認」/sub「/approvals で選ぶ」、02「『このフォルダは何をする?』」/sub「プロジェクトを説明させる」、03「『このファイルを1行ずつ日本語で』」/sub「コードに注釈」、04「『このエラーの意味と直し方をやさしく説明して』」/sub「初心者でも読めるように」
   - `callout accent`（label `安心ポイント`）: 「書き込まないモードだから、安心して何でも聞ける。」
 
 - [ ] **Step 4: s9（差分→承認→適用・bad、tg-code-block）追加**
@@ -395,7 +395,7 @@ git commit -m "Codexデッキ: 段4-5（会社の約束・講師デモ・まと�
   - `.callout.warn`（label ⚠️APIキー）: 「APIキーは従量課金。今日は使わない。`%USERPROFILE%\.codex\auth.json` はパスワード扱い、共有・コミット禁止。」
 
 - [ ] **Step 4: §3 コピペ用プロンプト集**（各 `.prompt`、`prompt-label` 付き）
-  - Read Only 3種: 「このフォルダは何をするか初心者向けに説明して」「このファイルを1行ずつ日本語でコメントして」「このエラーを日本語とネパール語で説明して」
+  - Read Only 3種: 「このフォルダは何をするか初心者向けに説明して」「このファイルを1行ずつ日本語でコメントして」「このエラーの意味と直し方をやさしい日本語で説明して」
   - 売上→集計→レポートの**3呪文**（スペック §4 確定文を逐語）。
   - （任意）事務自動化: 「（使い捨てフォルダで）.jpg を日付順に vacation-001… にリネームして実行。標準ライブラリのみ」
   - `.callout.tip`（label net-off の鉄則）: 「全プロンプトに『単一HTML・標準ライブラリのみ・外部CDN/インストール禁止』を添える。事前導入済みの openpyxl/pandas は使ってよい。」
@@ -505,4 +505,4 @@ git commit -m "Codexデッキ: オーバーフロー微調整"
 - **検証**: 自動テスト不在のため browser＋grep に翻訳（各タスク末＋Task8）。✓
 - **Placeholder scan**: 逐語コピー・実コマンドを各ステップに記載、TBD無し。✓
 - **クラス整合**: 使用クラスは pres.css / tech-grid.css 実在（num-list/vs-wrap/callout/tg-code-block/tg-rule-list/tg-tag/tg-corner）＋デッキ内 `.duo`・`.note-line` のみ新規定義。✓
-- スコープ外（COM Excel・ネパール語版デッキ）は不実装。✓
+- スコープ外（COM Excel）は不実装。✓
