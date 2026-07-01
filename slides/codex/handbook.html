@@ -304,7 +304,7 @@
   <header>
     <div class="doc-tag">G-HOLDINGS AI 研修 / 第4回 / 作業ガイド</div>
     <h1>Codex を使ってみよう</h1>
-    <p class="doc-subtitle">インストール・プロンプト集・困った時・講師チェックリスト</p>
+    <p class="doc-subtitle">アプリ導入・プロンプト集・困った時・安全チェック</p>
   </header>
 
   <nav class="toc">
@@ -314,9 +314,8 @@
       <li><a href="#signin">サインイン</a></li>
       <li><a href="#prompts">コピペ用プロンプト集</a></li>
       <li><a href="#trouble">困った時（トラブルシュート）</a></li>
-      <li><a href="#slash">スラッシュ早見表</a></li>
+      <li><a href="#slash">アプリ操作 早見表</a></li>
       <li><a href="#safety">安全チェックリスト</a></li>
-      <li><a href="#checklist">当日朝の講師チェックリスト</a></li>
     </ol>
   </nav>
 
@@ -324,25 +323,22 @@
   <section id="install">
     <h2>インストール（フル手順）</h2>
 
-    <h3>方法①　PowerShell ワンライナー（推奨・Node.js 不要）</h3>
-    <div class="prompt">
-      <span class="prompt-label">PowerShell で実行</span>powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"</div>
+    <p>今日使うのは <strong>Codex デスクトップアプリ</strong>。Windows / macOS に対応（Linux は今後）。ChatGPT の Plus / Pro 等のプランに含まれる。</p>
 
-    <h3>方法②　npm（Node.js LTS 22+ が必要）</h3>
+    <h3>Windows　Microsoft Store から入れる</h3>
     <div class="prompt">
-      <span class="prompt-label">Terminal / PowerShell</span>npm install -g @openai/codex</div>
+      <span class="prompt-label">Microsoft Store</span>ストアで「Codex」を検索 → 入手（インストール）→ 起動</div>
 
-    <h3>方法③　winget</h3>
+    <h3>macOS　公式サイトから .dmg を入れる</h3>
     <div class="prompt">
-      <span class="prompt-label">PowerShell</span>winget install --id OpenAI.Codex</div>
+      <span class="prompt-label">ダウンロード</span>developers.openai.com/codex/app から .dmg（Apple Silicon / Intel）を入手 → 開いて Applications へドラッグ → 起動</div>
 
-    <h3>インストール確認</h3>
-    <div class="prompt">
-      <span class="prompt-label">確認コマンド</span>codex --version</div>
+    <h3>起動確認</h3>
+    <p>アプリが起動し、次項のサインイン画面が出れば導入は成功。</p>
 
-    <div class="callout warn">
-      <p class="callout-label">⚠️ よくある間違い</p>
-      <p><code>npm i -g codex</code>（スコープ無し）は無関係の別物。<code>winget install Codex -s msstore</code> はGUIアプリで今日のCLIとは別物。確認は必ず <code>codex --version</code> で。</p>
+    <div class="callout tip">
+      <p class="callout-label">💡 CLI もある（任意）</p>
+      <p>Codex は同じ頭脳を <strong>アプリ / CLI（ターミナル）/ IDE拡張 / クラウド</strong> の4入口から使える。今日は<strong>アプリ</strong>だけでよい。ターミナル派は <code>npm install -g @openai/codex</code> で CLI も入る。</p>
     </div>
   </section>
 
@@ -350,22 +346,23 @@
   <section id="signin">
     <h2>サインイン</h2>
 
-    <h3>通常手順</h3>
+    <h3>通常手順（アプリ）</h3>
     <ol>
-      <li>作業フォルダで <code>codex</code> を起動する</li>
-      <li>「Sign in with ChatGPT」を選ぶ</li>
-      <li>ブラウザでログインする（普段の ChatGPT アカウント）</li>
-      <li><code>/status</code> で残量とモデルを確認する</li>
+      <li>Codex アプリを起動する</li>
+      <li>「Sign in with ChatGPT」を選ぶ（普段の ChatGPT アカウント）</li>
+      <li>ブラウザが開くのでログインし、アプリに戻る</li>
+      <li>作業フォルダを選ぶ（まずはホーム等でOK・本番の codextest は次で作る）</li>
+      <li>実行モードは <strong>Local</strong> を選ぶ（自分の PC 上で動かす）</li>
     </ol>
 
-    <h3>ブラウザが開けない端末の場合</h3>
-    <div class="prompt">
-      <span class="prompt-label">デバイス認証モード</span>codex login
-codex login --device-auth</div>
+    <div class="callout tip">
+      <p class="callout-label">💡 モデル・残量</p>
+      <p>既定モデルは <strong>GPT-5.5</strong>。残量やプランはアプリの表示で確認できる。</p>
+    </div>
 
     <div class="callout warn">
       <p class="callout-label">⚠️ APIキー</p>
-      <p>APIキーは従量課金。今日は使わない。<code>%USERPROFILE%\.codex\auth.json</code> はパスワード扱い——共有・コミット禁止。</p>
+      <p>「Sign in with ChatGPT」を使う。APIキーは従量課金なので今日は使わない。認証情報はパスワード扱い——共有・コミット禁止。</p>
     </div>
   </section>
 
@@ -373,24 +370,29 @@ codex login --device-auth</div>
   <section id="prompts">
     <h2>コピペ用プロンプト集</h2>
 
-    <h3>Read Only で使う 3 種</h3>
+    <h3>まず1回動かす（codextest ウォームアップ）</h3>
 
     <div class="prompt">
-      <span class="prompt-label">フォルダ説明</span>このフォルダは何をするか初心者向けに説明して</div>
+      <span class="prompt-label">① フォルダを作る</span>C:\Users\自分\codextest を作って</div>
 
     <div class="prompt">
-      <span class="prompt-label">コメント追加</span>このファイルを1行ずつ日本語でコメントして</div>
+      <span class="prompt-label">② メモを書く</span>codextest に test.txt を作り「このフォルダは Codex の動作テスト用」と書いて</div>
 
     <div class="prompt">
-      <span class="prompt-label">エラー説明</span>このエラーの意味と直し方をやさしい日本語で説明して</div>
+      <span class="prompt-label">③ 表示する</span>test.txt を表示して</div>
+
+    <div class="callout tip">
+      <p class="callout-label">💡 開き直してから本番</p>
+      <p>この後、<strong>新しいセッションで codextest フォルダを開いて</strong>から、下の 3 呪文（本番）に進む。承認が出たら中身を見て OK。</p>
+    </div>
 
     <h3>売上 Excel → 集計 → レポートの 3 呪文</h3>
 
     <div class="prompt">
-      <span class="prompt-label">呪文 01 ― 売上データを作る</span>架空の飲食店の売上を3か月・日別で、メニュー名/単価/数量の列入りの .xlsx を openpyxl で sales.xlsx に保存して</div>
+      <span class="prompt-label">呪文 01 ― 売上データを作る</span>架空の飲食店の売上を1週間・日別で、メニュー名/単価/数量の列入りの .xlsx を sales.xlsx に保存して</div>
 
     <div class="prompt">
-      <span class="prompt-label">呪文 02 ― 読んで集計する</span>sales.xlsx を読み、メニュー別・日別売上と売れ筋トップ5を新シート"集計"に。元は壊さずコピーに、openpyxl で</div>
+      <span class="prompt-label">呪文 02 ― 読んで集計する</span>sales.xlsx を読み、メニュー別・日別売上と売れ筋トップ5を新シート"集計"に。元は壊さずコピーに</div>
 
     <div class="prompt">
       <span class="prompt-label">呪文 03 ― レポートを作る</span>"集計"を、棒グラフ（インラインSVG/canvas・外部CDN禁止）とサマリー付きの単一HTML report.html にしてブラウザで開いて</div>
@@ -417,12 +419,12 @@ codex login --device-auth</div>
 
     <div class="qa">
       <div class="qa-q">枠が切れた（残量不足）</div>
-      <div class="qa-a"><code>/status</code> で残量を確認。<code>/compact</code> で履歴を圧縮。軽い質問は別モデルに切り替える（<code>/model</code>）。</div>
+      <div class="qa-a">アプリの残量表示を確認。会話が長くなったら<strong>新しいスレッド</strong>を開く。軽い質問はモデルを切り替える。</div>
     </div>
 
     <div class="qa">
       <div class="qa-q">コマンドが弾かれる</div>
-      <div class="qa-a">サンドボックス制約による。使い捨てフォルダで Auto モード（<code>/approvals</code>）を使う。</div>
+      <div class="qa-a">サンドボックス制約による。承認プロンプトで OK を出す（または <strong>代理で承認</strong>）。フォルダ外・ネットは要承認。</div>
     </div>
 
     <div class="qa">
@@ -432,29 +434,27 @@ codex login --device-auth</div>
 
     <div class="qa">
       <div class="qa-q">Excel（.xlsx）が作れない</div>
-      <div class="qa-a"><code>python -c "import openpyxl"</code> が通るかターミナルで確認し、エラーなら講師に申告。</div>
+      <div class="qa-a"><code>python -c "import openpyxl"</code> が通るか<strong>アプリのターミナル(Cmd+J)</strong>で確認し、エラーなら講師に申告。</div>
     </div>
   </section>
 
-  <!-- ════ 5. スラッシュ早見表 ════ -->
+  <!-- ════ 5. アプリ操作 早見表 ════ -->
   <section id="slash">
-    <h2>スラッシュ早見表</h2>
+    <h2>アプリ操作 早見表</h2>
 
     <ul>
-      <li><code>/status</code> — 残量・モデル・プラン情報を表示</li>
-      <li><code>/approvals</code> — 承認モードを切り替える（Read Only / Auto / Full）</li>
-      <li><code>/model</code> — 使用モデルを確認・切り替える</li>
-      <li><code>/review</code> — これまでの変更をレビューする</li>
-      <li><code>/diff</code> — 現在の差分を表示する</li>
-      <li><code>/init</code> — AGENTS.md を作成して恒久ルールを設定する</li>
-      <li><code>/compact</code> — 会話履歴を圧縮して枠を節約する</li>
-      <li><code>/resume</code> — 前のセッションを再開する</li>
-      <li><code>/quit</code> — Codex を終了する</li>
+      <li><strong>承認モード</strong> — 承認を求める / 代理で承認 / フルアクセス / カスタム から選ぶ</li>
+      <li><strong>Review ペイン</strong> — 変更を Git 差分で表示。チャンク単位で採用(stage)/取り消し(revert)・コメント・commit</li>
+      <li><strong>ターミナル（Cmd+J）</strong> — スレッド内でコマンド実行。出力は Codex も読める</li>
+      <li><strong>Artifacts サイドバー</strong> — 計画・生成物（xlsx・HTML等）のプレビュー</li>
+      <li><strong>アプリ内ブラウザ</strong> — 生成した report.html をその場で開く</li>
+      <li><strong>スレッド</strong> — 新しいスレッドを開く／並列で回す（worktree）</li>
+      <li><strong>モデル選択</strong> — 使用モデルを確認・切り替える（既定 GPT-5.5）</li>
     </ul>
 
     <div class="callout">
       <p class="callout-label">ヒント</p>
-      <p>ラベルは版で変わる。<code>/</code> を打って出る一覧を信頼。</p>
+      <p>ラベルは版で変わる。画面の表示を信頼する。<strong>CLI補足</strong>：ターミナル派は <code>/approvals</code>（モード）・<code>/diff</code>（差分）・<code>/init</code>（AGENTS.md）・<code>/status</code>（残量）が対応する。</p>
     </div>
   </section>
 
@@ -470,19 +470,6 @@ codex login --device-auth</div>
     </ul>
   </section>
 
-  <!-- ════ 7. 当日朝の講師チェックリスト ════ -->
-  <section id="checklist">
-    <h2>当日朝の講師チェックリスト</h2>
-
-    <ul>
-      <li>無料アカウントで <code>codex</code> サインインが通るか（1台で実機確認）</li>
-      <li><code>/status</code> の枠表示が正しく出るか</li>
-      <li>既定モデル名を確認する（<code>/model</code>）</li>
-      <li>価格・上限を日本円で確認する（chatgpt.com/pricing・chatgpt.com/codex/pricing）</li>
-      <li><code>python -c "import openpyxl, pandas"</code> が通るか</li>
-      <li>サンドボックスでスクリプト実行が通るか（ネット不要でも弾かれないか）</li>
-    </ul>
-  </section>
 
   <footer>
     G-Holdings AI 研修 — 第4回 — Codex を使ってみよう — 作業ガイド

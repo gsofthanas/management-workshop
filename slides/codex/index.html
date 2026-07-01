@@ -70,8 +70,8 @@
   <h1 class="headline" style="font-size:clamp(56px,8vw,112px); line-height:1.12;">
     Codex を<br><span class="hi">使ってみよう</span>
   </h1>
-  <div class="tg-divider-text">実践 / 操作するAI / 60分</div>
-  <div class="tg-meta"><span>FILE / CODEX_HANDSON</span><span>17 SLIDES / 60 MIN</span></div>
+  <div class="tg-divider-text">実践 / アプリで操作するAI / 60分</div>
+  <div class="tg-meta"><span>FILE / CODEX_APP_HANDSON</span><span>12 SLIDES / 60 MIN</span></div>
 </div>
 
 <div class="slide tech-grid" id="s2">
@@ -81,7 +81,7 @@
   <div class="num-list">
     <div class="num-list-item"><div class="num">01</div><div><strong>Codexは「操作する」AIだと理解する</strong><div class="sub">画面で話すAIではなく、PCのファイルを読み書きして実行する</div></div></div>
     <div class="num-list-item"><div class="num">02</div><div><strong>安全の2つのつまみを"自分の手で"確かめる</strong><div class="sub">壁（サンドボックス）とチャイム（承認）</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong>売上Excel→集計→レポートHTMLを安全に一気通貫で作る</strong><div class="sub">最後はブラウザに成果物が出る</div></div></div>
+    <div class="num-list-item"><div class="num">03</div><div><strong>売上Excel→集計→レポートHTMLを安全に一気通貫で作る</strong><div class="sub">最後はアプリ内プレビュー/ブラウザに成果物が出る</div></div></div>
   </div>
 </div>
 
@@ -90,9 +90,8 @@
   <span class="tg-corner bl accent"></span>
   <span class="tg-tag accent">HOOK / まず一度、見る</span>
   <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">「作って」で<span class="hi">物が生まれる</span></h2>
-  <p class="body-text">講師が実際に『単一HTMLのツールを作って』と頼む。Codexが<strong>差分(diff)</strong>を見せ、<strong>y/n</strong>で承認すると、ファイルが生まれてすぐ動く。</p>
-  <div class="callout accent"><div class="callout-label">見るポイント</div><div class="callout-body">注目するのは『<strong>差分が出て y/n を押す瞬間</strong>』。これがCodexの正体。</div></div>
-  <p class="note-line">強力だからこそ、今日はまず"安全に持つ"を学ぶ</p>
+  <p class="body-text">講師が実際に『単一HTMLのツールを作って』と頼む。Codexが変更を<strong>Reviewペインに差分</strong>で並べ、<strong>採用</strong>するとファイルが生まれてすぐ動く。</p>
+  <div class="callout accent"><div class="callout-label">見るポイント</div><div class="callout-body">注目するのは『<strong>差分が並んで“採用”を押す瞬間</strong>』。これがCodexの正体。</div></div>
 </div>
 
 <div class="slide tech-grid" id="s4">
@@ -105,108 +104,74 @@
     <div class="num-list-item"><div class="num">02</div><div><strong>コードから呼ぶ（API）</strong><div class="sub">プログラムが入力を送る（前回）</div></div></div>
     <div class="num-list-item"><div class="num">03</div><div><strong>操作する（Codex）</strong><div class="sub">AIがファイルを読み・書き・コマンドを実行する</div></div></div>
   </div>
-  <p class="body-text">Codexは<strong>4つの入口</strong>（CLI・IDE・クラウド・アプリ）から使える1人のAIエンジニア。同じChatGPTでログイン。既定モデルは<strong>GPT-5.5</strong>。</p>
-  <p class="note-line">きょう触るのはCLI（ターミナル）。デスクトップ"アプリ"とは別物</p>
+  <p class="body-text">Codexは<strong>4つの入口</strong>（CLI・IDE・クラウド・アプリ）から使える1人のAIエンジニア。同じChatGPTでログイン、既定モデルは<strong>GPT-5.5</strong>。近縁の"操作するAI"に <strong>Claude Code</strong>（計画力・巨大コンテキストが持ち味）。</p>
 </div>
 
-<div class="slide tech-grid" id="s5">
-  <span class="tg-corner tr"></span>
-  <span class="tg-corner bl"></span>
-  <span class="tg-tag">MINDSET / なぜ"心構え"が先か</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">速く強い＝<span class="bad">間違いも速い</span></h2>
-  <p class="body-text">Codexは数百回の操作を自分で連鎖できる。便利な反面、<strong>間違いも一気に進む</strong>。だから先に安全のしくみを知る。</p>
-  <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>存在しないライブラリを"それらしく"作る</strong><div class="sub">捏造。実在を確認する</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>頼んでいないファイルまで編集する</strong><div class="sub">差分を必ず読む</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong>差分を盲信する</strong><div class="sub">テスト・レビューは人間が持つ</div></div></div>
-  </div>
-  <p class="note-line">次から、安全の"2つのつまみ"を手で確かめる</p>
-</div>
 
 <div class="slide tech-grid" id="s6">
   <span class="tg-corner tr"></span>
   <span class="tg-corner bl"></span>
   <span class="tg-tag">SAFETY / 安全の2層</span>
   <h2 class="headline" style="font-size:clamp(34px,4.8vw,64px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);"><span class="bad">壁</span>と<span class="bad">チャイム</span></h2>
+  <p class="body-text">Codexは操作を自分で連鎖でき、速い反面<strong>間違いも一気に進む</strong>（捏造・勝手な編集・差分の盲信）。だから先に安全の2層を持つ。</p>
   <div class="duo">
     <div class="duo-col">
       <div class="duo-kicker">壁 / サンドボックス</div>
       <h3 class="duo-title">AIが"何を触れるか"</h3>
-      <p class="duo-desc">Read Only（読むだけ）／ Auto（フォルダ内で書ける）／ Full（無制限・使わない）</p>
+      <p class="duo-desc">既定でフォルダ内は読み書きOK。フォルダ外・ネット・危険な操作は止まって"要承認"になる</p>
     </div>
     <div class="duo-col">
       <div class="duo-kicker">チャイム / 承認</div>
-      <h3 class="duo-title">AIが"いつ確認するか"</h3>
-      <p class="duo-desc">書く前に<strong>差分を見せて y/n</strong>。承認するまで適用しない</p>
+      <h3 class="duo-title">その"要承認"を誰が出す？</h3>
+      <p class="duo-desc"><strong>承認を求める</strong>＝あなたが1つずつOK ／ <strong>代理で承認</strong>＝自動レビューが代行（リスク度つき・速い）</p>
     </div>
   </div>
-  <div class="callout bad"><div class="callout-label">既定の設定</div><div class="callout-body">フォルダ内は書ける・外部とネットは<strong>既定オフ</strong>。だから安全に試せる。</div></div>
+  <div class="callout bad"><div class="callout-label">今日の選び方</div><div class="callout-body">今日は <strong>承認を求める</strong>。フルアクセス＝壁なし・使わない／カスタム＝細かく指定・上級。</div></div>
 </div>
 
 <div class="slide tech-grid" id="s7">
   <span class="tg-corner tr accent"></span>
   <span class="tg-corner bl accent"></span>
-  <span class="tg-tag accent">PRACTICE / 01 / サインイン＆確認 / 8 MIN</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">まず<span class="hi">サインイン</span>して状態を見る</h2>
-  <p class="body-text">用意済み端末。作業フォルダを開いてCodexを起動し、<strong>普段のChatGPT</strong>でログインする。</p>
+  <span class="tg-tag accent">PRACTICE / 01 / アプリを起動してサインイン / 8 MIN</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">まず<span class="hi">アプリを起動</span>してサインイン</h2>
+  <p class="body-text">用意済み端末。<strong>Codexアプリ</strong>を起動し、<strong>普段のChatGPT</strong>でログインして作業フォルダを開く。</p>
   <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>作業フォルダで <code>codex</code> を起動</strong><div class="sub">ターミナルに codex と打つ</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>『Sign in with ChatGPT』を選ぶ</strong><div class="sub">ブラウザでログイン。APIキーは使わない</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong><code>/status</code> で残量とモデルを見る</strong><div class="sub">今日の枠を確認</div></div></div>
-    <div class="num-list-item"><div class="num">04</div><div><strong>困ったら隣とペア・講師画面</strong><div class="sub">先に進めなくてOK</div></div></div>
+    <div class="num-list-item"><div class="num">01</div><div><strong>Codexアプリを起動</strong><div class="sub">Windowsは Microsoft Store、Macは .dmg で導入済み</div></div></div>
+    <div class="num-list-item"><div class="num">02</div><div><strong>『Sign in with ChatGPT』を選ぶ</strong><div class="sub">APIキーは使わない</div></div></div>
+    <div class="num-list-item"><div class="num">03</div><div><strong>作業フォルダを開く</strong><div class="sub">まずはホーム等でOK。本番フォルダは次で作る</div></div></div>
+    <div class="num-list-item"><div class="num">04</div><div><strong>実行モードは <code>Local</code> を選ぶ</strong><div class="sub">自分のPC上で動かす</div></div></div>
   </div>
-  <p class="note-line">APIキーは従量課金。今日は使わない</p>
 </div>
 
 <div class="slide tech-grid" id="s8">
   <span class="tg-corner tr accent"></span>
   <span class="tg-corner bl accent"></span>
-  <span class="tg-tag accent">PRACTICE / 02 / Read Onlyで説明 / 6 MIN</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">一番安全な<span class="hi">読むだけ</span></h2>
-  <p class="body-text">まずは書き込まない <strong>Read Only</strong>。壊す心配なく、AIに説明させる。</p>
+  <span class="tg-tag accent">PRACTICE / 02 / まず1回動かす（codextest）/ 5 MIN</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">空フォルダで<span class="hi">肩慣らし</span></h2>
+  <p class="body-text">本番の前に、承認モードは <strong>承認を求める</strong> で <strong>作る→書く→見る→開き直す</strong> を1回通す。</p>
   <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>Read Only か確認</strong><div class="sub">/approvals で選ぶ</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>『このフォルダは何をする?』</strong><div class="sub">プロジェクトを説明させる</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong>『このファイルを1行ずつ日本語で』</strong><div class="sub">コードに注釈</div></div></div>
-    <div class="num-list-item"><div class="num">04</div><div><strong>『このエラーの意味と直し方をやさしく説明して』</strong><div class="sub">初心者でも読めるように</div></div></div>
+    <div class="num-list-item"><div class="num">01</div><div><strong>フォルダを作らせる</strong><div class="sub">チャット欄に『C:\Users\自分\codextest を作って』</div></div></div>
+    <div class="num-list-item"><div class="num">02</div><div><strong>メモを書かせる</strong><div class="sub">『codextest に test.txt を作り「このフォルダは Codex の動作テスト用」と書いて』</div></div></div>
+    <div class="num-list-item"><div class="num">03</div><div><strong>中身を表示させる</strong><div class="sub">『test.txt を表示して』→ アプリで確認</div></div></div>
+    <div class="num-list-item"><div class="num">04</div><div><strong>開き直す</strong><div class="sub">新しいセッションで codextest を開く → ここから本番</div></div></div>
   </div>
-  <div class="callout accent"><div class="callout-label">安心ポイント</div><div class="callout-body">書き込まないモードだから、安心して何でも聞ける。</div></div>
+  <div class="callout accent"><div class="callout-label">安心ポイント</div><div class="callout-body">承認が出たら中身を見てOK。作る・書く・見るの手触りをつかむ。</div></div>
 </div>
 
 <div class="slide tech-grid" id="s9">
   <span class="tg-corner tr"></span>
   <span class="tg-corner bl"></span>
-  <span class="tg-tag">APPLY / 差分 → 承認 → 適用</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">勝手に書かない。<span class="bad">diffを見て y/n</span></h2>
-  <p class="body-text">Codexは変更を<strong>差分(diff)で見せて y/n を待つ</strong>。承認して初めてファイルになる。<code>/approvals</code> で Auto にすると、安全な範囲は自動で進む。</p>
-  <div class="tg-code-block" data-filename="CODEX">
-    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-val">codex wants to apply a change to report.html</span></div>
+  <span class="tg-tag">APPLY / 差分 → 採用 → commit</span>
+  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">勝手に確定しない。<span class="bad">Reviewペインで差分を見る</span></h2>
+  <p class="body-text">変更は<strong>Reviewペインに Git 差分</strong>で並ぶ。チャンク単位で<strong>採用（stage）/取り消し（revert）</strong>でき、納得したら commit。<strong>代理で承認</strong>なら安全な範囲は自動で進む。</p>
+  <div class="tg-code-block" data-filename="REVIEW PANE">
+    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-val">report.html — changed (Git diff)</span></div>
     <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-key">+ &lt;html&gt; … 売上レポート …</span></div>
-    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-val">Apply this change? [y/n]</span></div>
+    <div class="tg-code-line"><span class="tg-marker">&gt;</span><span class="tg-val">revert chunk  /  stage chunk  →  commit</span></div>
   </div>
-  <p class="note-line"><code>/diff</code> で現在の差分・<code>/review</code> で変更をレビュー</p>
 </div>
 
 
-<div class="slide tech-grid" id="s10">
-  <span class="tg-corner tr accent"></span>
-  <span class="tg-corner bl accent"></span>
-  <span class="tg-tag accent">RULE / なぜ"その場インストール"は失敗するか</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">ネット既定オフ＝<span class="hi">入れ直しは無理</span></h2>
-  <div class="vs-wrap">
-    <div class="vs-col bad"><div class="vs-col-label">❌ 失敗しやすい</div>
-      <div class="vs-item">その場で pip install が要る</div>
-      <div class="vs-item">npm install が要る</div>
-      <div class="vs-item">外部CDNを読む（Chart.js等）</div>
-    </div>
-    <div class="vs-col ok"><div class="vs-col-label">✅ 今日のやり方</div>
-      <div class="vs-item">単一HTML（追加不要）</div>
-      <div class="vs-item">事前に入れてある道具（openpyxl・pandas）</div>
-      <div class="vs-item">グラフはインラインSVG/canvas</div>
-    </div>
-  </div>
-  <div class="callout accent"><div class="callout-label">今日の素材</div><div class="callout-body">これは不便ではなく<strong>安全設計</strong>。きょうの素材は『飲食店の売上』。</div></div>
-</div>
 
 <div class="slide tech-grid" id="s11">
   <span class="tg-corner tr accent"></span>
@@ -214,10 +179,10 @@
   <span class="tg-tag accent">PRACTICE / 03 / 売上Excelを作る・集計 / 9 MIN</span>
   <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">売上<span class="hi">.xlsx</span>を生成→集計</h2>
   <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>売上データを作る</strong><div class="sub">『架空の飲食店の売上を3か月・日別で、メニュー名/単価/数量の列入りの .xlsx を openpyxl で sales.xlsx に保存して』</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>読んで集計する</strong><div class="sub">『sales.xlsx を読み、メニュー別・日別売上と売れ筋トップ5を新シート"集計"に。元は壊さずコピーに、openpyxl で』</div></div></div>
+    <div class="num-list-item"><div class="num">01</div><div><strong>売上データを作る</strong><div class="sub">『架空の飲食店の売上を1週間・日別で、メニュー名/単価/数量の列入りの .xlsx を sales.xlsx に保存して』</div></div></div>
+    <div class="num-list-item"><div class="num">02</div><div><strong>読んで集計する</strong><div class="sub">『sales.xlsx を読み、メニュー別・日別売上と売れ筋トップ5を新シート"集計"に。元は壊さずコピーに』</div></div></div>
   </div>
-  <div class="callout accent"><div class="callout-label">進め方</div><div class="callout-body"><code>/approvals</code> で <strong>Auto</strong> に。出てくる<strong>差分を読んでから</strong>承認する。</div></div>
+  <div class="callout accent"><div class="callout-label">進め方</div><div class="callout-body"><strong>承認を求める</strong>で1つずつOK（差分を読んでから）。速くしたいなら <strong>代理で承認</strong>。</div></div>
 </div>
 
 <div class="slide tech-grid" id="s12">
@@ -229,23 +194,9 @@
     <div class="num-list-item"><div class="num">03</div><div><strong>レポートを作る</strong><div class="sub">『"集計"を、棒グラフ（インラインSVG/canvas・外部CDN禁止）とサマリー付きの単一HTML report.html にしてブラウザで開いて』</div></div></div>
     <div class="num-list-item"><div class="num">★</div><div><strong>（余力）改造する</strong><div class="sub">『色をダークにして』『合計の行を足して』など</div></div></div>
   </div>
-  <div class="callout ok"><div class="callout-label">ゴール</div><div class="callout-body">report.html がブラウザに出たら今日のゴール達成。</div></div>
-  <p class="note-line">エラーは読む・Codexに聞く・直す。正解は配らない</p>
+  <div class="callout ok"><div class="callout-label">ゴール</div><div class="callout-body">report.html が<strong>アプリ内ブラウザ/プレビュー</strong>に出たら今日のゴール達成。</div></div>
 </div>
 
-<div class="slide tech-grid" id="s13">
-  <span class="tg-corner tr"></span>
-  <span class="tg-corner bl"></span>
-  <span class="tg-tag">COST / お金の直感</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">枠は<span class="bad">小さい・共有</span></h2>
-  <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>出力は入力の約6倍</strong><div class="sub">たくさん書かせるほど枠を食う</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>5時間の枠は CLI/Web/IDE で共有</strong><div class="sub">重い作業は他も圧迫</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong>無料枠は小さい</strong><div class="sub">1人1パイプラインに絞る</div></div></div>
-  </div>
-  <div class="callout bad"><div class="callout-label">節約</div><div class="callout-body"><code>/status</code> で残量を確認。<strong>無駄に回さない</strong>。</div></div>
-  <p class="note-line">具体的な価格・上限は変わる。最新は公式で確認</p>
-</div>
 
 <div class="slide tech-grid" id="s14">
   <span class="tg-corner tr"></span>
@@ -264,35 +215,9 @@
       <div class="vs-item">今日の sales.xlsx（架空）</div>
     </div>
   </div>
-  <div class="callout bad"><div class="callout-label">2つの約束</div><div class="callout-body">消費者プラン（Free/Plus/Pro）は<strong>既定で学習に使われ得る</strong>→設定でオプトアウト。恒久ルールは <strong>AGENTS.md</strong> に（<code>/init</code>）。</div></div>
+  <div class="callout bad"><div class="callout-label">2つの約束</div><div class="callout-body">消費者プラン（Free/Plus/Pro）は<strong>既定で学習に使われ得る</strong>→設定でオプトアウト。恒久ルールは <strong>AGENTS.md</strong> に書く。</div></div>
 </div>
 
-<div class="slide tech-grid" id="s15">
-  <span class="tg-corner tr ok"></span>
-  <span class="tg-corner bl ok"></span>
-  <span class="tg-tag ok">SHOWCASE / 講師デモ・伸びしろ</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">各自の枠の<span class="ok">先にある世界</span></h2>
-  <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>自動コードレビュー</strong><div class="sub">バグ入りPR→@codex review→fix</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>クラウドに委任</strong><div class="sub">投げておくとPRが自動で出来る</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong>並列・音声・画像・xhigh</strong><div class="sub">複数同時／話す／スクショ診断／深い推論</div></div></div>
-  </div>
-  <p class="note-line">いずれも上位プラン（Pro）中心。無料枠では不可＝これが"伸びしろ"</p>
-</div>
-
-<div class="slide tech-grid" id="s16">
-  <span class="tg-corner tr ok"></span>
-  <span class="tg-corner bl ok"></span>
-  <span class="tg-tag ok">COMPARE / 他ツールとの棲み分け</span>
-  <h2 class="headline" style="font-size:clamp(34px,4.6vw,62px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">正直な<span class="ok">棲み分け</span></h2>
-  <div class="num-list">
-    <div class="num-list-item"><div class="num">01</div><div><strong>GitHub Copilot</strong><div class="sub">安価・手軽・IDE網羅</div></div></div>
-    <div class="num-list-item"><div class="num">02</div><div><strong>Cursor</strong><div class="sub">最もAIネイティブなエディタ</div></div></div>
-    <div class="num-list-item"><div class="num">03</div><div><strong>Claude Code</strong><div class="sub">強い計画力・巨大コンテキスト</div></div></div>
-    <div class="num-list-item"><div class="num">04</div><div><strong>Codex（今日）</strong><div class="sub">OpenAI連携・大規模refactorと非同期に強い</div></div></div>
-  </div>
-  <p class="note-line">優劣でなく用途。多くのプロは併用する</p>
-</div>
 
 <div class="slide tech-grid" id="s17">
   <span class="tg-corner tl ok"></span>
@@ -301,13 +226,12 @@
   <h2 class="headline" style="font-size:clamp(38px,5.2vw,72px); margin:clamp(12px,2vh,20px) 0 clamp(10px,1.5vh,16px);">今日<span class="ok">持ち帰る3つ</span></h2>
   <div class="tg-rule-list">
     <div class="tg-rule-item"><span class="tg-rule-num">RULE / 01</span>
-      <div><p class="tg-rule-text">Codexは"操作する"AI</p><p class="tg-rule-sub">// 画面で話すAIでなく、PCを操作する</p></div></div>
+      <div><p class="tg-rule-text">Codexは"操作する"AI</p></div></div>
     <div class="tg-rule-item"><span class="tg-rule-num">RULE / 02</span>
-      <div><p class="tg-rule-text">安全＝壁＋チャイム</p><p class="tg-rule-sub">// サンドボックス(壁)と承認(チャイム)・ネットは既定オフ</p></div></div>
+      <div><p class="tg-rule-text">安全＝壁＋チャイム</p></div></div>
     <div class="tg-rule-item"><span class="tg-rule-num">RULE / 03</span>
-      <div><p class="tg-rule-text">小さく頼んで差分を読む</p><p class="tg-rule-sub">// 秘密は渡さない・正解は配らない</p></div></div>
+      <div><p class="tg-rule-text">小さく頼んで差分を読む</p></div></div>
   </div>
-  <p class="note-line">次の一歩 — IDE拡張 / AGENTS.md / クラウド委任</p>
 </div>
 
 </div><!-- /deck -->
@@ -315,7 +239,7 @@
   <div class="slide-footer-info">G-Holdings AI研修 — 第4回 / Codex を使ってみよう</div>
   <div class="slide-footer-nav">
     <div class="slide-footer-track"><div class="slide-footer-fill" id="bar"></div></div>
-    <div class="slide-footer-counter" id="ctr">1 / 17</div>
+    <div class="slide-footer-counter" id="ctr">1 / 12</div>
   </div>
 </div>
 <script src="../../js/slide.js"></script>
