@@ -36,6 +36,22 @@
 .duo-kicker { font-family: 'JetBrains Mono', monospace; font-size: clamp(11px, 1.1vw, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--slide-bad); margin-bottom: 10px; }
 .duo-title { font-size: clamp(22px, 2.6vw, 34px); font-weight: 900; color: var(--text-primary); margin: 0 0 10px; }
 .duo-desc { font-size: clamp(14px, 1.5vw, 19px); font-weight: 700; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+/* 短い画面（ノートPC等, 高さ≤800px）でのオーバーフロー対策。
+   高さ>800px（1080p等のプロジェクタ）では全文フルサイズのまま。カバー(h1)は対象外。 */
+@media (max-height: 800px) and (min-width: 769px) {
+  .slide.tech-grid h2.headline { font-size: clamp(28px, 4vw, 50px) !important; margin-bottom: clamp(8px, 1.2vh, 14px) !important; }
+  .slide.tech-grid .body-text { font-size: clamp(15px, 1.7vw, 21px); line-height: 1.55; }
+  .slide.tech-grid .num-list { margin-top: clamp(6px, 1vh, 12px); }
+  .slide.tech-grid .num-list-item { padding: clamp(7px, 1.1vh, 12px) 0; font-size: clamp(15px, 1.7vw, 21px); }
+  .slide.tech-grid .num-list-item .sub { font-size: clamp(12px, 1.3vw, 15px); }
+  .slide.tech-grid .note-line { margin-top: clamp(6px, 1vh, 10px); }
+  .slide.tech-grid .callout { margin-top: clamp(8px, 1.2vh, 16px); padding: clamp(10px, 1.4vh, 16px) clamp(14px, 2vw, 24px); }
+  .slide.tech-grid .callout-body { font-size: clamp(14px, 1.6vw, 20px); }
+  .slide.tech-grid .vs-item { padding: clamp(4px, 0.8vh, 9px) 0; font-size: clamp(14px, 1.6vw, 20px); }
+  .slide.tech-grid .duo-col { padding: clamp(12px, 1.6vh, 20px) clamp(14px, 1.8vw, 24px); }
+  .slide.tech-grid .duo-desc { font-size: clamp(13px, 1.4vw, 17px); }
+}
 </style>
 </head>
 <body>
