@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Codex を使ってみよう — 作業ガイド</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ── Print page setup ── */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+  }
+
+  /* ── Reset ── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #fff;
+    color: #111;
+    line-height: 1.75;
+    font-size: 11pt;
+    counter-reset: section;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 28px 56px;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 3px solid #111;
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  .doc-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-size: 24pt;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .doc-subtitle {
+    font-size: 11pt;
+    color: #555;
+    font-weight: 500;
+  }
+
+  /* ── TOC ── */
+  nav.toc {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 16px 22px;
+    margin-bottom: 36px;
+    page-break-after: avoid;
+  }
+  nav.toc h2 {
+    font-size: 11pt;
+    font-weight: 800;
+    margin-bottom: 8px;
+    padding: 0;
+    border: none;
+    color: #111;
+  }
+  nav.toc h2::before { content: none; }
+  nav.toc ol {
+    list-style: none;
+    padding: 0;
+    columns: 2;
+    column-gap: 24px;
+  }
+  nav.toc li {
+    counter-increment: toc-counter;
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 10pt;
+    font-weight: 600;
+    break-inside: avoid;
+  }
+  nav.toc li::before {
+    content: counter(toc-counter) ". ";
+    color: #888;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+  nav.toc { counter-reset: toc-counter; }
+  nav.toc a {
+    color: #111;
+    text-decoration: none;
+  }
+  nav.toc a:hover { text-decoration: underline; }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 36px;
+    page-break-before: always;
+  }
+  section:first-of-type {
+    page-break-before: avoid;
+  }
+
+  h2 {
+    counter-increment: section;
+    font-size: 18pt;
+    font-weight: 900;
+    color: #111;
+    border-bottom: 2px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    page-break-after: avoid;
+  }
+  h2::before {
+    content: counter(section) ". ";
+    color: #888;
+    font-family: 'JetBrains Mono', monospace;
+    margin-right: 4px;
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: 800;
+    color: #111;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin-bottom: 10px;
+    color: #222;
+  }
+  p strong { color: #000; font-weight: 700; }
+
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 12px;
+  }
+  li {
+    margin-bottom: 4px;
+    color: #222;
+  }
+  li strong { color: #000; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92em;
+    background: #ececec;
+    color: #111;
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  /* ── Callouts ── */
+  .callout {
+    border: 1px solid #888;
+    border-left: 4px solid #444;
+    padding: 12px 16px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+    background: #fafafa;
+  }
+  .callout.warn {
+    border-left-color: #b91c1c;
+    background: #fef5f5;
+  }
+  .callout.tip {
+    border-left-color: #15803d;
+    background: #f0faf3;
+  }
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #444;
+    margin-bottom: 4px;
+  }
+  .callout.warn .callout-label { color: #b91c1c; }
+  .callout.tip .callout-label { color: #15803d; }
+  .callout p { margin-bottom: 0; font-size: 10.5pt; }
+
+  /* ── Prompt boxes ── */
+  .prompt {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-left: 3px solid #444;
+    padding: 14px 18px;
+    margin: 10px 0 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5pt;
+    line-height: 1.65;
+    color: #111;
+    white-space: pre-wrap;
+    page-break-inside: avoid;
+  }
+  .prompt-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 6px;
+  }
+
+  /* ── QA boxes ── */
+  .qa {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    page-break-inside: avoid;
+  }
+  .qa-q {
+    font-weight: 700;
+    color: #111;
+    font-size: 10pt;
+    margin-bottom: 2px;
+  }
+  .qa-q::before { content: 'Q. '; color: #444; }
+  .qa-a {
+    font-size: 10pt;
+    color: #333;
+  }
+  .qa-a::before { content: 'A. '; font-weight: 700; color: #15803d; }
+
+  /* ── Numbered principle list ── */
+  .principles {
+    list-style: none;
+    padding: 0;
+    counter-reset: pri;
+  }
+  .principles li {
+    counter-increment: pri;
+    padding: 12px 0 12px 56px;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    page-break-inside: avoid;
+  }
+  .principles li:last-child { border-bottom: none; }
+  .principles li::before {
+    content: counter(pri, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18pt;
+    font-weight: 900;
+    color: #111;
+  }
+  .principles .pri-title {
+    font-weight: 800;
+    font-size: 12pt;
+    color: #111;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .principles .pri-desc {
+    font-size: 10pt;
+    color: #555;
+  }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 56px;
+    padding-top: 18px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    font-size: 9pt;
+    color: #888;
+    page-break-before: avoid;
+  }
+
+  /* ── Print refinements ── */
+  @media print {
+    body { font-size: 10.5pt; }
+    .page { padding: 0; max-width: none; }
+    nav.toc { background: #fff; }
+    a { color: #111; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="doc-tag">G-HOLDINGS AI 研修 / 第4回 / 作業ガイド</div>
+    <h1>Codex を使ってみよう</h1>
+    <p class="doc-subtitle">インストール・プロンプト集・困った時・講師チェックリスト</p>
+  </header>
+
+  <nav class="toc">
+    <h2>目次</h2>
+    <ol>
+      <li><a href="#install">インストール（フル手順）</a></li>
+      <li><a href="#signin">サインイン</a></li>
+      <li><a href="#prompts">コピペ用プロンプト集</a></li>
+      <li><a href="#trouble">困った時（トラブルシュート）</a></li>
+      <li><a href="#slash">スラッシュ早見表</a></li>
+      <li><a href="#safety">安全チェックリスト</a></li>
+      <li><a href="#checklist">当日朝の講師チェックリスト</a></li>
+    </ol>
+  </nav>
+
+  <!-- ════ 1. インストール ════ -->
+  <section id="install">
+    <h2>インストール（フル手順）</h2>
+
+    <h3>方法①　PowerShell ワンライナー（推奨・Node.js 不要）</h3>
+    <div class="prompt">
+      <span class="prompt-label">PowerShell で実行</span>powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"</div>
+
+    <h3>方法②　npm（Node.js LTS 22+ が必要）</h3>
+    <div class="prompt">
+      <span class="prompt-label">Terminal / PowerShell</span>npm install -g @openai/codex</div>
+
+    <h3>方法③　winget</h3>
+    <div class="prompt">
+      <span class="prompt-label">PowerShell</span>winget install --id OpenAI.Codex</div>
+
+    <h3>インストール確認</h3>
+    <div class="prompt">
+      <span class="prompt-label">確認コマンド</span>codex --version</div>
+
+    <div class="callout warn">
+      <p class="callout-label">⚠️ よくある間違い</p>
+      <p><code>npm i -g codex</code>（スコープ無し）は無関係の別物。<code>winget install Codex -s msstore</code> はGUIアプリで今日のCLIとは別物。確認は必ず <code>codex --version</code> で。</p>
+    </div>
+  </section>
+
+  <!-- ════ 2. サインイン ════ -->
+  <section id="signin">
+    <h2>サインイン</h2>
+
+    <h3>通常手順</h3>
+    <ol>
+      <li>作業フォルダで <code>codex</code> を起動する</li>
+      <li>「Sign in with ChatGPT」を選ぶ</li>
+      <li>ブラウザでログインする（普段の ChatGPT アカウント）</li>
+      <li><code>/status</code> で残量とモデルを確認する</li>
+    </ol>
+
+    <h3>ブラウザが開けない端末の場合</h3>
+    <div class="prompt">
+      <span class="prompt-label">デバイス認証モード</span>codex login
+codex login --device-auth</div>
+
+    <div class="callout warn">
+      <p class="callout-label">⚠️ APIキー</p>
+      <p>APIキーは従量課金。今日は使わない。<code>%USERPROFILE%\.codex\auth.json</code> はパスワード扱い——共有・コミット禁止。</p>
+    </div>
+  </section>
+
+  <!-- ════ 3. コピペ用プロンプト集 ════ -->
+  <section id="prompts">
+    <h2>コピペ用プロンプト集</h2>
+
+    <h3>Read Only で使う 3 種</h3>
+
+    <div class="prompt">
+      <span class="prompt-label">フォルダ説明</span>このフォルダは何をするか初心者向けに説明して</div>
+
+    <div class="prompt">
+      <span class="prompt-label">コメント追加</span>このファイルを1行ずつ日本語でコメントして</div>
+
+    <div class="prompt">
+      <span class="prompt-label">エラー説明（混成チーム用）</span>このエラーを日本語とネパール語で説明して</div>
+
+    <h3>売上 Excel → 集計 → レポートの 3 呪文</h3>
+
+    <div class="prompt">
+      <span class="prompt-label">呪文 01 ― 売上データを作る</span>架空の飲食店の売上を3か月・日別で、メニュー名/単価/数量の列入りの .xlsx を openpyxl で sales.xlsx に保存して</div>
+
+    <div class="prompt">
+      <span class="prompt-label">呪文 02 ― 読んで集計する</span>sales.xlsx を読み、メニュー別・日別売上と売れ筋トップ5を新シート"集計"に。元は壊さずコピーに、openpyxl で</div>
+
+    <div class="prompt">
+      <span class="prompt-label">呪文 03 ― レポートを作る</span>"集計"を、棒グラフ（インラインSVG/canvas・外部CDN禁止）とサマリー付きの単一HTML report.html にしてブラウザで開いて</div>
+
+    <h3>（任意）事務自動化</h3>
+
+    <div class="prompt">
+      <span class="prompt-label">ファイルリネーム（使い捨てフォルダで実行）</span>（使い捨てフォルダで）.jpg を日付順に vacation-001… にリネームして実行。標準ライブラリのみ</div>
+
+    <div class="callout tip">
+      <p class="callout-label">net-off の鉄則</p>
+      <p>全プロンプトに「単一HTML・標準ライブラリのみ・外部CDN/インストール禁止」を添える。事前導入済みの openpyxl/pandas は使ってよい。</p>
+    </div>
+  </section>
+
+  <!-- ════ 4. 困った時 ════ -->
+  <section id="trouble">
+    <h2>困った時（トラブルシュート）</h2>
+
+    <div class="qa">
+      <div class="qa-q">サインインできない</div>
+      <div class="qa-a">隣とペア／講師画面で確認。Go/Plus/少額APIキーは保険として用意してある。</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">枠が切れた（残量不足）</div>
+      <div class="qa-a"><code>/status</code> で残量を確認。<code>/compact</code> で履歴を圧縮。軽い質問は別モデルに切り替える（<code>/model</code>）。</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">コマンドが弾かれる</div>
+      <div class="qa-a">サンドボックス制約による。使い捨てフォルダで Auto モード（<code>/approvals</code>）を使う。</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">変なパッケージを提案・生成された</div>
+      <div class="qa-a">実在を疑う。インストールしない。パッケージ名を検索して確認する（ハルシネーション）。</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Excel（.xlsx）が作れない</div>
+      <div class="qa-a"><code>python -c "import openpyxl"</code> が通るかターミナルで確認し、エラーなら講師に申告。</div>
+    </div>
+  </section>
+
+  <!-- ════ 5. スラッシュ早見表 ════ -->
+  <section id="slash">
+    <h2>スラッシュ早見表</h2>
+
+    <ul>
+      <li><code>/status</code> — 残量・モデル・プラン情報を表示</li>
+      <li><code>/approvals</code> — 承認モードを切り替える（Read Only / Auto / Full）</li>
+      <li><code>/model</code> — 使用モデルを確認・切り替える</li>
+      <li><code>/review</code> — これまでの変更をレビューする</li>
+      <li><code>/diff</code> — 現在の差分を表示する</li>
+      <li><code>/init</code> — AGENTS.md を作成して恒久ルールを設定する</li>
+      <li><code>/compact</code> — 会話履歴を圧縮して枠を節約する</li>
+      <li><code>/resume</code> — 前のセッションを再開する</li>
+      <li><code>/quit</code> — Codex を終了する</li>
+    </ul>
+
+    <div class="callout">
+      <p class="callout-label">ヒント</p>
+      <p>ラベルは版で変わる。<code>/</code> を打って出る一覧を信頼。</p>
+    </div>
+  </section>
+
+  <!-- ════ 6. 安全チェックリスト ════ -->
+  <section id="safety">
+    <h2>安全チェックリスト</h2>
+
+    <ul>
+      <li><strong>使い捨てフォルダで作業する</strong> — 本物の社内リポ・顧客データは絶対に渡さない</li>
+      <li><strong>秘密を渡さない</strong> — APIキー・パスワード・社外秘ファイルを含めない</li>
+      <li><strong>消費者プランの学習オプトアウトを確認する</strong> — chatgpt.com の設定 → データコントロール → 学習に使用しない</li>
+      <li><strong>ネット既定オフのまま使う</strong> — その場の pip/npm install や外部CDNは使わない</li>
+    </ul>
+  </section>
+
+  <!-- ════ 7. 当日朝の講師チェックリスト ════ -->
+  <section id="checklist">
+    <h2>当日朝の講師チェックリスト</h2>
+
+    <ul>
+      <li>無料アカウントで <code>codex</code> サインインが通るか（1台で実機確認）</li>
+      <li><code>/status</code> の枠表示が正しく出るか</li>
+      <li>既定モデル名を確認する（<code>/model</code>）</li>
+      <li>価格・上限を日本円で確認する（chatgpt.com/pricing・chatgpt.com/codex/pricing）</li>
+      <li><code>python -c "import openpyxl, pandas"</code> が通るか</li>
+      <li>サンドボックスでスクリプト実行が通るか（ネット不要でも弾かれないか）</li>
+    </ul>
+  </section>
+
+  <footer>
+    G-Holdings AI 研修 — 第4回 — Codex を使ってみよう — 作業ガイド
+  </footer>
+
+</div><!-- /.page -->
+</body>
+</html>
