@@ -13,6 +13,10 @@
 /* ── Section divider override ── */
 .slide.tech-grid.section-center { justify-content: center; }
 
+/* ── 縦バランス: 内容を上下中央に寄せ、縦長(16:9等)でも下部に無駄な空白を残さない。
+   flex:1 の duo/vs-wrap/tg-rule-list スライドは余白が無いので無影響。カバーはinlineで別指定。 */
+.slide.tech-grid { justify-content: center; }
+
 /* ── Footer clearance fix ── */
 .slide { padding-bottom: clamp(72px, 10vh, 110px) !important; }
 .tg-corner.bl { bottom: clamp(54px, 7vh, 68px) !important; }
@@ -37,9 +41,9 @@
 .duo-title { font-size: clamp(22px, 2.6vw, 34px); font-weight: 900; color: var(--text-primary); margin: 0 0 10px; }
 .duo-desc { font-size: clamp(14px, 1.5vw, 19px); font-weight: 700; color: var(--text-secondary); line-height: 1.6; margin: 0; }
 
-/* 短い画面（ノートPC等, 高さ≤800px）でのオーバーフロー対策。
-   高さ>800px（1080p等のプロジェクタ）では全文フルサイズのまま。カバー(h1)は対象外。 */
-@media (max-height: 800px) and (min-width: 769px) {
+/* 短い画面（ノートPC等, 高さ≤900px）でのオーバーフロー対策。
+   高さ>900px（1080p等のプロジェクタ）では全文フルサイズのまま。カバー(h1)は対象外。 */
+@media (max-height: 900px) and (min-width: 769px) {
   .slide.tech-grid h2.headline { font-size: clamp(28px, 4vw, 50px) !important; margin-bottom: clamp(8px, 1.2vh, 14px) !important; }
   .slide.tech-grid .body-text { font-size: clamp(15px, 1.7vw, 21px); line-height: 1.55; }
   .slide.tech-grid .num-list { margin-top: clamp(6px, 1vh, 12px); }
